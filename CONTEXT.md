@@ -51,7 +51,9 @@ library/
   src/gen.py                layout primitives: box, text, photo, cutout, notch, rugged container,
                             expanded notch, logo, icon… (every call = one named layer)
   src/templates.py          all 38 artboards, grouped by set; SECTION_META = set titles + intros
-  src/build.py              app shell (UI, CSS, JS), embeds images, writes dist/
+  src/build.py              app shell (UI, CSS, brand-rules panel), embeds images + JS, writes dist/
+  src/app.js                app behaviour: zoom, guides, edit, save, Figma view, hover copy tools
+  src/export.js             artboard → SVG and artboard → Figma layer JSON (auto layout)
   src/img/                  web-optimised images used by the library (keys = file names)
   src/shots.js, qa.js       screenshot every artboard + brand/colour/overflow checks into .qa/
   dist/Sonim_Brand_Template_Library.html   ← the deliverable (open directly, ~2.5 MB)
@@ -71,6 +73,8 @@ reference/Ambulance_EMS_brief.docx   the original client brief
 reference/Sonim_BrandGuidelines_2020.pdf        brandbook (source of truth)
 reference/Sonim_SocialMediaGuidelines_2023.pdf  social media templates guideline
 docs/whitepaper-source-readme.txt    older readme shipped with the white paper source
+figma-plugin/                        "Sonim template paste" Figma plugin (rebuilds Copy for Figma JSON)
+netlify.toml                         publishes library + white paper editor/PDF only (never reference/)
 Makefile, package.json               build commands
 ```
 
@@ -195,7 +199,17 @@ Type roles (CSS classes in the library; sizes are set per template):
 ### App features (the UI chrome, never exported)
 Fit / 25 / 50 / 100% zoom · **Guides** (margins, story safe zones) · **Edit** (type into any text,
 double-click an image to replace it) · **Save file** (self-contained copy) ·
-**Figma import view** (true size, no UI; also via `?figma` in the URL; Esc to exit).
+**Figma import view** (true size, no UI; also via `?figma` in the URL; Esc to exit) ·
+**Hover tools** on every template: *Copy SVG* (paste straight into Figma), *Copy for Figma*
+(JSON for `figma-plugin/`, rebuilt with auto layout), *Download SVG* · brand-rules panel with
+click-to-copy colour chips · sidebar becomes a drawer under 980 px.
+
+How the exporters work (`export.js`): the artboard is measured at 100%. Fills become rects,
+photos become clipped `<image>`s honouring object-fit/position, inline SVGs become transformed
+groups, and text is measured per character into `<tspan>`s at exact baselines. `data-name` becomes
+the layer name. For Figma JSON every `display:flex` becomes an auto-layout frame (gap, padding,
+alignment, `flex:1` → fill). Uneven spacing from margins becomes explicit *Spacer* frames, and
+`.grid2` becomes a wrapping horizontal layout.
 
 ### Figma import rules (keep these when editing)
 - Every visible thing is a real element: text in `.tx` divs, photos as `<img>`, logo and notches as
@@ -272,7 +286,7 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
 5. **Editor-export tweaks** not merged into `whitepaper/src` (see §7).
 6. Library placeholders (event names, speaker, customer quotes, contact details) are intentionally
    generic — replace per use.
-7. Figma import not yet tested in Figma itself.
+7. Figma import not yet tested in Figma itself (the SVG output was checked by rendering it in Chromium; the plugin was run against a mocked Figma API).
 
 ---
 
@@ -299,3 +313,6 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-09-25 — Hover copy tools (SVG / Figma auto layout) + Figma plugin, grouped brand-rules panel,
+  responsive shell, spacing fixes, logo metadata bloat removed, Netlify config, competitor-informed
+  social templates (`templates_social.py`, research in `docs/competitor-social-research.md`).

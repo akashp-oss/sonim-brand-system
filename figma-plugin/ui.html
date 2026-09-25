@@ -1,0 +1,30 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+  body{margin:0;font:12px/1.45 Arial,Helvetica,sans-serif;color:#000;background:#fff}
+  .wrap{padding:16px}
+  h1{font-size:14px;margin:0 0 4px}
+  p{margin:0 0 12px}
+  #drop{display:flex;align-items:center;justify-content:center;text-align:center;height:120px;border:1px dashed #000;padding:12px;outline:none;cursor:text}
+  #drop:focus{border:2px solid #CF102D}
+  #status{margin-top:10px;min-height:18px}
+  .err{color:#CF102D;font-weight:700}
+</style></head><body><div class="wrap">
+  <h1>Sonim template paste</h1>
+  <p>In the template library, hover a template and click <b>Copy for Figma</b>. Then click the box below and press Ctrl/⌘ + V.</p>
+  <div id="drop" tabindex="0" contenteditable="true">Click here, then paste</div>
+  <div id="status"></div>
+</div><script>
+  const drop = document.getElementById('drop'), status = document.getElementById('status');
+  drop.focus();
+  drop.addEventListener('beforeinput', e => { if (e.inputType !== 'insertFromPaste') e.preventDefault(); });
+  document.addEventListener('paste', e => {
+    e.preventDefault();
+    const text = e.clipboardData.getData('text/plain');
+    let data; try { data = JSON.parse(text); } catch (_) {}
+    if (!data || !data.sonimFigma) { status.innerHTML = '<span class="err">That is not a Sonim template. Use “Copy for Figma” in the library.</span>'; return; }
+    status.textContent = 'Building “' + data.node.name + '”…';
+    parent.postMessage({ pluginMessage: { type: 'build', data } }, '*');
+  });
+  onmessage = e => { const m = e.data.pluginMessage; if (!m) return;
+    status.innerHTML = m.ok ? 'Done: ' + m.name + '. Paste another or close.' : '<span class="err">' + m.error + '</span>'; drop.focus(); };
+</script></body></html>

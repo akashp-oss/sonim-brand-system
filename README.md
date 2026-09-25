@@ -17,11 +17,23 @@ steps, sourced facts and open items.
 
 Download an HTML file and open it in Chrome or Edge. The files are self-contained, with images embedded.
 
-## Import into Figma
+## Copy templates into Figma
 
-1. Open `Sonim_Brand_Template_Library.html` and click **Figma import view** (or add `?figma` to the URL).
-2. Run your HTML to Figma plugin (for example html.to.design) on that tab.
-3. Each artboard imports as a frame, with text, photos, logo, notches and panels as separate named layers.
+Hover any template in the library for three buttons:
+
+| Button | What you get in Figma |
+|---|---|
+| **Copy SVG** | Press Ctrl/⌘ + V on the canvas. You get editable text, vector logo, notches and icons, and cropped photos, with named layers. No plugin needed. |
+| **Copy for Figma** | Native frames **with auto layout** on every stack. Paste with the bundled plugin: [`figma-plugin/`](figma-plugin/README.md) (import `manifest.json` once via Plugins → Development). |
+| ↓ | Downloads the SVG file. |
+
+The whole library can still go through an HTML to Figma plugin such as html.to.design: click **Figma import view** (or add `?figma` to the URL), then run the plugin on that tab.
+
+## Hosting on Netlify
+
+`netlify.toml` publishes only a `public/` folder that holds the library (as `index.html`), the white paper editor and the white paper PDF.
+Don't publish the repo root. It has no `index.html`, which is why Netlify returns "Page not found", and it would also make the confidential PDFs in `reference/` public.
+If you configured the site by hand, clear the publish directory and build command in the Netlify UI so `netlify.toml` takes effect.
 
 ## Build
 
@@ -43,6 +55,7 @@ brand/        logo + brand-styled icons (shared)
 library/      template library: src/ (generator, templates, images) → dist/
 whitepaper/   white paper: src/ (HTML, CSS, images), scripts/ (render, editor, docx) → dist/
 reference/    client brief, brandbook, social media guideline
+figma-plugin/ "Sonim template paste": pastes Copy for Figma output with auto layout
 docs/         supporting notes
 ```
 
