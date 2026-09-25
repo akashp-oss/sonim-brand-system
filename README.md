@@ -10,7 +10,7 @@ steps, sourced facts and open items.
 
 | What | File |
 |---|---|
-| Brand template library: 38 templates across 9 sets | [`library/dist/Sonim_Brand_Template_Library.html`](library/dist/Sonim_Brand_Template_Library.html) |
+| Brand template library: 55 templates across 10 sets | [`library/dist/Sonim_Brand_Template_Library.html`](library/dist/Sonim_Brand_Template_Library.html) |
 | EMS white paper (PDF) | [`whitepaper/dist/Sonim_EMS_Whitepaper_Connected_Care_in_Motion.pdf`](whitepaper/dist/) |
 | White paper editor (Figma-style, in the browser) | [`whitepaper/dist/Sonim_EMS_Whitepaper_EDITOR.html`](whitepaper/dist/) |
 | White paper design system, blank template, Word content | [`whitepaper/dist/`](whitepaper/dist/) |

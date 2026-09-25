@@ -14,8 +14,8 @@ responders and industry; *Sonim, a NEXA company* since January 2026), produced b
 
 It has two parts:
 
-1. **Brand template library** (`library/`): one self-contained HTML file with 38 editable
-   templates across 9 sets (white papers, presentation, Instagram posts and stories, social graphics,
+1. **Brand template library** (`library/`): one self-contained HTML file with 55 editable
+   templates across 10 sets (white papers, presentation, Instagram posts, carousels and stories, social graphics,
    posters, roll-up banners, web/display ads, stationery). Built so an **HTML to Figma plugin**
    (for example html.to.design) can import every artboard with editable text and separate layers.
 2. **EMS white paper system** (`whitepaper/`): the first Sonim white paper, *Connected care in

@@ -378,3 +378,9 @@ SECTION_META = [
     ('web', 'Web and display', 'IAB display ads and a website hero.'),
     ('other', 'Stationery and other', 'Email header and signature, business card, video-call background.'),
 ]
+
+# competitor-informed social variations (research: docs/competitor-social-research.md)
+import templates_social as TS
+F.extend(TS.F)
+_i = [s[0] for s in SECTION_META].index('ig') + 1
+SECTION_META[_i:_i] = TS.SECTION_META_EXTRA
