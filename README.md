@@ -42,8 +42,8 @@ make qa           # screenshots and checks into .qa/
 brand/        logo + brand-styled icons (shared)
 library/      template library: src/ (generator, templates, images) → dist/
 whitepaper/   white paper: src/ (HTML, CSS, images), scripts/ (render, editor, docx) → dist/
-reference/    original client brief
+reference/    client brief, brandbook, social media guideline
 docs/         supporting notes
 ```
 
-Brand guideline PDFs, licensed fonts and stock licences are kept outside this repo; see `CONTEXT.md` §4 and §8.
+The repo includes the client brand guideline PDFs, so keep it private. Licensed fonts and stock licences are kept outside it; see `CONTEXT.md` §4 and §8.

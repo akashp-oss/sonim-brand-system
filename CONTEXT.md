@@ -68,6 +68,8 @@ whitepaper/
   scripts/test_*.js               browser tests for the editor
   dist/                           PDFs, docx, editor HTML
 reference/Ambulance_EMS_brief.docx   the original client brief
+reference/Sonim_BrandGuidelines_2020.pdf        brandbook (source of truth)
+reference/Sonim_SocialMediaGuidelines_2023.pdf  social media templates guideline
 docs/whitepaper-source-readme.txt    older readme shipped with the white paper source
 Makefile, package.json               build commands
 ```
@@ -77,9 +79,11 @@ Makefile, package.json               build commands
 ## 4. Brand rules (non-negotiable)
 
 Source of truth: **Sonim Visual Identity Standards & Brand Guidelines (1 March 2020)** and
-**Sonim Social Media General Use Templates (2023)**. Both PDFs are **not in the repo**
-(36 MB and 440 MB, client-confidential); they sit in the client folder
-`D:\Bang Design\Sonim\Blog\`. Everything below was extracted from them.
+**Sonim Social Media General Use Templates (2023)**. Both are in `reference/`
+(client-confidential; keep this repo private):
+`reference/Sonim_BrandGuidelines_2020.pdf` (original, 36 MB) and
+`reference/Sonim_SocialMediaGuidelines_2023.pdf` (compressed from the 440 MB Illustrator export to
+7 MB; Illustrator editing data removed, all 46 pages intact). Everything below was extracted from them.
 
 ### Colour (four colours only, no tints or tones)
 | Name | HEX | RGB | CMYK | Pantone |
@@ -283,7 +287,7 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   source, or leave a clearly marked placeholder.
 - Keep the library Figma-friendly: real elements, `data-name` on everything, no pseudo-elements or
   background images, flexbox for stacks.
-- Don't commit fonts (licensed) or the brand guideline PDFs (size, confidentiality).
+- Don't commit fonts (licensed). Keep the repo private: it contains the client brand guideline PDFs.
 - After changes: rebuild, run the QA scripts, and check `pdffonts` shows only Arial.
 
 ---

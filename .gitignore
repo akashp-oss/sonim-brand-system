@@ -9,8 +9,6 @@ node_modules/
 *.otf
 *.woff
 *.woff2
-# large third-party reference files live outside the repo (see CONTEXT.md)
-reference/*.pdf
 .DS_Store
 Thumbs.db
 ~$*
