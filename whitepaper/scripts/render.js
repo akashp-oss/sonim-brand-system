@@ -1,6 +1,6 @@
 const fs=require('fs'),path=require('path');const {chromium}=require('playwright');
 const BRAND=path.resolve(__dirname,'../../brand');
-const logo=fs.readFileSync(path.join(BRAND,'logo/sonim-logo.svg'),'utf8');
+const logo=fs.readFileSync(path.join(BRAND,'logo/sonim-logo.svg'),'utf8').replace(/<metadata>[\s\S]*?<\/metadata>/,'');
 const icons=JSON.parse(fs.readFileSync(path.join(BRAND,'icons/icons.json'),'utf8'));
 (async()=>{const [src,out,png,sel='.page']=process.argv.slice(2);
  let html=fs.readFileSync(src,'utf8').replaceAll('{{LOGO}}',logo).replace(/\{\{icon:([a-z-]+)\}\}/g,(m,n)=>icons[n]||m);

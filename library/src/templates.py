@@ -87,7 +87,7 @@ wp3 = (
         for i, (k, pos, n, m, ch, so, rs) in enumerate([
             ('heli', '50% 45%', 'Customer name', 'Organisation size · locations · scope', 'One or two sentences on the operational problem.', 'The Sonim products and platform used, in one or two sentences.', ['Result one', 'Result two', 'Result three']),
             ('night', '40% 50%', 'Customer name', 'Organisation size · locations · scope', 'One or two sentences on the operational problem.', 'The Sonim products and platform used, in one or two sentences.', ['Benefit one', 'Benefit two', 'Benefit three'])]))
-    + box('Quote band', l=M, t=780, w=696, h=150, cls='group', inner=fill('Band fill', RED, l=0, t=0, w=696, h=150)
+    + box('Quote band', l=M, t=740, w=696, h=150, cls='group', inner=fill('Band fill', RED, l=0, t=0, w=696, h=150)
           + text('Quote', '“Customer quote in bold white on Sonim Red. Keep it under thirty words and make it specific.”', 'quote abs', WHITE, 21, {'left': '26px', 'top': '26px', 'width': '430px'})
           + text('Attribution', 'Name Surname\nTitle, Organisation', 'small abs', WHITE, 10.5, {'left': '500px', 'bottom': '26px', 'width': '170px', 'font-weight': '700'}))
     + doc_foot('3 Source citation. 4 Source citation.')
@@ -123,7 +123,7 @@ s3 = (slide_head(3)
       + text('Lead', 'Every call is a chain of conversations: dispatch, crew, hospital and partner agencies.', 'lead abs', BLACK, 36, {'left': '120px', 'top': '440px', 'width': '1000px'})
       + fill('Rule', WHITE, l=M, t=600, w=1680, h=2)
       + box('Stats', l=M, t=640, w=1680, cls='row', style={'gap': '60px'}, inner=''.join(
-          f'<div class="stack" data-name="Stat" style="flex:1;gap:14px">{text("Number", n, "stat", RED, 150)}{text("Caption", c, "h3", BLACK, 26)}{text("Source", s, "small", BLACK, 18)}</div>'
+          f'<div class="stack" data-name="Stat" style="flex:1;gap:14px">{text("Number", n, "stat", RED, 132)}{text("Caption", c, "h3", BLACK, 26)}{text("Source", s, "small", BLACK, 18)}</div>'
           for n, c, s in [('18,200+', 'Local EMS agencies answer 911 calls.', 'NASEMSO, 2020'), ('28.5M', '911 dispatches a year in 41 reporting states.', 'NASEMSO, 2020'), ('~31,000', 'Public safety agencies on FirstNet.', 'FirstNet.com')]))
       + logo(150, BLACK, l=M, b=88))
 F.append(('slides', artboard('slide-stats', 'Presentation · Key numbers', 1920, 1080, GRAY, s3, 'Up to three sourced stats', 'slide')))
@@ -161,7 +161,7 @@ X, M = 16, 80
 p1 = (cutout('Product render', 'xp5', 520, 400, 460, 870)
       + page_notch(X, 120)
       + stack('Headline block', [text('Label', 'Sonim XP5plus 5G', 'label', RED, 30), text('Headline', 'Push-to-talk,\n**built in.**', 'display', BLACK, 120)], l=M, t=120, w=920, gap=14)
-      + text('Body', 'A dedicated PTT key, 100 dB+ speakers and a removable battery for multi-shift days.', 'lead abs', BLACK, 34, {'left': '80px', 'top': '470px', 'width': '400px'})
+      + text('Body', 'A dedicated PTT key, 100 dB+ speakers and a removable battery for multi-shift days.', 'lead abs', BLACK, 34, {'left': '80px', 'top': '470px', 'width': '400px'})
       + logo(180, BLACK, l=M, b=80) + text('URL', 'sonimtech.com', 'h3 abs', BLACK, 26, {'right': '80px', 'bottom': '86px'}))
 F.append(('ig', artboard('ig-product', 'Instagram post · Product feature', 1080, 1350, GRAY, p1, 'Feed 4:5 · product on Sonim Gray', 'post')))
 
@@ -192,8 +192,8 @@ p5 = (photo('Event photo', 'crowd', 0, 0, 1080, 760, '50% 40%')
       + logo(180, BLACK, l=M, b=80) + text('URL', 'sonimtech.com', 'h3 abs', BLACK, 26, {'right': '80px', 'bottom': '86px'}))
 F.append(('ig', artboard('ig-event', 'Instagram post · Event', 1080, 1350, WHITE, p5, 'Feed 4:5 · photo over white', 'post')))
 
-p6 = (page_notch(X, 110)
-      + stack('Headline block', [text('Label', 'Rugged Performance Standards', 'label', RED, 28), text('Headline', 'Built for the\n**worst days.**', 'h1', BLACK, 88)], l=M, t=100, w=920, gap=12)
+p6 = (page_notch(X, 100)
+      + stack('Headline block', [text('Label', 'Rugged performance standards', 'label', RED, 28), text('Headline', 'Built for the\n**worst days.**', 'h1', BLACK, 88)], l=M, t=100, w=920, gap=12)
       + box('Feature grid', l=M, t=380, w=920, h=500, cls='grid2', style={'gap': '20px'}, inner=''.join(
           f'<div class="stack tile" data-name="{t}" style="background:{WHITE};padding:34px;gap:14px">{icon(k, 64, t)}{text("Title", t, "h3", BLACK, 34)}{text("Detail", d, "body", BLACK, 26)}</div>'
           for k, t, d in [('voice', 'Extra-loud audio', '100 dB+ dual front speakers'), ('battery', 'Multi-shift battery', 'Removable and fast charging'),
@@ -218,10 +218,10 @@ st1 = (photo('Story photo', 'crew', 0, 0, 1080, 1100, '45% 50%')
 F.append(('stories', artboard('story-photo', 'Instagram story · Photo + red panel', 1080, 1920, WHITE, st1, '9:16 · rotated Expanded Notch', 'story')))
 
 st2 = (text('Model number', 'XP5', 'display abs', RED, 470, {'left': '50px', 'top': '560px', 'letter-spacing': '-0.06em', 'line-height': '0.8'})
-       + cutout('Product render', 'xp5', 390, 420, 520, 990)
+       + cutout('Product render', 'xp5', 400, 420, 480, 915)
        + page_notch(X, SAFE_T)
        + stack('Headline block', [text('Label', 'Sonim XP5plus 5G', 'label', RED, 32), text('Headline', 'The fourth\ngeneration is **here.**', 'h1', BLACK, 80)], l=M, t=SAFE_T, w=920, gap=12)
-       + text('CTA', 'Available on AT&T and FirstNet.', 'lead abs', BLACK, 38, {'left': '80px', 'top': '1440px', 'width': '900px', 'font-weight': '700'})
+       + text('CTA', 'Available on AT&T and FirstNet.', 'lead abs', BLACK, 38, {'left': '80px', 'top': '1380px', 'width': '900px', 'font-weight': '700'})
        + logo(170, BLACK, l=M, b=SAFE_B + 20))
 F.append(('stories', artboard('story-product', 'Instagram story · Product launch', 1080, 1920, GRAY, st2, '9:16 · product on Sonim Gray', 'story')))
 
@@ -230,7 +230,7 @@ st3 = (photo('Story photo', 'heli', 0, 1080, 1080, 840, '50% 50%')
        + stack('Stat block', [text('Label', 'Did you know', 'label', RED, 32), text('Number', '~31,000', 'stat', RED, 210),
                               text('Caption', 'public safety agencies\n**use FirstNet.**', 'h1', BLACK, 76, {'margin-top': '10px', '--em': BLACK}),
                               text('Source', 'Source: FirstNet.com', 'small', BLACK, 26, {'margin-top': '24px'})], l=M, t=SAFE_T, w=920, gap=8)
-       + logo(170, WHITE, l=M, b=SAFE_B + 20))
+       + logo(170, BLACK, l=M, t=1080 - M - 58))
 F.append(('stories', artboard('story-stat', 'Instagram story · Stat', 1080, 1920, WHITE, st3, '9:16 · type over white, photo base', 'story')))
 
 # ---------------------------------------------------------------- SOCIAL (landscape)
@@ -378,3 +378,9 @@ SECTION_META = [
     ('web', 'Web and display', 'IAB display ads and a website hero.'),
     ('other', 'Stationery and other', 'Email header and signature, business card, video-call background.'),
 ]
+
+# competitor-informed social variations (research: docs/competitor-social-research.md)
+import templates_social as TS
+F.extend(TS.F)
+_i = [s[0] for s in SECTION_META].index('ig') + 1
+SECTION_META[_i:_i] = TS.SECTION_META_EXTRA

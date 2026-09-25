@@ -3,7 +3,7 @@
 *.built.html
 *_edited*.html
 __pycache__/
-node_modules/
+node_modules
 # never commit licensed fonts (Arial, Akzidenz Grotesk)
 *.ttf
 *.otf
@@ -12,3 +12,4 @@ node_modules/
 .DS_Store
 Thumbs.db
 ~$*
+public/

@@ -1,0 +1,11 @@
+# Netlify: publish only the finished deliverables, never the repo root
+# (reference/ holds client-confidential brand PDFs).
+# The library HTML is committed pre-built, so the "build" just copies files.
+[build]
+  publish = "public"
+  command = "rm -rf public && mkdir -p public && cp library/dist/Sonim_Brand_Template_Library.html public/index.html && cp whitepaper/dist/Sonim_EMS_Whitepaper_EDITOR.html public/whitepaper-editor.html && cp whitepaper/dist/Sonim_EMS_Whitepaper_Connected_Care_in_Motion.pdf public/whitepaper.pdf"
+
+[[redirects]]
+  from = "/library"
+  to = "/index.html"
+  status = 200

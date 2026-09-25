@@ -1,10 +1,10 @@
 # Sonim brand template library generator -> one self-contained HTML file.
-import base64, json, html as H
+import base64, json, re, html as H
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]          # repo root
 
 RED, BLACK, GRAY, WHITE = '#CF102D', '#000000', '#E5ECEE', '#FFFFFF'
-LOGO_PATHS = open(ROOT / 'brand/logo/sonim-logo.svg').read().split('>', 1)[1].rsplit('</svg>', 1)[0]
+LOGO_PATHS = re.sub(r'<metadata>.*?</metadata>', '', open(ROOT / 'brand/logo/sonim-logo.svg').read(), flags=re.S).split('>', 1)[1].rsplit('</svg>', 1)[0].strip()
 ICONS = json.load(open(ROOT / 'brand/icons/icons.json'))
 ICONS['check'] = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#CF102D" stroke-width="3" stroke-linecap="square"><path d="M4 12.5l5 5L20 6.5"/></svg>'
 ICONS['arrow'] = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h17M14 6l6 6-6 6"/></svg>'
@@ -104,7 +104,7 @@ def icon_item(key, title, detail, size, tsize, dsize, gap, color=BLACK, w=None):
 
 def artboard(aid, name, w, h, bg, inner, use, fmt):
     return (f'<figure class="frame" id="{aid}" data-fmt="{fmt}">'
-            f'<figcaption class="frame-meta"><b>{esc(name)}</b><span>{w} × {h} px · {esc(use)}</span></figcaption>'
+            f'<figcaption class="frame-meta"><b>{esc(name)}</b><span>{w} × {h} px{"" if use.replace(" ", "") == f"{w}×{h}" else " · " + esc(use)}</span></figcaption>'
             f'<div class="ab-wrap" style="width:{w}px;height:{h}px"><div class="ab" data-name="{esc(name)} · {w}×{h}" style="width:{w}px;height:{h}px;background:{bg}">'
             f'{inner}</div></div></figure>')
 

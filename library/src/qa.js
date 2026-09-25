@@ -15,9 +15,16 @@ require('fs').mkdirSync(require('path').resolve(__dirname, '../../.qa'), { recur
     return { cols, fonts, bgs, imgs, broken, pseudo, nodes, frames: document.querySelectorAll('.ab').length };
   });
   console.log(JSON.stringify(r, null, 1));
+  // every artboard exports to SVG without errors
+  console.log('exports:', await p.evaluate(() => { const bad = []; let n = 0;
+    document.querySelectorAll('.frame').forEach(f => { const ab = f.querySelector('.ab');
+      try { const s = sonimExport.toSVG(ab); new DOMParser().parseFromString(s, 'image/svg+xml').querySelector('parsererror') && bad.push(f.id + ' svg-parse');
+            n++; } catch (e) { bad.push(f.id + ' ' + e.message); } });
+    return { ok: n, bad }; }));
+  console.log('hover tools:', await p.evaluate(() => document.querySelectorAll('.frame-tools').length));
   // figma mode hides chrome
   await p.click('#btn-figma'); await p.waitForTimeout(200);
-  console.log('figma chrome visible:', await p.evaluate(() => ['.topbar', '.sidebar', '.sec-head', '.frame-meta'].map(s => getComputedStyle(document.querySelector(s)).display)));
+  console.log('figma chrome visible:', await p.evaluate(() => ['.topbar', '.sidebar', '.sec-head', '.frame-meta', '.frame-tools'].map(s => getComputedStyle(document.querySelector(s)).display)));
   console.log('scale in figma:', await p.evaluate(() => [...document.querySelectorAll('.ab')].filter(a => a.style.transform).length));
   await p.keyboard.press('Escape');
   // edit + save + reopen
@@ -26,5 +33,5 @@ require('fs').mkdirSync(require('path').resolve(__dirname, '../../.qa'), { recur
   const [d] = await Promise.all([p.waitForEvent('download'), p.click('#btn-save')]); const out = '' + require('path').resolve(__dirname, '../../.qa/lib_saved.html') + ''; await d.saveAs(out);
   console.log('saved KB', Math.round(fs.statSync(out).size / 1000));
   const p2 = await b.newPage(); p2.on('pageerror', e => errs.push('p2 ' + e.message)); await p2.goto('file://' + out); await p2.waitForTimeout(500);
-  console.log('reopen:', await p2.evaluate(() => ({ edited: document.querySelector('#ig-stat .tx[data-name="Caption"]').textContent.includes('EDITED'), broken: [...document.querySelectorAll('.ab img')].filter(i => !i.naturalWidth).length, contenteditable: document.querySelectorAll('[contenteditable]').length })));
+  console.log('reopen:', await p2.evaluate(() => ({ edited: document.querySelector('#ig-stat .tx[data-name="Caption"]').textContent.includes('EDITED'), broken: [...document.querySelectorAll('.ab img')].filter(i => !i.naturalWidth).length, contenteditable: document.querySelectorAll('[contenteditable]').length, tools: document.querySelectorAll('.frame-tools').length })));
   console.log('errors', errs); await b.close(); })();
