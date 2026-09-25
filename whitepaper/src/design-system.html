@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sonim white paper design system</title>
+<link rel="stylesheet" href="assets/sonim-whitepaper.css">
+<style>
+  @page { size: 11in 8.5in; margin: 0; }
+  .sheet { position: relative; width: 792pt; height: 612pt; overflow: hidden; background: #fff; margin: 24pt auto;
+    padding: 50pt 45pt 50pt 45pt; display: grid; grid-template-columns: 190pt 1fr; column-gap: 30pt; break-after: page; }
+  @media print { .sheet { margin: 0; } }
+  .sheet > .side { position: relative; }
+  .sheet > .side .h1 { font-size: 24pt; line-height: 24pt; }
+  .sheet > .side p { margin-top: 12pt; font-size: 9pt; line-height: 13pt; }
+  .sheet .crumb { position: absolute; top: 22pt; right: 45pt; font-size: 6.5pt; font-weight: 700; display: flex; gap: 12pt; }
+  .sheet .page-logo { bottom: 22pt; }
+  .main { position: relative; }
+  .sw { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10pt; }
+  .sw .chip { height: 150pt; padding: 12pt; display: flex; flex-direction: column; justify-content: flex-end; font-size: 7.5pt; line-height: 10.5pt; }
+  .sw .chip b { font-size: 12pt; line-height: 14pt; margin-bottom: 6pt; }
+  table.spec { width: 100%; border-collapse: collapse; }
+  table.spec th { text-align: left; font-size: 7pt; line-height: 9pt; font-weight: 700; padding: 0 8pt 5pt 0; border-bottom: .75pt solid #000; }
+  table.spec td { vertical-align: baseline; padding: 6pt 8pt 6pt 0; border-bottom: .5pt solid var(--rule); font-size: 7.5pt; line-height: 10pt; }
+  table.spec td.spec-live { padding-right: 16pt; }
+  .combos { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6pt; margin-top: 12pt; }
+  .combos figure div { height: 44pt; display: flex; align-items: flex-end; padding: 6pt; font-weight: 700; }
+  .combos figcaption { font-size: 7pt; line-height: 9pt; margin-top: 3pt; font-weight: 700; }
+  .demo { background: #fff; border: .5pt solid var(--rule); position: relative; overflow: hidden; }
+  .anno { font-size: 6.75pt; line-height: 9pt; color: var(--sonim-red); font-weight: 700; }
+  .kv { display: grid; grid-template-columns: 90pt 1fr; gap: 3pt 10pt; font-size: 7.5pt; line-height: 10pt; }
+  .kv dt { font-weight: 700; }
+  .thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10pt; }
+  .thumbs figure img { width: 100%; border: .5pt solid var(--rule); display: block; }
+  .thumbs figcaption { margin-top: 5pt; font-size: 7pt; line-height: 9pt; }
+  .dd { display: grid; grid-template-columns: 1fr 1fr; gap: 18pt; }
+  .dd ul { list-style: none; } .dd li { font-size: 8pt; line-height: 11pt; padding: 4pt 0 4pt 14pt; border-bottom: .5pt solid var(--rule); position: relative; }
+  .dd .do li::before { content: ""; position: absolute; left: 1pt; top: 7pt; width: 7pt; height: 3.5pt; border-left: 1.5pt solid var(--sonim-red); border-bottom: 1.5pt solid var(--sonim-red); transform: rotate(-45deg); }
+  .dd .dont li::before { content: "×"; position: absolute; left: 0; font-weight: 700; }
+  .steps { counter-reset: st; list-style: none; }
+  .steps li { counter-increment: st; position: relative; padding: 7pt 0 7pt 26pt; border-bottom: .5pt solid var(--rule); font-size: 8.25pt; line-height: 11.5pt; }
+  .steps li::before { content: counter(st, decimal-leading-zero); position: absolute; left: 0; top: 6pt; font-weight: 700; color: var(--sonim-red); font-size: 10pt; }
+</style>
+</head>
+<body>
+
+<!-- 01 COVER -->
+<section class="sheet" style="display:block; padding:0;">
+  <div class="xnotch w50" style="padding: 60pt 40pt 0 45pt;">
+    <div class="label" style="color:#fff">Sonim · Marketing design system</div>
+    <div class="display on-red" style="margin-top: 12pt; font-size: 50pt; line-height: 47pt;">White paper<br><span class="em">design system.</span></div>
+    <p class="on-red lead" style="margin-top: 18pt; max-width: 300pt;">Tokens, type, grid, graphic elements, components and page templates for Sonim white papers.</p>
+    <p class="on-red small" style="position:absolute; bottom: 60pt; left: 45pt; right: 40pt;">Version 1.0 · September 2026. Built from the Sonim Visual Identity Standards &amp; Brand Guidelines (March 2020) and the Sonim Social Media General Use Templates (2023). Where this document and the brand guidelines differ, the brand guidelines win.</p>
+  </div>
+  <div style="position:absolute; right:0; top:0; bottom:0; width: calc(50% - 9pt); background: url(assets/img/10_MegaConnect_collage_1.jpg) 30% center/cover;"></div>
+  <div class="page-logo on-dark" style="left:45pt; bottom:24pt; width:64pt;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+
+<!-- 02 FOUNDATIONS -->
+<section class="sheet">
+  <div class="crumb"><span>White paper design system</span><span>/ 02</span></div>
+  <div class="side notch-anchor"><div class="h1">Foundations</div>
+    <p>A Sonim white paper is industry thought leadership, not a product sheet. The design should read as direct, focused and capable, the way the brand describes itself.</p></div>
+  <div class="main">
+    <div class="grid">
+      <div class="c1-6"><div class="h2">Personality</div><dl class="kv" style="margin-top:8pt">
+        <dt>Confident</dt><dd>Act with assuredness and poise.</dd><dt>Genuine</dt><dd>Authentic and honest, free of pretense.</dd>
+        <dt>Informative</dt><dd>Clear and to the point, no flourish.</dd><dt>Passionate</dt><dd>Believe in the mission.</dd></dl></div>
+      <div class="c7-12"><div class="h2">Tone</div><dl class="kv" style="margin-top:8pt">
+        <dt>Positive</dt><dd>Affirmation and support.</dd><dt>Optimistic</dt><dd>Tomorrow will be better.</dd>
+        <dt>Grounded</dt><dd>Sensible and well balanced.</dd><dt>Smart</dt><dd>Simple and to the point.</dd></dl></div>
+    </div>
+    <hr class="rule" style="margin: 22pt 0 16pt;">
+    <div class="h2">Five rules for every white paper</div>
+    <ol class="steps" style="margin-top: 8pt;">
+      <li><b>Four colors, used boldly.</b> Sonim Red, Black, Gray and White. Red is for emphasis, the notch and one hero panel per spread, not for body text.</li>
+      <li><b>Sentence case, flush left.</b> Never ALL CAPS or Title Case, including labels and table headers. Headlines end with a period when they are statements.</li>
+      <li><b>Headlines in black, key phrase in red.</b> On red panels the emphasis flips to black.</li>
+      <li><b>The notch anchors every page headline.</b> One notch per page at the left edge, the same size on every page.</li>
+      <li><b>Proof over claims.</b> Every statistic carries a red superscript source number that resolves on the back cover.</li>
+    </ol>
+  </div>
+  <div class="page-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+
+<!-- 03 COLOR -->
+<section class="sheet">
+  <div class="crumb"><span>White paper design system</span><span>/ 03</span></div>
+  <div class="side notch-anchor"><div class="h1">Color</div>
+    <p>A small palette for maximum impact. Avoid combinations that are too dark and heavy: white and gray pages carry the document, red marks what matters.</p>
+    <p style="font-size:7.5pt;line-height:10.5pt">Suggested share per page: White 65–75% · Gray 10–20% · Red 5–15% · Black for type and rules.</p></div>
+  <div class="main">
+    <div class="sw">
+      <div class="chip" style="background:var(--sonim-red);color:#fff"><b>Sonim Red</b>Pantone 186 C<br>C12 M100 Y91 K3<br>R207 G16 B45<br>#CF102D<br>--sonim-red</div>
+      <div class="chip" style="background:#000;color:#fff"><b>Sonim Black</b>Pantone Black<br>C0 M0 Y0 K100<br>R0 G0 B0<br>#000000<br>--sonim-black</div>
+      <div class="chip" style="background:var(--sonim-gray)"><b>Sonim Gray</b>Pantone 649 (70%)<br>C9 M3 Y4 K0<br>R229 G236 B238<br>#E5ECEE<br>--sonim-gray</div>
+      <div class="chip" style="background:#fff;border:.5pt solid var(--rule)"><b>White</b><br>C0 M0 Y0 K0<br>R255 G255 B255<br>#FFFFFF<br>--white</div>
+    </div>
+    <div class="h2" style="margin-top:20pt">Approved foreground / background pairs</div>
+    <div class="combos">
+      <figure><div style="background:var(--sonim-gray)"><span style="font-size:18pt;line-height:18pt">Aa</span></div><figcaption>Black on gray</figcaption></figure><figure><div style="background:var(--sonim-gray);color:var(--sonim-red)"><span style="font-size:18pt;line-height:18pt">Aa</span></div><figcaption>Red on gray</figcaption></figure><figure><div style="background:#fff;border:.5pt solid var(--rule)"><span style="font-size:18pt;line-height:18pt">Aa</span></div><figcaption>Black on white</figcaption></figure>
+      <figure><div style="background:#fff;border:.5pt solid var(--rule);color:var(--sonim-red)"><span style="font-size:18pt;line-height:18pt">Aa</span></div><figcaption>Red on white</figcaption></figure><figure><div style="background:var(--sonim-red);color:#fff"><span style="font-size:18pt;line-height:18pt">Aa</span></div><figcaption>White on red</figcaption></figure><figure><div style="background:var(--sonim-red)"><span style="font-size:18pt;line-height:18pt">Aa</span></div><figcaption>Black on red</figcaption></figure>
+      <figure><div style="background:#000;color:#fff"><span style="font-size:18pt;line-height:18pt">Aa</span></div><figcaption>White on black</figcaption></figure><figure><div style="background:#000;color:var(--sonim-red)"><span style="font-size:18pt;line-height:18pt">Aa</span></div><figcaption>Red on black</figcaption></figure><figure><div style="background:var(--sonim-red);color:var(--sonim-gray)"><span style="font-size:18pt;line-height:18pt">Aa</span></div><figcaption>Gray on red</figcaption></figure>
+      <figure><div style="background:var(--sonim-gray);color:#fff"><span style="font-size:18pt;line-height:18pt">Aa</span></div><figcaption>White on gray <span style="font-weight:400">(display sizes only)</span></figcaption></figure><figure><div style="background:#fff;border:.5pt solid var(--rule);color:var(--sonim-gray)"><span style="font-size:18pt;line-height:18pt">Aa</span></div><figcaption>Gray on white <span style="font-weight:400">(graphic only)</span></figcaption></figure><figure><div style="background:#000;color:var(--sonim-gray)"><span style="font-size:18pt;line-height:18pt">Aa</span></div><figcaption>Gray on black</figcaption></figure>
+    </div>
+    <p class="small" style="margin-top:12pt;color:var(--ink-soft)">Utility values (not brand colors): hairline rules rgba(0,0,0,.18); secondary small print rgba(0,0,0,.68). Use only for rules, captions, sources and metadata.</p>
+  </div>
+  <div class="page-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+
+<!-- 04 TYPOGRAPHY -->
+<section class="sheet">
+  <div class="crumb"><span>White paper design system</span><span>/ 04</span></div>
+  <div class="side notch-anchor"><div class="h1">Typography</div>
+    <p><b>Akzidenz Grotesk</b> Bold and Regular for all print work (Berthold). Condensed cuts for spec tables only.</p>
+    <p><b>Arial</b> is the approved fallback when Akzidenz isn’t available (Word, PowerPoint, email, and this HTML build).</p>
+    <p>Headlines: tight kerning and leading. Sentence case. Flush left.</p></div>
+  <div class="main">
+    <table class="spec">
+      <tr><th style="width:84pt">Style · token</th><th>Specimen</th><th style="width:62pt">Size / leading</th><th style="width:56pt">Weight · track</th><th style="width:108pt">Use</th></tr>
+      <tr><td><b>Display</b><br>.display</td><td class="spec-live"><span class="display" style="font-size:38pt;line-height:36pt">Connected <span class="em">care.</span></span></td><td>46 / 43 pt<br><span style="color:var(--ink-soft)">(shown at 38)</span></td><td>Bold · −30</td><td>Opening-page title. One per document.</td></tr>
+      <tr><td><b>H1</b><br>.h1</td><td class="spec-live"><span class="h1">Page headline <span class="em">in red.</span></span></td><td>27 / 27 pt</td><td>Bold · −25</td><td>One per page, with the notch.</td></tr>
+      <tr><td><b>H2</b><br>.h2</td><td class="spec-live"><span class="h2">Section heading</span></td><td>15 / 17 pt</td><td>Bold · −15</td><td>Sections, callout and case-study titles.</td></tr>
+      <tr><td><b>H3</b><br>.h3</td><td class="spec-live"><span class="h3">Sub-heading</span></td><td>10 / 12.5 pt</td><td>Bold · 0</td><td>Challenge / Solution labels (red in case studies).</td></tr>
+      <tr><td><b>Label</b><br>.label</td><td class="spec-live"><span class="label">Customer spotlight</span></td><td>8 / 10 pt</td><td>Bold · 0 · Red</td><td>Eyebrow above H1 / H2.</td></tr>
+      <tr><td><b>Lead</b><br>.lead</td><td class="spec-live"><span class="lead">Lead paragraph that frames the page.</span></td><td>12.5 / 16.5 pt</td><td>Regular</td><td>First paragraph under H1. Max 3 lines.</td></tr>
+      <tr><td><b>Body</b><br>p</td><td class="spec-live"><span class="body">Body copy for running text, 60–75 characters per line in a 7-column measure.</span></td><td>9.25 / 13.5 pt</td><td>Regular · Bold run-ins</td><td>All running text.</td></tr>
+      <tr><td><b>Stat</b><br>.stat .n</td><td class="spec-live"><span class="stat"><span class="n">18,200+</span></span></td><td>34 / 32 pt</td><td>Bold · −30 · Red</td><td>Max 3 per row, always sourced.</td></tr>
+      <tr><td><b>Quote</b><br>.quote</td><td class="spec-live"><span class="quote">“Customer voice in bold.”</span></td><td>15 / 18 pt</td><td>Bold · −10</td><td>White on red band.</td></tr>
+      <tr><td><b>Small</b><br>.small</td><td class="spec-live"><span class="small">Captions, metadata, chips, sources (6.75 / 9).</span></td><td>7.5 / 10 pt</td><td>Regular</td><td>Minimum print size 6.5 pt.</td></tr>
+    </table>
+  </div>
+  <div class="page-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+
+<!-- 05 GRID -->
+<section class="sheet">
+  <div class="crumb"><span>White paper design system</span><span>/ 05</span></div>
+  <div class="side notch-anchor"><div class="h1">Page &amp; grid</div>
+    <p>US Letter portrait, 8.5 × 11 in (612 × 792 pt). 12 columns with a 14 pt gutter. Photography bleeds; type never does.</p>
+    <dl class="kv" style="margin-top:14pt">
+      <dt>Side margins</dt><dd>45 pt (0.625 in)</dd><dt>Top margin</dt><dd>50 pt; running header at 22 pt</dd>
+      <dt>Bottom margin</dt><dd>58 pt; logo at 22 pt</dd><dt>Live width</dt><dd>522 pt</dd><dt>Column</dt><dd>30.67 pt × 12</dd>
+      <dt>Body measure</dt><dd>7 columns (≈ 295 pt)</dd><dt>Sidebar</dt><dd>5 columns</dd><dt>Spacing unit</dt><dd>4.5 pt (X/2): 9, 13.5, 18, 27, 36, 54</dd>
+      <dt>Bleed</dt><dd>0.125 in on all sides for print</dd></dl></div>
+  <div class="main" style="display:flex; gap: 30pt; align-items:flex-start;">
+    <svg viewBox="0 0 612 792" style="height: 470pt; border:.5pt solid var(--rule)">
+      <rect width="612" height="792" fill="#fff"/>
+      <g fill="#CF102D" fill-opacity=".09">
+        <rect x="45" y="50" width="30.67" height="684"/><rect x="89.67" y="50" width="30.67" height="684"/><rect x="134.33" y="50" width="30.67" height="684"/><rect x="179" y="50" width="30.67" height="684"/><rect x="223.67" y="50" width="30.67" height="684"/><rect x="268.33" y="50" width="30.67" height="684"/><rect x="313" y="50" width="30.67" height="684"/><rect x="357.67" y="50" width="30.67" height="684"/><rect x="402.33" y="50" width="30.67" height="684"/><rect x="447" y="50" width="30.67" height="684"/><rect x="491.67" y="50" width="30.67" height="684"/><rect x="536.33" y="50" width="30.67" height="684"/></g>
+      <rect x="45" y="50" width="522" height="684" fill="none" stroke="#CF102D" stroke-width="1" stroke-dasharray="4 3"/>
+      <polygon points="0,62 9,80 9,206 0,224" fill="#CF102D"/>
+      <rect x="45" y="64" width="80" height="7" fill="#CF102D"/><rect x="45" y="78" width="360" height="24" fill="#000"/><rect x="45" y="106" width="220" height="24" fill="#CF102D"/>
+      <rect x="45" y="146" width="400" height="10" fill="#bbb"/>
+      <rect x="440" y="18" width="127" height="6" fill="#000"/>
+      <rect x="45" y="752" width="58" height="20" fill="#000"/>
+      <g font-family="Arial" font-size="13" font-weight="700" fill="#CF102D"><text x="140" y="36">Running header · 22 pt</text><text x="115" y="768">Logo · bottom-left · 58 pt wide</text><text x="18" y="250" transform="rotate(-90 18 250)">Notch 162 × 9 pt</text><text x="220" y="430">12 columns · 14 pt gutter</text></g>
+    </svg>
+    <div style="flex:1">
+      <div class="h2">Standard page zones</div>
+      <ol class="steps" style="margin-top:8pt">
+        <li><b>Header zone.</b> Label (8 pt red) + H1, with the notch aligned to the label’s top.</li>
+        <li><b>Lead zone.</b> One lead paragraph across 10–12 columns.</li>
+        <li><b>Content zone.</b> 7 + 5 columns (text + sidebar), 6 + 6 (case studies) or 12 (tables, stacks).</li>
+        <li><b>Footer zone.</b> Logo bottom-left only. No page numbers in the footer; the folio sits in the running header.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="page-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+
+<!-- 06 GRAPHIC ELEMENTS -->
+<section class="sheet">
+  <div class="crumb"><span>White paper design system</span><span>/ 06</span></div>
+  <div class="side notch-anchor"><div class="h1">Graphic elements</div>
+    <p>All three elements come from one shape: the notch, built at an 18:1 ratio with 26.5° angled ends. X = notch width = 9 pt (0.125 in); notch height = 18X = 162 pt (2.25 in).</p>
+    <p>Keep the notch the same size on every page. Scale only in 25% steps.</p></div>
+  <div class="main" style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 18pt;">
+    <div>
+      <div class="demo" style="height:330pt; padding: 36pt 20pt 0 45pt;">
+        <div class="notch-anchor"><div class="label">Label</div><div class="h2" style="margin-top:3pt">Welcome<br>to Sonim.</div></div>
+      </div>
+      <div class="h2" style="margin-top:10pt">The Notch</div>
+      <p class="small" style="margin-top:4pt">Anchors the page headline on the left edge. <b>.notch-anchor</b> on the headline block. One per page, always Sonim Red.</p>
+      <p class="anno" style="margin-top:4pt">162 × 9 pt · top aligned to label · bleeds off left edge</p>
+    </div>
+    <div>
+      <div class="demo" style="height:330pt; padding: 34pt 30pt; background:#fff;">
+        <div class="rc" style="height:262pt;"><div class="h2">Rugged Container</div><p class="small" style="margin-top:6pt">Live area inset 2X (18 pt) on all sides.</p></div>
+      </div>
+      <div class="h2" style="margin-top:10pt">The Rugged Container</div>
+      <p class="small" style="margin-top:4pt">Holds copy, checklists and data. Right notch 2X from the top, left notch 2X from the bottom; neither passes the center line. Always taller than wide, never taller than 175% of its width. <b>.rc</b>, <b>.rc.red</b>, <b>.rc.black</b></p>
+    </div>
+    <div>
+      <div class="demo" style="height:330pt;">
+        <div class="xnotch w50 on-red" style="padding: 36pt 16pt 0 14pt;"><div class="h3" style="font-size:11pt">Welcome<br>to Sonim.</div></div>
+        <div style="position:absolute; right:0; top:0; bottom:0; width: calc(50% - 9pt); background: url(assets/img/03_XP5plus5G_first_responders.webp) center/cover;"></div>
+      </div>
+      <div class="h2" style="margin-top:10pt">The Expanded Notch</div>
+      <p class="small" style="margin-top:4pt">Divides horizontal space: extends to three edges and covers 25, 50 or 75% of the width. Use for covers, back covers and photo pages. Red or Gray. <b>.xnotch.w50</b></p>
+    </div>
+  </div>
+  <div class="page-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+
+<!-- 07 COMPONENTS -->
+<section class="sheet">
+  <div class="crumb"><span>White paper design system</span><span>/ 07</span></div>
+  <div class="side notch-anchor"><div class="h1">Components</div>
+    <p>Build every page from these blocks. Class names refer to <b>sonim-whitepaper.css</b>.</p>
+    <dl class="kv" style="margin-top:14pt; grid-template-columns: 70pt 1fr;">
+      <dt>.checks</dt><dd>Checklist, red tick</dd><dt>.bars</dt><dd>Results list, red bar</dd><dt>.compare</dt><dd>Before / after table</dd>
+      <dt>.stat</dt><dd>Big number + source</dd><dt>.quote</dt><dd>Red quote band</dd><dt>.icon-tile</dt><dd>Line icon + H3 + text</dd>
+      <dt>.case</dt><dd>Case-study column</dd><dt>.layer</dt><dd>Numbered stack row</dd><dt>.chips</dt><dd>Feature tags</dd><dt>.sources</dt><dd>Numbered citations</dd></dl></div>
+  <div class="main" style="display:grid; grid-template-columns: 1fr 1fr; gap: 18pt 22pt; align-content:start;">
+    <div class="rc" style="margin-right: 60pt;"><div class="h2" style="margin-bottom:10pt">Callout heading:</div><ul class="checks"><li>Checklist item</li><li>Checklist item</li><li>Checklist item</li></ul></div>
+    <div>
+      <div class="compare"><div class="hd l">Before</div><div></div><div class="hd r">After</div><div class="cell l">Coverage limits</div><div class="arrow">→</div><div class="cell r">Nationwide coverage</div><div class="cell l">Voice only</div><div class="arrow">→</div><div class="cell r">Voice + data + video</div></div>
+      <div class="grid" style="margin-top:16pt; --cols: 2;"><div class="stat"><div class="n">28.5M</div><div class="t">Stat label <span class="src">(Source)</span></div></div><div class="stat"><div class="n">6x</div><div class="t">Stat label <span class="src">(Source)</span></div></div></div>
+    </div>
+    <div class="on-red" style="background:var(--sonim-red); padding:16pt 18pt;"><div class="quote">“Customer voice, under 30 words.”</div><div class="quote-by">Name, Title, Organization</div></div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 16pt;">
+      <div class="icon-tile"><svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"><path d="M24 5 44 41H4z"/><path d="M24 18v11M24 34v2" stroke="#CF102D" stroke-width="3" stroke-linecap="round"/></svg><div class="h3">Icon tile</div><p>Black 2 pt line icon, one red detail.</p></div>
+      <div><div class="h3" style="color:var(--sonim-red)">Results</div><ul class="bars" style="margin-top:3pt"><li>Result one</li><li>Result two</li><li>Result three</li></ul>
+        <div class="chips"><span>Feature</span><span>Feature</span></div></div>
+    </div>
+  </div>
+  <div class="page-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+
+<!-- 08 PAGE TEMPLATES -->
+<section class="sheet" style="display:block">
+  <div class="crumb"><span>White paper design system</span><span>/ 08</span></div>
+  <div class="side notch-anchor" style="display:grid;grid-template-columns:190pt 1fr;column-gap:30pt;align-items:end"><div class="h1">Page templates</div>
+    <p style="margin:0">Five master pages cover a 4-page white paper plus back cover. Mix T2 and T3 for longer papers; keep T1 first and T5 last. Shown: “Connected care in motion” (EMS), built on these templates.</p></div>
+  <div class="main" style="margin-top:22pt">
+    <div class="thumbs">
+      <figure><img src="assets/thumbs/ems-1.png"><figcaption><b>T1 Opening</b><br>Hero photos, Display title, 7 + 5 body and Rugged Container. ~220 words.</figcaption></figure>
+      <figure><img src="assets/thumbs/ems-2.png"><figcaption><b>T2 Argument</b><br>H1, lead, 2-column body, comparison, stats, icon row. ~250 words.</figcaption></figure>
+      <figure><img src="assets/thumbs/ems-3.png"><figcaption><b>T3 Proof</b><br>Two case-study columns and a quote band. ~300 words.</figcaption></figure>
+      <figure><img src="assets/thumbs/ems-4.png"><figcaption><b>T4 Solution</b><br>Stack layers with product renders, icon callouts and a closing band. ~220 words.</figcaption></figure>
+      <figure><img src="assets/thumbs/ems-5.png"><figcaption><b>T5 Back cover (optional)</b><br>Expanded Notch (50%) over photo, CTA, sources. Use when the paper runs past 4 pages.</figcaption></figure>
+    </div>
+    <div class="label" style="margin:14pt 0 6pt">Blank masters (whitepaper-template.html)</div>
+    <div class="thumbs" style="grid-template-columns:repeat(10,1fr)"><figure><img src="assets/thumbs/tpl-1.png"></figure><figure><img src="assets/thumbs/tpl-2.png"></figure><figure><img src="assets/thumbs/tpl-3.png"></figure><figure><img src="assets/thumbs/tpl-4.png"></figure><figure><img src="assets/thumbs/tpl-5.png"></figure></div>
+  </div>
+  <div class="page-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+
+<!-- 09 IMAGERY + DO/DON'T -->
+<section class="sheet">
+  <div class="crumb"><span>White paper design system</span><span>/ 09</span></div>
+  <div class="side notch-anchor"><div class="h1">Imagery &amp; icons</div>
+    <p>Authentic situations. Natural light. Real people with quirks. Evidence of work. Sense of place. Rugged toughness. Clear and direct compositions.</p>
+    <p>Product renders sit on Sonim Gray or white with natural shadows. Icons are black line drawings on a 24 × 24 grid with one red detail.</p></div>
+  <div class="main">
+    <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap: 6pt; height: 170pt;">
+      <div class="photo"><img src="assets/img/10_MegaConnect_collage_1.jpg"></div>
+      <div class="photo"><img src="assets/img/03_XP5plus5G_first_responders.webp"></div>
+      <div class="photo contain"><img src="assets/img/13_XP5plus_product.png"></div>
+    </div>
+    <div class="dd" style="margin-top: 18pt;">
+      <div><div class="h3" style="margin-bottom:4pt">Do</div><ul class="do">
+        <li>Use one Display title and one H1 per page.</li><li>Keep the notch the same size on every page.</li><li>Put the key phrase of each headline in red.</li>
+        <li>Bleed photography off the page edge; keep type inside margins.</li><li>Source every number; list sources on the back cover.</li><li>Show partner logos in single-color black, only when approved.</li></ul></div>
+      <div><div class="h3" style="margin-bottom:4pt">Don’t</div><ul class="dont">
+        <li>Set anything in ALL CAPS or Title Case.</li><li>Add colors, gradients, drop shadows or tints outside the palette.</li><li>Use more than one red hero panel per page.</li>
+        <li>Stretch, recolor or add effects to the logo; min width 0.5 in.</li><li>Use staged, over-lit or heavily filtered stock photos.</li><li>Make a Rugged Container wider than it is tall.</li></ul></div>
+    </div>
+  </div>
+  <div class="page-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+
+<!-- 10 PRODUCTION -->
+<section class="sheet">
+  <div class="crumb"><span>White paper design system</span><span>/ 10</span></div>
+  <div class="side notch-anchor"><div class="h1">Making a new white paper</div>
+    <p>Files: <b>sonim-whitepaper.css</b> (tokens and components), <b>whitepaper-template.html</b> (T1–T5 masters with placeholders), <b>sonim-logo.svg</b>, and an images folder.</p></div>
+  <div class="main">
+    <ol class="steps">
+      <li><b>Brief to outline.</b> Map the brief to T1–T5. Four content pages is the default; add T2 or T3 pages in pairs.</li>
+      <li><b>Write to the word budgets</b> on page 08. Headlines in sentence case with one red key phrase.</li>
+      <li><b>Collect proof.</b> Every stat gets a source number; customer quotes need approval.</li>
+      <li><b>Pick photography</b> per the imagery rules: one people photo on T1, customer photos on T3, product renders on T4, one full-bleed photo on T5.</li>
+      <li><b>Build.</b> Duplicate whitepaper-template.html, replace placeholders, point image slots at your files. The logo is injected at build time.</li>
+      <li><b>Render and check.</b> Export to PDF at US Letter with backgrounds on. Check overflow on each page, notch alignment, and that nothing is set in caps.</li>
+      <li><b>Hand off.</b> For InDesign production, rebuild using the same tokens: paragraph styles named Display, H1, H2, H3, Label, Lead, Body, Small, Stat, Quote; swatches Sonim Red, Black, Gray; Akzidenz Grotesk replaces Arial.</li>
+    </ol>
+  </div>
+  <div class="page-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+</body>
+</html>

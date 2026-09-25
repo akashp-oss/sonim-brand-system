@@ -1,0 +1,197 @@
+/* =====================================================================
+   SONIM WHITE PAPER DESIGN SYSTEM  v1.0
+   Built from: Sonim Visual Identity Standards & Brand Guidelines (Mar 2020)
+               Sonim Social Media General Use Templates (2023)
+   Format: US Letter portrait, print (PDF). All sizes in pt.
+   ===================================================================== */
+
+/* ---------- 1. TOKENS ---------- */
+:root {
+  /* Color: the four brand colors only (Brand Guidelines p.26) */
+  --sonim-red:   #CF102D;   /* Pantone 186 C  | C12 M100 Y91 K3 */
+  --sonim-black: #000000;   /* Pantone Black  | K100 */
+  --sonim-gray:  #E5ECEE;   /* Pantone 649 70% | C9 M3 Y4 K0 */
+  --white:       #FFFFFF;
+  /* Functional (not a brand color): hairlines + secondary small print only */
+  --rule:        rgba(0,0,0,.18);
+  --ink-soft:    rgba(0,0,0,.68);
+
+  /* Type families: Akzidenz Grotesk (primary) → Arial (approved system fallback, p.31) */
+  --font:        "Akzidenz-Grotesk Pro", "Akzidenz Grotesk", "AkzidenzGrotesk", Arial, "Liberation Sans", Helvetica, sans-serif;
+  --font-cond:   "Akzidenz-Grotesk Pro Cnd", "Akzidenz Grotesk Condensed", "Arial Narrow", Arial, sans-serif;
+
+  /* Type scale — size / leading / tracking (headlines: tight kerning + leading, p.32) */
+  --display-size: 46pt;  --display-lead: 43pt;  --display-track: -0.03em;
+  --h1-size:      27pt;  --h1-lead:      27pt;  --h1-track:      -0.025em;
+  --h2-size:      15pt;  --h2-lead:      17pt;  --h2-track:      -0.015em;
+  --h3-size:      10pt;  --h3-lead:      12.5pt;
+  --lead-size:    12.5pt;--lead-lead:    16.5pt;
+  --body-size:    9.25pt;--body-lead:    13.5pt;
+  --small-size:   7.5pt; --small-lead:   10pt;
+  --label-size:   8pt;   --label-lead:   10pt;
+  --stat-size:    34pt;  --stat-lead:    32pt;
+  --quote-size:   15pt;  --quote-lead:   18pt;
+
+  /* Page + grid (US Letter 612 x 792 pt) */
+  --page-w: 612pt;  --page-h: 792pt;
+  --m-x: 45pt;          /* 0.625" side margins */
+  --m-top: 50pt;        /* running header sits in top margin */
+  --m-bottom: 58pt;     /* logo sits in bottom margin */
+  --gutter: 14pt;
+  --cols: 12;
+
+  /* Graphic elements (p.47–64). X = notch width. */
+  --x: 9pt;                         /* 0.125" */
+  --notch-h: calc(var(--x) * 18);   /* 162pt = 2.25" (18:1 ratio) */
+  --notch-slope: calc(var(--x) * 2);/* 26.5° angled end ⇒ 2X rise over X run */
+  --live-inset: calc(var(--x) * 2); /* container live area inset */
+
+  /* Spacing scale (multiples of X/2 = 4.5pt) */
+  --s1: 4.5pt; --s2: 9pt; --s3: 13.5pt; --s4: 18pt; --s5: 27pt; --s6: 36pt; --s7: 54pt;
+}
+
+/* ---------- 2. PAGE ---------- */
+@page { size: 8.5in 11in; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: var(--font); color: var(--sonim-black); background: #9aa3a8; font-size: var(--body-size); line-height: var(--body-lead); }
+.page {
+  position: relative; width: var(--page-w); height: var(--page-h); overflow: hidden;
+  background: var(--white); margin: 24pt auto; padding: var(--m-top) var(--m-x) var(--m-bottom);
+  page-break-after: always; break-after: page;
+}
+@media print { body { background: none; } .page { margin: 0; } }
+
+/* Running header (brand-book style: title left of a "/ 02" folio, top-right) */
+.run-head { position: absolute; top: 22pt; right: var(--m-x); display: flex; gap: 14pt; align-items: baseline;
+  font-size: 6.5pt; line-height: 8pt; font-weight: 700; }
+.run-head .folio { font-weight: 700; }
+.run-head.on-dark { color: var(--white); }
+/* Logo: bottom-left along the margin (p.22). Min 0.5" wide in print. */
+.page-logo { position: absolute; left: var(--m-x); bottom: 22pt; width: 58pt; color: var(--sonim-black); line-height: 0; }
+.page-logo.on-dark { color: var(--white); }
+.page-logo svg { width: 100%; height: auto; }
+.page-note { position: absolute; right: var(--m-x); bottom: 24pt; font-size: 6.5pt; line-height: 8pt; color: var(--ink-soft); text-align: right; }
+
+/* ---------- 3. TYPOGRAPHY ---------- */
+/* Sentence case only. Never ALL CAPS or Title Case (p.32). Flush left. */
+.display { font-size: var(--display-size); line-height: var(--display-lead); letter-spacing: var(--display-track); font-weight: 700; }
+.h1 { font-size: var(--h1-size); line-height: var(--h1-lead); letter-spacing: var(--h1-track); font-weight: 700; }
+.h2 { font-size: var(--h2-size); line-height: var(--h2-lead); letter-spacing: var(--h2-track); font-weight: 700; }
+.h3 { font-size: var(--h3-size); line-height: var(--h3-lead); font-weight: 700; }
+.lead { font-size: var(--lead-size); line-height: var(--lead-lead); }
+.body, p { font-size: var(--body-size); line-height: var(--body-lead); }
+p + p { margin-top: var(--s2); }
+.small { font-size: var(--small-size); line-height: var(--small-lead); }
+.label { font-size: var(--label-size); line-height: var(--label-lead); font-weight: 700; color: var(--sonim-red); }
+.em, .red { color: var(--sonim-red); }
+b, strong { font-weight: 700; }
+.on-red, .on-black { color: var(--white); }
+.on-red .em { color: var(--sonim-black); }  /* red panels: emphasis in black */
+
+/* ---------- 4. GRID ---------- */
+.grid { display: grid; grid-template-columns: repeat(var(--cols), 1fr); column-gap: var(--gutter); }
+.c1-4{grid-column:1/5}.c1-5{grid-column:1/6}.c1-6{grid-column:1/7}.c1-7{grid-column:1/8}.c1-8{grid-column:1/9}.c1-12{grid-column:1/13}
+.c5-12{grid-column:5/13}.c6-12{grid-column:6/13}.c7-12{grid-column:7/13}.c8-12{grid-column:8/13}.c9-12{grid-column:9/13}
+.cols-2 { column-count: 2; column-gap: var(--gutter); }
+.stack > * + * { margin-top: var(--s3); }
+
+/* ---------- 5. GRAPHIC ELEMENTS ---------- */
+/* 5a. The Notch — anchors a headline on the left page edge (p.60).
+   Place .notch-anchor on the headline block; the notch aligns to its cap-height. */
+.notch-anchor { position: relative; }
+.notch-anchor::before {
+  content: ""; position: absolute; left: calc(-1 * var(--m-x)); top: 2pt;
+  width: var(--x); height: var(--notch-h); background: var(--sonim-red);
+  clip-path: polygon(0 0, 100% var(--notch-slope), 100% calc(100% - var(--notch-slope)), 0 100%);
+}
+.notch-anchor.short::before { height: calc(var(--notch-h) * .5); }  /* 50% scale step (p.47) */
+
+/* 5b. The Rugged Container — gray panel with two notches (p.47–58).
+   Right notch sits 2X from the top, left notch 2X from the bottom; neither passes centre. */
+.rc { position: relative; background: var(--sonim-gray); padding: var(--live-inset); margin: 0 var(--x); }
+.rc::before, .rc::after {
+  content: ""; position: absolute; width: var(--x); background: inherit;
+  height: min(var(--notch-h), calc(50% - calc(var(--x) * 2)));
+}
+.rc::after  { right: calc(-1 * var(--x)); top: calc(var(--x) * 2);
+  clip-path: polygon(0 0, 100% var(--notch-slope), 100% calc(100% - var(--notch-slope)), 0 100%); }
+.rc::before { left: calc(-1 * var(--x)); bottom: calc(var(--x) * 2);
+  clip-path: polygon(100% 0, 0 var(--notch-slope), 0 calc(100% - var(--notch-slope)), 100% 100%); }
+.rc.red   { background: var(--sonim-red); color: var(--white); }
+.rc.black { background: var(--sonim-black); color: var(--white); }
+.rc.white { background: var(--white); }
+
+/* 5c. The Expanded Notch — a panel from the left edge that divides horizontal space
+   (1/4 – 3/4 of the width) with the notch protruding from its right edge (p.61–62). */
+.xnotch { position: absolute; left: 0; top: 0; bottom: 0; background: var(--sonim-red); }
+.xnotch::after {
+  content: ""; position: absolute; right: calc(-1 * var(--x)); top: calc(var(--x) * 2);
+  width: var(--x); height: var(--notch-h); background: inherit;
+  clip-path: polygon(0 0, 100% var(--notch-slope), 100% calc(100% - var(--notch-slope)), 0 100%);
+}
+.xnotch.gray { background: var(--sonim-gray); }
+.w25{width:25%}.w33{width:33.333%}.w50{width:50%}.w66{width:66.666%}.w75{width:75%}
+
+/* ---------- 6. COMPONENTS ---------- */
+/* Photo slots: full-bleed or framed. Brand photography: authentic, natural light (p.36). */
+.photo { position: relative; overflow: hidden; background: var(--sonim-gray); }
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo.contain img { object-fit: contain; }
+.bleed-top { margin: calc(-1 * var(--m-top)) calc(-1 * var(--m-x)) 0; }
+
+/* Checklist */
+.checks { list-style: none; }
+.checks li { position: relative; padding-left: 17pt; font-weight: 700; font-size: 10pt; line-height: 13pt; }
+.checks li + li { margin-top: 7pt; }
+.checks li::before { content: ""; position: absolute; left: 0; top: 2.5pt; width: 9pt; height: 5pt;
+  border-left: 2pt solid var(--sonim-red); border-bottom: 2pt solid var(--sonim-red); transform: rotate(-45deg); }
+
+/* Bar list (results / benefits) */
+.bars { list-style: none; }
+.bars li { position: relative; padding-left: 11pt; font-size: var(--body-size); line-height: var(--body-lead); }
+.bars li::before { content: ""; position: absolute; left: 0; top: 3.5pt; width: 3pt; height: 7pt; background: var(--sonim-red); }
+.bars li + li { margin-top: 2pt; }
+
+/* Stat */
+.stat .n { font-size: var(--stat-size); line-height: var(--stat-lead); font-weight: 700; letter-spacing: -0.03em; color: var(--sonim-red); }
+.stat .t { margin-top: 5pt; font-size: var(--small-size); line-height: var(--small-lead); font-weight: 700; }
+.stat .src { font-weight: 400; color: var(--ink-soft); }
+
+/* Quote card (from Social "Quote/Snippet": red field, white bold type) */
+.quote { font-size: var(--quote-size); line-height: var(--quote-lead); font-weight: 700; letter-spacing: -0.01em; }
+.quote-by { margin-top: var(--s2); font-size: var(--small-size); line-height: var(--small-lead); font-weight: 700; }
+
+/* Comparison */
+.compare { display: grid; grid-template-columns: 1fr 22pt 1fr; }
+.compare .hd { padding: 9pt 12pt; font-weight: 700; font-size: 10pt; line-height: 12pt; }
+.compare .cell { padding: 7.5pt 12pt; font-size: 10pt; line-height: 12pt; border-top: .5pt solid var(--rule); }
+.compare .l { background: var(--sonim-gray); }
+.compare .r { background: var(--sonim-red); color: var(--white); font-weight: 700; border-top-color: rgba(255,255,255,.35); }
+.compare .arrow { display: flex; align-items: center; justify-content: center; color: var(--sonim-red); font-weight: 700; font-size: 11pt; }
+.compare .hd.l { color: var(--sonim-black); } .compare .hd.r { background: var(--sonim-black); color: var(--white); }
+
+/* Icon tile */
+.icon-tile svg { width: 34pt; height: 34pt; display: block; margin-bottom: 7pt; }
+.icon-tile .h3 { margin-bottom: 3pt; }
+.icon-tile p { font-size: 8.25pt; line-height: 11.5pt; }
+
+/* Case study */
+.case .meta { font-size: var(--small-size); line-height: var(--small-lead); color: var(--ink-soft); }
+.case .h3 { color: var(--sonim-red); margin: var(--s3) 0 2pt; }
+
+/* Stack layer */
+.layer { display: grid; grid-template-columns: 26pt 1fr 118pt; column-gap: var(--s3); padding: 14pt 0; border-top: .75pt solid var(--sonim-black); }
+.layer .num { font-size: 15pt; line-height: 15pt; font-weight: 700; color: var(--sonim-red); }
+.chips { display: flex; flex-wrap: wrap; gap: 4pt; margin-top: 6pt; }
+.chips span { background: var(--sonim-gray); padding: 3pt 6pt; font-size: 7.5pt; line-height: 9pt; font-weight: 700; }
+.chips.detail span { font-weight: 400; } .chips.detail b { font-weight: 700; }
+
+/* Divider rule */
+.rule { border: 0; border-top: .75pt solid var(--sonim-black); }
+
+/* Sources */
+.sources { counter-reset: s; list-style: none; }
+.sources li { counter-increment: s; position: relative; padding-left: 12pt; font-size: 6.75pt; line-height: 9pt; color: var(--ink-soft); }
+.sources li::before { content: counter(s); position: absolute; left: 0; font-weight: 700; color: var(--sonim-red); }
+sup.ref { font-size: 5.5pt; line-height: 0; color: var(--sonim-red); font-weight: 700; margin-left: .5pt; }

@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Connected care in motion — Sonim white paper</title>
+<link rel="stylesheet" href="assets/sonim-whitepaper.css">
+<style>
+  /* Built from whitepaper-template.html (T1–T4). Page-specific adjustments only. */
+  .ico { display: inline-block; line-height: 0; }
+  .ico svg { width: 100%; height: 100%; }
+
+  /* T1 */
+  .p1-hero { height: 250pt; display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 3pt; }
+  .p1-hero .photo { height: 100%; }
+  .p1-hero figcaption { position: absolute; left: 9pt; bottom: 8pt; color: #fff; font-size: 7pt; line-height: 9pt; font-weight: 700; }
+  .needs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6pt; margin-top: 16pt; padding-top: 14pt; border-top: .75pt solid var(--rule); }
+  .needs div { font-size: 7.5pt; line-height: 9.5pt; font-weight: 700; }
+  .needs .ico { width: 22pt; height: 22pt; display: block; margin-bottom: 6pt; }
+
+  /* T2 */
+  .usecases { display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 14pt; margin-top: 14pt; }
+  .usecases .ico { width: 30pt; height: 30pt; display: block; margin-bottom: 6pt; }
+  .usecases .h3 { margin-bottom: 3pt; }
+  .usecases p { font-size: 8pt; line-height: 11pt; }
+  .usecases .xref { margin-top: 3pt; font-size: 7pt; line-height: 9pt; font-weight: 700; color: var(--sonim-red); }
+
+  /* T3 */
+  .case .photo { height: 150pt; margin-bottom: 11pt; }
+  .case .h3 { margin-top: 10pt; }
+  .case .fact { margin-top: 10pt; padding-top: 8pt; border-top: .75pt solid var(--rule); font-size: 7.5pt; line-height: 10.5pt; }
+
+  /* T4: solution stack with visual callouts */
+  .stack-row { display: grid; grid-template-columns: 22pt 104pt 1fr; column-gap: 16pt; padding: 16pt 0 15pt; border-top: .75pt solid var(--rule); align-items: start; }
+  .stack-row .num { font-size: 14pt; line-height: 17pt; font-weight: 700; color: var(--sonim-red); }
+  .stack-row .shot { height: 90pt; background: var(--sonim-gray); position: relative; }
+  .stack-row .shot img { width: 100%; height: 100%; object-fit: contain; }
+  .callouts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8pt 14pt; margin-top: 9pt; }
+  .callouts div { display: grid; grid-template-columns: 17pt 1fr; column-gap: 7pt; align-items: start; font-size: 7.5pt; line-height: 9.75pt; }
+  .callouts .ico { width: 17pt; height: 17pt; margin-top: 1pt; }
+  .callouts b { display: block; }
+  .partners { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5pt; margin-top: 9pt; }
+  .partners span { border: .75pt solid var(--rule); height: 22pt; display: flex; align-items: center; justify-content: center; font-size: 7.5pt; font-weight: 700; text-align: center; line-height: 8.5pt; letter-spacing: -0.01em; }
+  .acc { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2pt; height: 100%; }
+  .acc img { width: 100%; height: 100%; object-fit: contain; }
+  .story { position: absolute; left: 0; right: 0; bottom: 0; height: 132pt; padding: 18pt var(--m-x) 0; background: var(--sonim-red); color: #fff; display: grid; grid-template-columns: 150pt 1fr; column-gap: 20pt; }
+  .story .h2 { color: #fff; }
+  .story p { font-size: 8.75pt; line-height: 12.5pt; }
+
+  /* Footnote sources (per page, bottom-right) */
+  .page-note { max-width: 400pt; }
+</style>
+</head>
+<body>
+
+<!-- ================= PAGE 1 · T1 Opening ================= -->
+<section class="page">
+  <div class="p1-hero bleed-top">
+    <figure class="photo"><img src="assets/img/S01_ambulance_crew_stretcher_pexels-6519931.jpg" alt="Ambulance crew loading a stretcher" style="object-position: 40% 50%"><figcaption>Ambulance crew</figcaption></figure>
+    <figure class="photo"><img src="assets/img/S05_dispatcher_headset_pexels-4267524.jpg" alt="Dispatcher at a console" style="object-position: 12% 50%"><figcaption>Dispatch center</figcaption></figure>
+    <figure class="photo"><img src="assets/img/03_XP5plus5G_first_responders.webp" alt="Field responder with Sonim XP5plus"><figcaption>Field responder, XP5plus</figcaption></figure>
+  </div>
+  <div class="run-head on-dark"><span>Sonim white paper</span><span class="folio">/ 01</span></div>
+
+  <div class="notch-anchor" style="margin-top: 26pt;">
+    <div class="label">White paper · Emergency medical services</div>
+    <h1 class="display" style="margin-top: 6pt;">Connected care<br><span class="em">in motion.</span></h1>
+    <p class="lead" style="margin-top: 8pt; max-width: 420pt;">How EMS agencies are replacing legacy communications with <span style="white-space:nowrap">mission-critical</span> mobility.</p>
+  </div>
+
+  <div class="grid" style="margin-top: 24pt;">
+    <div class="c1-7">
+      <h2 class="h2" style="margin-bottom: 9pt;">The EMS communication challenge</h2>
+      <p><b>Response times matter.</b> A study of 1.7 million EMS runs found a median response of about 7 minutes, and about 13 minutes in rural areas, where nearly one call in ten waited close to half an hour.<sup class="ref">1</sup></p>
+      <p>Crews work across hospitals, highways, rural roads, events and disasters, often in one shift. More than 18,200 local EMS agencies answer about 28.5 million 911 dispatches a year.<sup class="ref">2</sup> Every call is a chain of conversations, and <b>when communication fails, care is delayed.</b></p>
+      <p><b>Legacy land mobile radio (LMR) has limits.</b> Coverage ends where the towers end, and every expansion means more sites and more capital. Meanwhile, the job now runs on more than voice:</p>
+      <div class="needs">
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5a3 3 0 0 1 3 -3a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3a3 3 0 0 1 -3 -3l0 -5" stroke="#CF102D"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M8 21l8 0"/><path d="M12 17l0 4"/></svg></span>Voice</div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9h8" stroke="#CF102D"/><path d="M8 13h6" stroke="#CF102D"/><path d="M9 18h-3a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-3l-3 3l-3 -3"/></svg></span>Data</div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4" stroke="#CF102D"/><path d="M3 8a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2l0 -8"/></svg></span>Video</div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" stroke="#CF102D"/><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0"/></svg></span>GPS location</div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4.5l1.5 -6l4 12l2 -9l1.5 3h4.5" stroke="#CF102D"/></svg></span>Patient information</div>
+      </div>
+    </div>
+    <div class="c8-12">
+      <div class="rc" style="margin-top: 2pt;">
+        <div class="h2" style="margin-bottom: 12pt;">Today’s EMS teams need:</div>
+        <ul class="checks">
+          <li>Instant PTT communication</li>
+          <li>Reliable coverage beyond radio range</li>
+          <li>Rugged devices built for frontline use</li>
+          <li>Dispatch integration</li>
+          <li>Secure connectivity and management</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="page-note">1 Mell HK et al., JAMA Surgery, 2017. 2 NASEMSO, 2020 National EMS Assessment.<br>Photos: Pexels (free license), Sonim.</div>
+  <div class="page-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+
+<!-- ================= PAGE 2 · T2 Argument ================= -->
+<section class="page">
+  <div class="run-head"><span>Connected care in motion</span><span class="folio">/ 02</span></div>
+  <div class="notch-anchor">
+    <div class="label">The shift</div>
+    <h1 class="h1" style="margin-top: 4pt; max-width: 480pt;">Why leading EMS agencies are moving <span class="em">beyond traditional radios.</span></h1>
+  </div>
+  <p class="lead" style="margin-top: 12pt; max-width: 480pt;">EMS leaders are moving away from treating communications as a radio problem and toward an operational mobility platform: nationwide broadband, standards-based <span style="white-space:nowrap">push-to-talk</span> and rugged devices that carry voice and data together.</p>
+  <div class="cols-2" style="margin-top: 10pt;">
+    <p>FirstNet, the public safety network built with AT&amp;T, covers more than 3 million square miles, gives first responders priority and preemption, and serves about 31,000 agencies. More than 190 deployable assets back it up for incidents and planned events.<sup class="ref">3</sup></p>
+    <p>Mission-critical push-to-talk (MCPTT) brings radio-grade group calling to broadband, and gateways such as FirstNet Fusion Link connect MCPTT talkgroups to existing LMR systems. Agencies can move at their own pace without retiring the radios they already own.<sup class="ref">3</sup></p>
+  </div>
+
+  <div class="compare" style="margin-top: 20pt;">
+    <div class="hd l">Traditional LMR</div><div></div><div class="hd r">Modern mission-critical mobility</div>
+    <div class="cell l">Coverage limits</div><div class="arrow">→</div><div class="cell r">Nationwide coverage</div>
+    <div class="cell l">Voice only</div><div class="arrow">→</div><div class="cell r">Voice + data + video</div>
+    <div class="cell l">Costly infrastructure</div><div class="arrow">→</div><div class="cell r">Carrier-powered</div>
+    <div class="cell l">Separate devices</div><div class="arrow">→</div><div class="cell r">Consolidated platform</div>
+    <div class="cell l">Limited flexibility</div><div class="arrow">→</div><div class="cell r">Rapid deployment</div>
+  </div>
+
+  <div class="grid" style="margin-top: 18pt; padding-top: 14pt; border-top: .75pt solid var(--rule);">
+    <div class="stat c1-4"><div class="n">18,200+</div><div class="t">Local EMS agencies answering 911 calls<sup class="ref">2</sup></div></div>
+    <div class="stat" style="grid-column: 5 / 9;"><div class="n">28.5M</div><div class="t">911 dispatches a year in 41 reporting states<sup class="ref">2</sup></div></div>
+    <div class="stat c9-12"><div class="n">~31,000</div><div class="t">Public safety agencies on FirstNet<sup class="ref">3</sup></div></div>
+  </div>
+
+  <h2 class="h2" style="margin-top: 26pt;">EMS use cases</h2>
+  <div class="usecases">
+    <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M5 17h-2v-11a1 1 0 0 1 1 -1h9v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5"/><path d="M6 10h4m-2 -2v4" stroke="#CF102D"/></svg></span><div class="h3">Ambulance operations</div><p>Crew-to-dispatch communications from the rig or on foot.</p></div>
+    <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l18 0"/><path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16"/><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4"/><path d="M10 9l4 0" stroke="#CF102D"/><path d="M12 7l0 4" stroke="#CF102D"/></svg></span><div class="h3">Interfacility transport</div><p>Real-time coordination between sending and receiving locations.</p></div>
+    <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" stroke="#CF102D"/><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" stroke="#CF102D"/><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M17 10h2a2 2 0 0 1 2 2v1"/><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M3 13v-1a2 2 0 0 1 2 -2h2"/></svg></span><div class="h3">Special events</div><p>Large crowds and mass casualty readiness.</p></div>
+    <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4" stroke="#CF102D"/><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0"/><path d="M12 16h.01" stroke="#CF102D"/></svg></span><div class="h3">Disaster response</div><p>Deployable communications in disrupted environments.</p></div>
+    <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l1 2h6"/><path d="M12 9a2 2 0 0 0 -2 2v3c0 1.1 .9 2 2 2h7a2 2 0 0 0 2 -2c0 -3.31 -3.13 -5 -7 -5h-2"/><path d="M13 9l0 -3"/><path d="M5 6l15 0" stroke="#CF102D"/><path d="M15 9.1v3.9h5.5"/><path d="M15 19l0 -3"/><path d="M19 19l-8 0"/></svg></span><div class="h3">Air medical operations</div><p>Aircraft tracking and remote connectivity.</p><div class="xref">See GMR, page 3</div></div>
+  </div>
+  <div class="page-note">2 NASEMSO, 2020 National EMS Assessment. 3 FirstNet.com: EMS solutions; FirstNet Fusion.</div>
+  <div class="page-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+
+<!-- ================= PAGE 3 · T3 Proof ================= -->
+<section class="page">
+  <div class="run-head"><span>Connected care in motion</span><span class="folio">/ 03</span></div>
+  <div class="notch-anchor">
+    <div class="label">Customer spotlight</div>
+    <h1 class="h1" style="margin-top: 4pt;">How EMS organizations <span class="em">use Sonim today.</span></h1>
+  </div>
+
+  <div class="grid" style="margin-top: 16pt;">
+    <article class="case c1-6">
+      <div class="photo"><img src="assets/img/S09_air_ambulance_field_pexels-38038455.jpg" alt="Air ambulance helicopter" style="object-position: 50% 45%"></div>
+      <div class="label">Case study</div>
+      <h2 class="h2">Global Medical Response (GMR)</h2>
+      <p class="meta" style="margin-top: 3pt;">7,254 ground ambulances · 404 rotor-wing and 114 fixed-wing aircraft · ~5.5M patient encounters a year<sup class="ref">4</sup></p>
+      <div class="h3">Challenge</div>
+      <p>Remote aircraft tracking, weak coverage and environmental extremes at air bases and landing zones.</p>
+      <div class="h3">Solution</div>
+      <p>Sonim MegaConnect HPUE with FirstNet connectivity: Power Class 1 on Band 14, up to 6x the signal strength and 2x the upload speed of a standard hotspot, with external antenna ports.<sup class="ref">5</sup></p>
+      <div class="h3">Results</div>
+      <ul class="bars"><li>Faster deployment</li><li>Stronger connectivity</li><li>Improved performance in remote locations</li><li>Reliable operation in demanding environments</li></ul>
+      <p class="fact">GMR has also deployed 1,200 FirstNet-capable Sonim XP8 smartphones to support crisis and disaster response.<sup class="ref">3</sup></p>
+    </article>
+    <article class="case c7-12">
+      <div class="photo"><img src="assets/img/S10_night_stretcher_pexels-8942627.jpg" alt="Paramedics caring for a patient beside an ambulance at night" style="object-position: 40% 50%"></div>
+      <div class="label">Case study</div>
+      <h2 class="h2">Star EMS</h2>
+      <p class="meta" style="margin-top: 3pt;">Oakland County, Michigan · 911 and non-emergency transport · in-house 24/7 dispatch center<sup class="ref">4</sup></p>
+      <div class="h3">Challenge</div>
+      <p>A costly LMR system with limited scalability. Growing the fleet meant more radio infrastructure.</p>
+      <div class="h3">Solution</div>
+      <p>Sonim XP5plus, Kodiak Dispatch and a FirstNet communications platform. Dispatchers make PTT calls, monitor talkgroups and see crew locations from a web console.</p>
+      <div class="h3">Benefits</div>
+      <ul class="bars"><li>Rugged frontline communications</li><li>Improved dispatch coordination</li><li>Centralized visibility</li><li>Scalable communications platform</li></ul>
+    </article>
+  </div>
+
+  <div class="on-red" style="margin-top: 16pt; background: var(--sonim-red); padding: 16pt 20pt;">
+    <div class="grid">
+      <div class="c1-8 quote">“With FirstNet, we maintain contact with first responders nationwide during everyday crises and large disasters.”</div>
+      <div class="c9-12 quote-by" style="align-self: end;">Jeffrey E. Marani<br><span style="font-weight:400">National Director of Field Technologies, Global Medical Response</span><sup class="ref" style="color:#fff">3</sup></div>
+    </div>
+  </div>
+  <div class="page-note">3 FirstNet.com, “Global Medical Response Connects Disaster Teams &amp; Paramedics.” 4 globalmedicalresponse.com; starems.com.<br>5 sonimtech.com, MegaConnect. Photos: Pexels (free license).</div>
+  <div class="page-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+
+<!-- ================= PAGE 4 · T4 Solution ================= -->
+<section class="page">
+  <div class="run-head"><span>Connected care in motion</span><span class="folio">/ 04</span></div>
+  <div class="notch-anchor">
+    <div class="label">The Sonim EMS solution stack</div>
+    <h1 class="h1" style="margin-top: 4pt;">The EMS communications <span class="em">ecosystem.</span></h1>
+  </div>
+  <p class="lead" style="margin: 9pt 0 16pt; max-width: 480pt;">More than a handset: device, connectivity, accessories and management, working as one system on AT&amp;T and FirstNet.</p>
+
+  <div class="stack-row">
+    <div class="num">01</div>
+    <div class="shot"><img src="assets/img/13_XP5plus_product.png" alt="Sonim XP5plus 5G"></div>
+    <div><div class="h2">XP5plus 5G</div>
+      <p class="small" style="margin-top: 2pt;">Fourth-generation radio-style handset for PTT-first crews. AT&amp;T Enhanced PTT, FirstNet Rapid Response and FirstNet MCPTT.<sup class="ref">5</sup></p>
+      <div class="callouts">
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5" stroke="#CF102D"/><path d="M11 11.5v-2a1.5 1.5 0 1 1 3 0v2.5"/><path d="M14 10.5a1.5 1.5 0 0 1 3 0v1.5"/><path d="M17 11.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7a69.74 69.74 0 0 1 -.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47"/></svg></span><span><b>Dedicated PTT</b>Side-mounted key</span></div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8a2 2 0 0 1 2 2v4a2 2 0 1 1 -4 0v-4a2 2 0 0 1 2 -2" stroke="#CF102D"/><path d="M17 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1"/><path d="M3 15c.345 .6 1.258 1 2 1a2 2 0 1 0 0 -4a2 2 0 1 1 0 -4c.746 0 1.656 .394 2 1"/></svg></span><span><b>SOS button</b>Top-mounted key</span></div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13v-7.5a1.5 1.5 0 0 1 3 0v6.5"/><path d="M11 5.5v-2a1.5 1.5 0 1 1 3 0v8.5" stroke="#CF102D"/><path d="M14 5.5a1.5 1.5 0 0 1 3 0v6.5"/><path d="M17 7.5a1.5 1.5 0 0 1 3 0v8.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7a69.74 69.74 0 0 1 -.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47"/></svg></span><span><b>Glove-friendly</b>Large, tactile keys</span></div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h11a2 2 0 0 1 2 2v.5a.5 .5 0 0 0 .5 .5a.5 .5 0 0 1 .5 .5v3a.5 .5 0 0 1 -.5 .5a.5 .5 0 0 0 -.5 .5v.5a2 2 0 0 1 -2 2h-11a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2"/><path d="M7 10l0 4" stroke="#CF102D"/><path d="M10 10l0 4" stroke="#CF102D"/><path d="M13 10l0 4" stroke="#CF102D"/><path d="M16 10l0 4" stroke="#CF102D"/></svg></span><span><b>Removable battery</b>Up to 25 hr talk</span></div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M16.616 13.924a5 5 0 1 0 -9.23 0" stroke="#CF102D"/><path d="M20.307 15.469a9 9 0 1 0 -16.615 0" stroke="#CF102D"/><path d="M9 21l3 -9l3 9"/><path d="M10 19h4"/></svg></span><span><b>FirstNet Ready</b>Band 14 certified</span></div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11.46 20.846a12 12 0 0 1 -7.96 -14.846a12 12 0 0 0 8.5 -3a12 12 0 0 0 8.5 3a12 12 0 0 1 -.09 7.06"/><path d="M15 19l2 2l4 -4" stroke="#CF102D"/></svg></span><span><b>Ultra-rugged</b>IP68 · MIL-STD-810H</span></div>
+      </div></div>
+  </div>
+  <div class="stack-row">
+    <div class="num">02</div>
+    <div class="shot"><img src="assets/img/06_MegaConnect_hero.png" alt="Sonim MegaConnect"></div>
+    <div><div class="h2">MegaConnect</div>
+      <p class="small" style="margin-top: 2pt;">The first ultra-portable 5G HPUE hotspot, with 2.5 Gbps Ethernet and four external antenna ports.<sup class="ref">5</sup></p>
+      <div class="callouts">
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4v8" stroke="#CF102D"/><path d="M16 4.5v7" stroke="#CF102D"/><path d="M12 5v16"/><path d="M8 5.5v5"/><path d="M4 6v4"/><path d="M20 8h-16"/></svg></span><span><b>Stronger connectivity</b>Up to 6x signal</span></div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18.364 19.364a9 9 0 1 0 -12.728 0" stroke="#CF102D"/><path d="M15.536 16.536a5 5 0 1 0 -7.072 0" stroke="#CF102D"/><path d="M11 13a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></svg></span><span><b>FirstNet MegaRange</b>HPUE Power Class 1</span></div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18.5l-3 -1.5l-6 3v-13l6 -3l6 3l6 -3v7.5"/><path d="M9 4v13"/><path d="M15 7v5.5"/><path d="M21.121 20.121a3 3 0 1 0 -4.242 0c.418 .419 1.125 1.045 2.121 1.879c1.051 -.89 1.759 -1.516 2.121 -1.879" stroke="#CF102D"/><path d="M19 18v.01" stroke="#CF102D"/></svg></span><span><b>Mobile deployment</b>Battery-powered</span></div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" stroke="#CF102D"/><path d="M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" stroke="#CF102D"/><path d="M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5"/></svg></span><span><b>Vehicle operations</b>External antennas</span></div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1"/><path d="M5 16h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1"/><path d="M15 12h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1"/><path d="M15 4h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" stroke="#CF102D"/></svg></span><span><b>Incident command</b>Up to 64 devices</span></div>
+      </div></div>
+  </div>
+  <div class="stack-row">
+    <div class="num">03</div>
+    <div class="shot"><div class="acc"><img src="assets/img/21_Accessory_Klein_VALOR_RSM.png" alt="Speaker mic"><img src="assets/img/22_Accessory_Klein_CURL_headset.png" alt="Headset"><img src="assets/img/23_Accessory_holster.webp" alt="Holster"></div></div>
+    <div><div class="h2">Accessories partners</div>
+      <p class="small" style="margin-top: 2pt;">Speaker mics, headsets, chargers, vehicle mounts and carry solutions.</p>
+      <div class="partners"><span>RAM Mounts</span><span>AdvanceTec</span><span>Klein</span><span>OTTO</span><span>AINA</span><span>Stone Mountain</span></div></div>
+  </div>
+  <div class="stack-row" style="border-bottom: .75pt solid var(--rule);">
+    <div class="num">04</div>
+    <div class="shot"><img src="assets/img/19_SonimWare_toolbox.jpg" alt="SonimWare dashboard" style="object-fit: cover; object-position: 20% 50%"></div>
+    <div><div class="h2">Management &amp; services</div>
+      <div class="callouts" style="grid-template-columns: 1fr 1fr;">
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-3a8 8 0 1 1 16 0v3"/><path d="M18 19c0 1.657 -2.686 3 -6 3" stroke="#CF102D"/><path d="M4 14a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2v-3"/><path d="M15 14a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2v-3"/></svg></span><span><b>Kodiak Dispatch</b>PTT calls, talkgroups, GPS location</span></div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18.004h-5.343c-2.572 -.004 -4.657 -2.011 -4.657 -4.487c0 -2.475 2.085 -4.482 4.657 -4.482c.393 -1.762 1.794 -3.2 3.675 -3.773c1.88 -.572 3.956 -.193 5.444 1c1.488 1.19 2.162 3.007 1.77 4.769h.99c.956 0 1.822 .39 2.449 1.02"/><path d="M17.001 19a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" stroke="#CF102D"/><path d="M19.001 15.5v1.5" stroke="#CF102D"/><path d="M19.001 21v1.5" stroke="#CF102D"/><path d="M22.032 17.25l-1.299 .75" stroke="#CF102D"/><path d="M17.27 20l-1.3 .75" stroke="#CF102D"/><path d="M15.97 17.25l1.3 .75" stroke="#CF102D"/><path d="M20.733 20l1.3 .75" stroke="#CF102D"/></svg></span><span><b>Sonim Cloud</b>Remote setup, updates, monitoring</span></div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/><path d="M8 9h8"/><path d="M8 13h5"/><path d="M15 15l2 2l4 -4" stroke="#CF102D"/></svg></span><span><b>SonimWare</b>SafeGuard, Kiosk Mode, SOS app</span></div>
+        <div><span class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M15 15l3.35 3.35" stroke="#CF102D"/><path d="M9 15l-3.35 3.35" stroke="#CF102D"/><path d="M5.65 5.65l3.35 3.35" stroke="#CF102D"/><path d="M18.35 5.65l-3.35 3.35" stroke="#CF102D"/></svg></span><span><b>Support services</b>SonimCare / FirstCare</span></div>
+      </div></div>
+  </div>
+
+  <div class="story">
+    <div><div class="label" style="color:#fff">The real story</div><div class="h2" style="margin-top:4pt">No longer a <span style="color:#000">radio problem.</span></div></div>
+    <p>EMS organizations are treating communications as an operational mobility platform. Devices like the Sonim XP5plus, connectivity such as MegaConnect, and integrated dispatch and management tools improve situational awareness, coverage, coordination and resilience while reducing dependence on traditional radio infrastructure.<br><b style="display:inline-block;margin-top:6pt">Talk to Sonim · sonimtech.com</b></p>
+  </div>
+  <div class="page-note" style="color:rgba(255,255,255,.85)">5 sonimtech.com: XP5plus 5G, MegaConnect, SonimWare. Partner logos pending approval.</div>
+  <div class="page-logo on-dark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 52" fill="currentColor" role="img" aria-label="Sonim">
+  <path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
+  <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
+  <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
+  <path d="M108.505 3.34401C106.79 2.36194 101.95 0 95.2328 0C87.2384 0 82.4704 3.11347 81.9641 3.46493L83.6728 6.69028C84.204 6.35464 88.5787 3.71921 95.2475 3.71921C100.927 3.71921 105.244 5.80088 106.766 6.63604L108.505 3.34401Z"/>
+  <path d="M104.667 8.93927C103.518 8.19453 100.42 6.57959 95.2293 6.57959C89.5686 6.57959 86.5625 8.40812 85.7432 8.99126L87.5061 12.3127C88.0407 11.9205 90.6094 10.2434 95.2293 10.2434C99.3791 10.2434 101.972 11.6968 102.885 12.3059L104.667 8.93927Z"/>
+  <path d="M100.871 14.5654C100.022 14.0625 97.9743 13.094 95.2281 13.094C92.2051 13.094 90.1517 14.2162 89.5278 14.6072L91.3055 17.9964C91.5417 17.8721 93.2346 16.9025 95.3276 16.9025C97.0793 16.9025 98.5575 17.593 99.1123 17.8925L100.871 14.5654Z"/>
+  <path fill-rule="evenodd" d="M148.602 43.4807C150.399 43.4807 152 44.777 152 46.6936C152 48.608 150.399 49.9032 148.602 49.9032C146.805 49.9032 145.199 48.608 145.199 46.6936C145.199 44.777 146.805 43.4807 148.602 43.4807ZM148.603 49.1983C150.017 49.1983 151.186 48.1643 151.186 46.694C151.186 45.2214 150.017 44.1851 148.603 44.1851C147.175 44.1851 146.021 45.2214 146.021 46.694C146.021 48.1643 147.175 49.1983 148.603 49.1983ZM147.276 45.0052H148.72C149.647 45.0052 150.148 45.3024 150.148 46.0257C150.148 46.6619 149.722 46.9162 149.196 46.9637L150.217 48.4905H149.451L148.504 46.9863H147.978V48.4905H147.276V45.0052ZM147.978 46.4926H148.636C149.084 46.4926 149.442 46.4451 149.442 45.9761C149.442 45.5715 149.015 45.5083 148.651 45.5083H147.978V46.4926Z"/>
+  <path d="M73.9232 20.835C68.2986 20.8677 61.4185 24.5621 61.4829 33.0617V50.2575H67.642V33.1204C67.6895 28.7887 71.3849 26.9952 73.9232 26.9952C76.4705 26.9952 80.0156 28.2372 80.2564 33.1204V50.2575H86.4087V33.0617C86.2516 24.2321 79.5545 20.8677 73.9232 20.835Z"/>
+</svg>
+</div>
+</section>
+</body>
+</html>
