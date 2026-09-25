@@ -45,11 +45,16 @@
   picker.onchange=()=>{ const f=picker.files[0]; if(!f||!target) return; const r=new FileReader(); r.onload=()=>{ target.src=r.result; target.dataset.custom='1'; toast('Image replaced'); }; r.readAsDataURL(f); picker.value=''; };
   document.addEventListener('dblclick',e=>{ if(!editing) return; const i=e.target.closest('.ab img'); if(i){ target=i; picker.click(); } });
 
-  /* ---------- Figma import view ---------- */
+  /* ---------- Figma import view (bar: pick a set to show only it, Exit or Esc to leave) ---------- */
+  function showOnly(sid){ $$('.lib-section').forEach(sec=>sec.style.display = !sid || sec.id==='sec-'+sid ? '' : 'none');
+    $$('.fchip').forEach(c=>c.classList.toggle('on', c.dataset.only===(sid||''))); window.scrollTo(0,0); }
   function setFigma(on){ document.body.classList.toggle('figma',on); $('#btn-figma').classList.toggle('on',on);
-    if(on){ setGuides(false); closeNav(); } layout(); if(!on) toast('Figma import view off'); }
+    if(on){ setGuides(false); closeNav(); } else showOnly('');
+    layout(); toast(on?'Figma import view. Pick a set, run your HTML to Figma plugin. Esc to exit.':'Figma import view off'); }
   $('#btn-figma').onclick=()=>setFigma(!isFigma());
-  if(/[?&#]figma\b/.test(location.href)) setFigma(true);
+  $('#btn-exit-figma').onclick=()=>setFigma(false);
+  $$('.fchip').forEach(c=>c.onclick=()=>showOnly(c.dataset.only));
+  { const m=location.href.match(/[?&#]figma(?:=([a-z]+))?\b/); if(m){ setFigma(true); if(m[1]) showOnly(m[1]); } }
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(isFigma()) setFigma(false); closeNav(); } });
 
   /* ---------- save a self-contained copy ---------- */
@@ -69,7 +74,7 @@
     } finally { if(wasEdit) setEdit(true,true); if(wasGuides) setGuides(true); }
   };
 
-  /* ---------- hover tools: copy SVG / copy for Figma / download SVG ---------- */
+  /* ---------- hover tool: copy SVG ---------- */
   function download(blob, name){ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href), 4000); }
   async function copyText(text){
     try{ await navigator.clipboard.writeText(text); return true; }
@@ -78,15 +83,13 @@
   }
   function prep(){ if(editing) setEdit(false,true); const g=guides; if(g) setGuides(false); return ()=>{ if(g) setGuides(true); }; }
   const ACTIONS = {
-    svg: async (ab,f)=>{ const done=prep(); try{ return await copyText(sonimExport.toSVG(ab)) ? 'SVG copied. In Figma press Ctrl/⌘ + V.' : 'Copy blocked by the browser. Use Download SVG.'; } finally{ done(); } },
-    figma: async (ab,f)=>{ const done=prep(); try{ return await copyText(sonimExport.toFigma(ab)) ? 'Copied for Figma. Run the Sonim template paste plugin and press Ctrl/⌘ + V.' : 'Copy blocked by the browser.'; } finally{ done(); } },
-    download: async (ab,f)=>{ const done=prep(); try{ download(new Blob([sonimExport.toSVG(ab)],{type:'image/svg+xml'}), 'Sonim_'+f.id+'.svg'); return 'SVG downloaded'; } finally{ done(); } },
+    svg: async (ab,f)=>{ const done=prep(); try{ const svg=sonimExport.toSVG(ab);
+      if(await copyText(svg)) return 'SVG copied. In Figma press Ctrl/⌘ + V.';
+      download(new Blob([svg],{type:'image/svg+xml'}), 'Sonim_'+f.id+'.svg'); return 'Clipboard blocked by the browser, so the SVG was downloaded instead.'; } finally{ done(); } },
   };
   $$('.frame').forEach(f=>{
     const tools=document.createElement('div'); tools.className='frame-tools';
-    tools.innerHTML='<button class="tool" data-act="svg" title="Copy as SVG: paste into Figma as editable vectors and text">Copy SVG</button>'
-      +'<button class="tool" data-act="figma" title="Copy with auto layout: paste in Figma with the Sonim template paste plugin">Copy for Figma</button>'
-      +'<button class="tool icon" data-act="download" title="Download SVG" aria-label="Download SVG"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 2v8M4 7l4 4 4-4M2.5 14h11"/></svg></button>';
+    tools.innerHTML='<button class="tool" data-act="svg" title="Copy as SVG, then paste into Figma with Ctrl/⌘ + V">Copy SVG</button>';
     $('.ab-wrap',f).appendChild(tools);
     tools.addEventListener('click',async e=>{ const b=e.target.closest('[data-act]'); if(!b) return; e.stopPropagation();
       b.disabled=true; try{ toast(await ACTIONS[b.dataset.act]($('.ab',f),f)); b.classList.add('done'); setTimeout(()=>b.classList.remove('done'),1400); }

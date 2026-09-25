@@ -15,11 +15,11 @@ require('fs').mkdirSync(require('path').resolve(__dirname, '../../.qa'), { recur
     return { cols, fonts, bgs, imgs, broken, pseudo, nodes, frames: document.querySelectorAll('.ab').length };
   });
   console.log(JSON.stringify(r, null, 1));
-  // every artboard exports to SVG and to the Figma plugin JSON without errors
+  // every artboard exports to SVG without errors
   console.log('exports:', await p.evaluate(() => { const bad = []; let n = 0;
     document.querySelectorAll('.frame').forEach(f => { const ab = f.querySelector('.ab');
       try { const s = sonimExport.toSVG(ab); new DOMParser().parseFromString(s, 'image/svg+xml').querySelector('parsererror') && bad.push(f.id + ' svg-parse');
-            JSON.parse(sonimExport.toFigma(ab)); n++; } catch (e) { bad.push(f.id + ' ' + e.message); } });
+            n++; } catch (e) { bad.push(f.id + ' ' + e.message); } });
     return { ok: n, bad }; }));
   console.log('hover tools:', await p.evaluate(() => document.querySelectorAll('.frame-tools').length));
   // figma mode hides chrome

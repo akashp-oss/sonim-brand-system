@@ -1,4 +1,4 @@
-import sys, base64, os, json
+import sys, base64, os, json, re
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -19,6 +19,7 @@ for sid, title, intro in T.SECTION_META:
     sections_html.append(
         f'<section class="lib-section" id="sec-{sid}" data-name="{esc(title)}">'
         f'<header class="sec-head"><div class="sec-notch"></div><div><div class="sec-label">Template set</div><h2>{esc(title)}</h2><p>{esc(intro)}</p></div></header>'
+        f'<h2 class="figma-title" data-name="{esc(title)} title">{esc(title)}</h2>'
         f'<div class="frames">{"".join(frames)}</div></section>')
 
 CSS = r"""
@@ -147,14 +148,31 @@ body.editing .ab img{cursor:copy}
 }
 @media (hover:none){.frame-tools{opacity:1;transform:none}}
 /* ---------- Figma import view: true size, no chrome ---------- */
-body.figma .topbar,body.figma .toast,body.figma .sidebar,body.figma .sec-head,body.figma .frame-meta,body.figma .frame-tools,body.figma .scrim{display:none}
+body.figma .topbar,body.figma .sidebar,body.figma .sec-head,body.figma .frame-meta,body.figma .frame-tools,body.figma .scrim{display:none}
 body.figma .canvas{margin:0;padding:60px}
 body.figma .frames{gap:120px}
 body.figma .ab-wrap{outline:0}
-@media print{.topbar,.sidebar,.sec-head,.frame-meta,.frame-tools{display:none}.canvas{margin:0;padding:0}.frame{break-after:page}}
+body.figma .toast{z-index:95}
+
+/* Figma import view bar: pick a set, exit */
+.figma-bar,.figma-title{display:none}
+body.figma .figma-bar{display:flex;position:fixed;top:0;left:0;right:0;z-index:90;align-items:center;gap:16px;padding:10px 16px;background:#fff;border-bottom:1px solid var(--line);font-size:12px}
+.figma-bar b{white-space:nowrap}
+.chips-row{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:thin}
+.fchip{font:700 12px/1 var(--ui);height:30px;padding:0 10px;border:1px solid var(--line);background:#fff;color:#000;cursor:pointer;white-space:nowrap}
+.fchip:hover{border-color:#000}.fchip.on{background:#000;color:#fff;border-color:#000}
+.figma-bar kbd{font:400 10px var(--ui);border:1px solid currentColor;padding:1px 4px;margin-left:4px}
+body.figma .canvas{padding-top:110px}
+body.figma .figma-title{display:block;font-size:40px;line-height:1;letter-spacing:-.025em;margin:0 0 40px}
+body.figma .lib-section{margin-bottom:160px}
+@media print{.figma-bar{display:none}.topbar,.sidebar,.sec-head,.frame-meta,.frame-tools{display:none}.canvas{margin:0;padding:0}.frame{break-after:page}}
 """
 
 LOGO_UI = f'<svg viewBox="0 0 152 52" fill="#000" aria-label="Sonim">{LOGO_PATHS}</svg>'
+# favicon: the logo's "i" + connectivity lines, white on Sonim Red
+_MARK = ''.join(re.findall(r'<rect x="92[^>]*/>|<path d="M(?:108\.505|104\.667|100\.871)[^>]*/>', LOGO_PATHS))
+FAVICON = ('data:image/svg+xml,' + __import__('urllib.parse').parse.quote(
+    f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="63 -7 64 64"><rect x="63" y="-7" width="64" height="64" fill="#CF102D"/><g fill="#fff">{_MARK}</g></svg>'))
 JS = (open(HERE / 'export.js').read() + '\n' + open(HERE / 'app.js').read()).replace('__MARGINS__', json.dumps(MARGINS))
 
 CHIPS = ''.join(f'<button class="chip" data-hex="{h}" title="Copy {h}"><s style="background:{h}"></s><span><b>{n}</b>{h}</span></button>'
@@ -174,7 +192,7 @@ RULES = f"""
     <li class="no"><i>×</i>Red type on black</li><li class="no"><i>×</i>Gray type on white</li>
     <li class="no"><i>×</i>Tinted or filtered photography</li><li class="no"><i>×</i>All caps or Title Case</li></ul></div>
 </div>
-<div class="hint"><b>Copy to Figma</b>Hover any template. <b style="display:inline">Copy SVG</b> pastes straight into Figma with Ctrl/⌘ + V. <b style="display:inline">Copy for Figma</b> keeps auto layout; paste it with the Sonim template paste plugin (<code>figma-plugin/</code>).</div>
+<div class="hint"><b>Copy to Figma</b>Hover any template and click <b style="display:inline">Copy SVG</b>, then press Ctrl/⌘ + V in Figma. For many at once, use <b style="display:inline">Figma import view</b>: pick a set, then run your HTML to Figma plugin.</div>
 """
 
 total = len(T.F)
@@ -184,6 +202,7 @@ page = f"""<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sonim brand template library</title>
+<link rel="icon" type="image/svg+xml" href="{FAVICON}">
 <style>{CSS}</style>
 </head>
 <body>
@@ -204,6 +223,11 @@ page = f"""<!doctype html>
   {RULES}
 </nav>
 <div class="scrim"></div>
+<div class="figma-bar" data-name="Figma view bar">
+  <b>Figma import view</b>
+  <div class="chips-row"><button class="fchip on" data-only="">All</button>{''.join(f'<button class="fchip" data-only="{sid}">{esc(t)}</button>' for sid, t, _ in T.SECTION_META)}</div>
+  <button class="btn" id="btn-exit-figma">Exit <kbd>Esc</kbd></button>
+</div>
 <main class="canvas" data-name="Canvas">
 {''.join(sections_html)}
 </main>

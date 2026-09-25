@@ -19,15 +19,8 @@ Download an HTML file and open it in Chrome or Edge. The files are self-containe
 
 ## Copy templates into Figma
 
-Hover any template in the library for three buttons:
-
-| Button | What you get in Figma |
-|---|---|
-| **Copy SVG** | Press Ctrl/⌘ + V on the canvas. You get editable text, vector logo, notches and icons, and cropped photos, with named layers. No plugin needed. |
-| **Copy for Figma** | Native frames **with auto layout** on every stack. Paste with the bundled plugin: [`figma-plugin/`](figma-plugin/README.md) (import `manifest.json` once via Plugins → Development). |
-| ↓ | Downloads the SVG file. |
-
-The whole library can still go through an HTML to Figma plugin such as html.to.design: click **Figma import view** (or add `?figma` to the URL), then run the plugin on that tab.
+- **One template:** hover it, click **Copy SVG**, then press Ctrl/⌘ + V in Figma. You get editable text, the vector logo, notches and icons, and cropped photos, all with named layers. If the browser blocks the clipboard, the SVG downloads instead.
+- **A whole set:** click **Figma import view** and pick a set in the top bar (for example *Social media graphics*). Then run your HTML to Figma plugin (for example html.to.design) on that tab. Leave with **Exit** or Esc. You can also link straight to a set with `?figma=social`, `?figma=ig`, `?figma=carousel` and so on.
 
 ## Hosting on Netlify
 
@@ -55,7 +48,6 @@ brand/        logo + brand-styled icons (shared)
 library/      template library: src/ (generator, templates, images) → dist/
 whitepaper/   white paper: src/ (HTML, CSS, images), scripts/ (render, editor, docx) → dist/
 reference/    client brief, brandbook, social media guideline
-figma-plugin/ "Sonim template paste": pastes Copy for Figma output with auto layout
 docs/         supporting notes
 ```
 
