@@ -6,27 +6,32 @@
 <title>Sonim brand template library</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%2263%20-7%2064%2064%22%3E%3Crect%20x%3D%2263%22%20y%3D%22-7%22%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23CF102D%22/%3E%3Cg%20fill%3D%22%23fff%22%3E%3Crect%20x%3D%2292.1178%22%20y%3D%2221.6775%22%20width%3D%226.16139%22%20height%3D%2228.6518%22/%3E%3Cpath%20d%3D%22M108.505%203.34401C106.79%202.36194%20101.95%200%2095.2328%200C87.2384%200%2082.4704%203.11347%2081.9641%203.46493L83.6728%206.69028C84.204%206.35464%2088.5787%203.71921%2095.2475%203.71921C100.927%203.71921%20105.244%205.80088%20106.766%206.63604L108.505%203.34401Z%22/%3E%3Cpath%20d%3D%22M104.667%208.93927C103.518%208.19453%20100.42%206.57959%2095.2293%206.57959C89.5686%206.57959%2086.5625%208.40812%2085.7432%208.99126L87.5061%2012.3127C88.0407%2011.9205%2090.6094%2010.2434%2095.2293%2010.2434C99.3791%2010.2434%20101.972%2011.6968%20102.885%2012.3059L104.667%208.93927Z%22/%3E%3Cpath%20d%3D%22M100.871%2014.5654C100.022%2014.0625%2097.9743%2013.094%2095.2281%2013.094C92.2051%2013.094%2090.1517%2014.2162%2089.5278%2014.6072L91.3055%2017.9964C91.5417%2017.8721%2093.2346%2016.9025%2095.3276%2016.9025C97.0793%2016.9025%2098.5575%2017.593%2099.1123%2017.8925L100.871%2014.5654Z%22/%3E%3C/g%3E%3C/svg%3E">
 <style>
-:root{--red:#CF102D;--black:#000;--gray:#E5ECEE;--white:#fff;--line:#E5ECEE;--ui:Arial,"Liberation Sans",Helvetica,sans-serif;--top:60px;--side:264px}
+:root{--red:#CF102D;--black:#000;--gray:#E5ECEE;--white:#fff;--line:#E5ECEE;--ui:Arial,"Liberation Sans",Helvetica,sans-serif;--top:64px;--side:288px;--bg:#F5F5F5}
 *{box-sizing:border-box}
 html{scroll-padding-top:calc(var(--top) + 16px)}
-html,body{margin:0;background:#fff;color:#000;font-family:var(--ui)}
+html,body{margin:0;background:var(--bg);color:#000;font-family:var(--ui)}
 button{font-family:var(--ui)}
 :focus-visible{outline:2px solid var(--red);outline-offset:2px}
+/* slim scrollbars */
+*{scrollbar-width:thin;scrollbar-color:#C4C4C4 transparent}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#C4C4C4;border:2px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:#8A8A8A;background-clip:padding-box}
 /* ---------- app bar ---------- */
-.topbar{position:fixed;top:0;left:0;right:0;height:var(--top);background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;padding:0 16px 0 0;z-index:30}
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--top);background:#000;color:#fff;display:flex;align-items:center;gap:8px;padding:0 16px 0 0;z-index:30}
 .topbar .mark{width:8px;height:44px;background:var(--red);clip-path:polygon(0 0,100% 10%,100% 90%,0 100%);flex:none;margin-right:16px}
 .topbar .brand{display:flex;align-items:center;gap:14px;margin-right:auto;min-width:0}
 .topbar .brand svg{height:22px;width:auto;display:block;flex:none}
 .topbar .brand b{font-size:14px;letter-spacing:-.01em;white-space:nowrap}
-.topbar .brand span{font-size:12px;border-left:1px solid var(--line);padding-left:14px;white-space:nowrap}
-.btn{font:700 12px/1 var(--ui);color:#000;background:#fff;border:1px solid var(--line);border-radius:0;height:34px;padding:0 12px;cursor:pointer;white-space:nowrap}
-.btn:hover{border-color:#000}.btn.on{background:#000;color:#fff;border-color:#000}.btn.red{background:var(--red);border-color:var(--red);color:#fff}
-.btn.red:hover{background:#000;border-color:#000}
+.topbar .brand span{font-size:12px;border-left:1px solid #333;padding-left:14px;white-space:nowrap}
+.btn{font:700 13px/1 var(--ui);color:#fff;background:transparent;border:1px solid #444;border-radius:0;height:38px;padding:0 16px;transition:background .15s,border-color .15s,color .15s;cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:#fff}.btn.on{background:#fff;color:#000;border-color:#fff}.btn.red{background:var(--red);border-color:var(--red);color:#fff}
+.btn.red:hover,.btn.red.on{background:#fff;border-color:#fff;color:#000}
 .seg{display:flex}.seg .btn+.btn{margin-left:-1px}
-.sep{width:1px;height:26px;background:var(--line);margin:0 4px}
+.sep{width:1px;height:26px;background:#333;margin:0 4px}
 #btn-menu{display:none}
 /* ---------- sidebar ---------- */
-.sidebar{position:fixed;top:var(--top);bottom:0;left:0;width:var(--side);border-right:1px solid var(--line);background:#fff;overflow:auto;padding:24px 0 32px;z-index:20}
+.sidebar{position:fixed;top:var(--top);bottom:0;left:0;width:var(--side);border-right:1px solid #E0E0E0;background:#fff;overflow:auto;padding:28px 0 32px;z-index:20}
 .side-h{font-size:11px;font-weight:700;color:var(--red);margin:0 24px 8px}
 .nav-item{display:flex;justify-content:space-between;align-items:center;padding:8px 24px 8px 20px;color:#000;text-decoration:none;font-size:14px;font-weight:700;border-left:4px solid transparent}
 .nav-item em{font-style:normal;font-weight:400;font-size:12px;min-width:20px;text-align:right}
@@ -54,28 +59,29 @@ button{font-family:var(--ui)}
 .hint b{display:block;margin-bottom:4px}
 .scrim{display:none}
 /* ---------- canvas ---------- */
-.canvas{margin:var(--top) 0 0 var(--side);padding:40px 48px 120px}
-.lib-section{margin-bottom:88px}
-.sec-head{display:flex;gap:40px;align-items:flex-start;margin:0 0 32px -48px}
+.canvas{margin:var(--top) 0 0 var(--side);padding:56px 56px 160px}
+.lib-section{margin-bottom:0;padding-bottom:120px}
+.lib-section+.lib-section{padding-top:72px;border-top:1px solid #E0E0E0}
+.sec-head{display:flex;gap:40px;align-items:flex-start;margin:0 0 40px -56px}
 .sec-notch{width:8px;height:112px;background:var(--red);clip-path:polygon(0 0,100% 11%,100% 89%,0 100%);flex:none}
 .sec-label{font-size:12px;font-weight:700;color:var(--red);margin:0 0 6px}
 .sec-head h2{font-size:40px;line-height:1;letter-spacing:-.025em;margin:0 0 12px}
 .sec-head p{font-size:14px;line-height:1.45;margin:0;max-width:680px}
-.frames{display:flex;flex-wrap:wrap;gap:48px 40px;align-items:flex-start}
+.frames{display:flex;flex-wrap:wrap;gap:64px 48px;align-items:flex-start}
 .frame{margin:0;min-width:0}
 .frame-meta{display:flex;flex-direction:column;gap:3px;margin-bottom:12px;font-size:12px;line-height:1.35}
 .frame-meta b{font-size:13px}
-.ab-wrap{position:relative;z-index:0;overflow:hidden;outline:1px solid var(--line)}
+.ab-wrap{position:relative;z-index:0;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.06)}
 /* hover tools (UI only, never exported) */
 .frame-tools{position:absolute;top:8px;right:8px;display:flex;gap:4px;opacity:0;transform:translateY(-4px);transition:opacity .15s,transform .15s;z-index:60}
 .ab-wrap:hover .frame-tools,.frame-tools:focus-within{opacity:1;transform:none}
 .frame.tiny .ab-wrap{overflow:visible}
 .frame.tiny .frame-tools{bottom:auto;top:calc(100% + 6px);right:auto;left:0;opacity:1;transform:none}
 .frame.tiny{margin-bottom:34px}
-.tool{font:700 11px/1 var(--ui);height:28px;padding:0 10px;border:1px solid #000;background:#fff;color:#000;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap}
-.tool:hover{background:#000;color:#fff}
+.tool{font:700 12px/1 var(--ui);height:32px;padding:0 14px;border:0;background:var(--red);color:#fff;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.tool:hover{background:#000}
 .tool.icon{padding:0 7px}
-.tool.done{background:var(--red);border-color:var(--red);color:#fff}
+.tool.done{background:#000}
 .tool:disabled{cursor:progress;opacity:.7}
 .ab{position:relative;overflow:hidden;transform-origin:0 0;font-family:Arial,"Liberation Sans",Helvetica,sans-serif;color:#000;--em:#CF102D}
 /* ---------- artboard primitives (these become Figma layers) ---------- */
@@ -134,20 +140,21 @@ body.editing .ab img{cursor:copy}
 body.figma .topbar,body.figma .sidebar,body.figma .sec-head,body.figma .frame-meta,body.figma .frame-tools,body.figma .scrim{display:none}
 body.figma .canvas{margin:0;padding:60px}
 body.figma .frames{gap:120px}
-body.figma .ab-wrap{outline:0}
+body.figma .ab-wrap{box-shadow:none}
+body.figma,body.figma .canvas{background:#fff}
 body.figma .toast{z-index:95}
 
 /* Figma import view bar: pick a set, exit */
 .figma-bar,.figma-title{display:none}
-body.figma .figma-bar{display:flex;position:fixed;top:0;left:0;right:0;z-index:90;align-items:center;gap:16px;padding:10px 16px;background:#fff;border-bottom:1px solid var(--line);font-size:12px}
+body.figma .figma-bar{display:flex;position:fixed;top:0;left:0;right:0;z-index:90;align-items:center;gap:16px;padding:12px 16px;background:#000;color:#fff;font-size:12px}
 .figma-bar b{white-space:nowrap}
 .chips-row{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:thin}
-.fchip{font:700 12px/1 var(--ui);height:30px;padding:0 10px;border:1px solid var(--line);background:#fff;color:#000;cursor:pointer;white-space:nowrap}
-.fchip:hover{border-color:#000}.fchip.on{background:#000;color:#fff;border-color:#000}
+.fchip{font:700 12px/1 var(--ui);height:34px;padding:0 12px;border:1px solid #444;background:transparent;color:#fff;cursor:pointer;white-space:nowrap}
+.fchip:hover{border-color:#fff}.fchip.on{background:var(--red);border-color:var(--red)}
 .figma-bar kbd{font:400 10px var(--ui);border:1px solid currentColor;padding:1px 4px;margin-left:4px}
 body.figma .canvas{padding-top:110px}
 body.figma .figma-title{display:block;font-size:40px;line-height:1;letter-spacing:-.025em;margin:0 0 40px}
-body.figma .lib-section{margin-bottom:160px}
+body.figma .lib-section{margin-bottom:160px;border-top:0;padding-top:0;padding-bottom:0}
 @media print{.figma-bar{display:none}.topbar,.sidebar,.sec-head,.frame-meta,.frame-tools{display:none}.canvas{margin:0;padding:0}.frame{break-after:page}}
 </style>
 </head>
@@ -155,7 +162,7 @@ body.figma .lib-section{margin-bottom:160px}
 <header class="topbar" data-name="App bar">
   <div class="mark"></div>
   <button class="btn" id="btn-menu" aria-label="Template sets">Menu</button>
-  <div class="brand"><svg viewBox="0 0 152 52" fill="#000" aria-label="Sonim"><path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
+  <div class="brand"><svg viewBox="0 0 152 52" fill="#fff" aria-label="Sonim"><path d="M4.0978 41.8083C6.22807 44.1702 9.74499 46.0089 12.8652 46.0089C16.3211 46.0089 18.4028 43.9962 18.4028 42.3948C18.4028 40.5018 16.9483 39.5028 14.765 39.0835L11.3577 38.4303C3.52144 36.9578 1.32902 34.3517 1.32902 30.2675C1.32902 25.4103 5.30476 20.9102 12.2753 20.9102C16.1448 20.9102 19.5555 22.099 23.3584 24.8803L19.9477 29.1984C17.0162 26.6523 14.4158 26.0036 12.4573 26.0036C9.86478 26.0036 7.31637 27.3032 7.31637 29.6154C7.31637 31.3321 8.65443 32.2113 10.9599 32.6362L17.0162 33.8195C21.9649 34.7597 24.3913 37.1929 24.3913 41.4523C24.3913 45.6586 21.0495 51.1035 12.5748 51.1035C7.84639 51.1035 3.81301 49.3868 0 46.0654L4.0978 41.8083Z"/>
   <path fill-rule="evenodd" d="M33.878 36.0059C33.878 30.8503 37.5836 26.7107 42.694 26.7107C47.792 26.7107 51.4954 30.8503 51.4954 36.0059C51.4954 41.1525 47.792 45.3011 42.694 45.3011C37.5836 45.3011 33.878 41.1525 33.878 36.0059ZM27.71 36.0061C27.71 43.5881 33.217 51.1034 42.693 51.1034C52.1657 51.1034 57.6693 43.5881 57.6693 36.0061C57.6693 28.4299 52.1657 20.9089 42.693 20.9089C33.217 20.9089 27.71 28.4299 27.71 36.0061Z"/>
   <rect x="92.1178" y="21.6775" width="6.16139" height="28.6518"/>
   <path d="M104.009 32.4028C104.009 25.1169 108.859 20.9106 114.477 20.9106C118.799 20.9106 121.94 22.9855 123.065 26.0041H123.178C124.304 22.9855 127.441 20.9106 131.751 20.9106C137.379 20.9106 142.24 25.1169 142.24 32.4028V50.3298H136.083V32.4548C136.083 29.0226 133.888 27.063 131.344 27.063C128.383 27.063 126.193 28.8486 126.193 33.282V50.3298H120.041V33.282C120.041 28.8486 117.855 27.063 114.891 27.063C112.342 27.063 110.166 29.0226 110.166 32.4548V50.3298H104.009V32.4028Z"/>
