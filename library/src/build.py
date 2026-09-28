@@ -36,7 +36,7 @@ button{font-family:var(--ui)}
 ::-webkit-scrollbar-thumb:hover{background:#8A8A8A;background-clip:padding-box}
 /* ---------- app bar ---------- */
 .topbar{position:fixed;top:0;left:0;right:0;height:var(--top);background:#000;color:#fff;display:flex;align-items:center;gap:8px;padding:0 16px 0 0;z-index:30}
-.topbar .mark{width:8px;height:44px;background:var(--red);clip-path:polygon(0 0,100% 10%,100% 90%,0 100%);flex:none;margin-right:16px}
+.topbar .mark{width:8px;height:44px;background:var(--red);clip-path:polygon(0 0,100% 9%,100% 91%,0 100%);flex:none;margin-right:16px}
 .topbar .brand{display:flex;align-items:center;gap:14px;margin-right:auto;min-width:0}
 .topbar .brand svg{height:22px;width:auto;display:block;flex:none}
 .topbar .brand b{font-size:14px;letter-spacing:-.01em;white-space:nowrap}
@@ -80,7 +80,7 @@ button{font-family:var(--ui)}
 .lib-section{margin-bottom:0;padding-bottom:120px}
 .lib-section+.lib-section{padding-top:72px;border-top:1px solid #E0E0E0}
 .sec-head{display:flex;gap:40px;align-items:flex-start;margin:0 0 40px -56px}
-.sec-notch{width:8px;height:112px;background:var(--red);clip-path:polygon(0 0,100% 11%,100% 89%,0 100%);flex:none}
+.sec-notch{width:8px;height:112px;background:var(--red);clip-path:polygon(0 0,100% 3.6%,100% 96.4%,0 100%);flex:none}
 .sec-label{font-size:12px;font-weight:700;color:var(--red);margin:0 0 6px}
 .sec-head h2{font-size:40px;line-height:1;letter-spacing:-.025em;margin:0 0 12px}
 .sec-head p{font-size:14px;line-height:1.45;margin:0;max-width:680px}
@@ -192,9 +192,10 @@ RULES = f"""
     <div class="sample">Headline in black, <em>key phrase in red.</em></div>
     <dl class="kv"><dt>Font</dt><dd>Akzidenz Grotesk Bold / Regular. Arial if not installed.</dd><dt>Case</dt><dd>Sentence case, flush left, ends with a period.</dd></dl></div>
   <div class="rule"><h4>Layout</h4>
-    <dl class="kv"><dt>Margin</dt><dd>M ≈ 7.4% of the short side</dd><dt>Notch</dt><dd>X × 18X, X = M ÷ 5. Left edge, top aligned to the label.</dd></dl></div>
+    <dl class="kv"><dt>Margin</dt><dd>M ≈ 7.4% of the short side</dd><dt>Notch</dt><dd>X × 18X, X = M ÷ 5, ends angled 26.5°. Left edge, top aligned to the label.</dd><dt>Container</dt><dd>Official sizes only, 3.75 × 5 to 6.25 × 8 in. Always taller than wide.</dd></dl></div>
   <div class="rule"><h4>Logo</h4>
-    <dl class="kv"><dt>Colour</dt><dd>Single colour only</dd><dt>Place</dt><dd>Bottom-left, on the margin</dd><dt>Min</dt><dd>50 px / 0.5 in</dd></dl></div>
+    <dl class="kv"><dt>Lockup</dt><dd>Sonim, a NEXA company. Wordmark alone below 100 px wide.</dd><dt>Colour</dt><dd>Single colour only</dd><dt>Place</dt><dd>Bottom-left, on the margin</dd><dt>Min</dt><dd>50 px / 0.5 in</dd></dl></div>
+  <div class="rule"><h4>Icons</h4><p>Official Sonim line icons: black line, one red detail. The rugged-standard icons carry the red check-shield badge. See Brand assets.</p></div>
   <div class="rule"><h4>Never</h4><ul>
     <li class="no"><i>×</i>Red type on black</li><li class="no"><i>×</i>Gray type on white</li>
     <li class="no"><i>×</i>Tinted or filtered photography</li><li class="no"><i>×</i>All caps or Title Case</li></ul></div>

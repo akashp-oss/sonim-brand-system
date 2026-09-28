@@ -5,7 +5,27 @@ ROOT = Path(__file__).resolve().parents[2]          # repo root
 
 RED, BLACK, GRAY, WHITE = '#CF102D', '#000000', '#E5ECEE', '#FFFFFF'
 LOGO_PATHS = re.sub(r'<metadata>.*?</metadata>', '', open(ROOT / 'brand/logo/sonim-logo.svg').read(), flags=re.S).split('>', 1)[1].rsplit('</svg>', 1)[0].strip()
+# Official Sonim NEXA lockup ("sonim® / A NEXA Company"), trimmed to its artwork bounds.
+# Used for every logo >= NEXA_MIN_W wide; below that the wordmark alone stays legible.
+NEXA_PATHS = re.sub(r'<\?xml[^>]*>|<!--.*?-->', '', open(ROOT / 'Logo/Sonim_logo_solid_black_1C_NEXA.svg').read(), flags=re.S).split('>', 1)[1].rsplit('</svg>', 1)[0].strip()
+NEXA_PATHS = re.sub(r'\s(fill|stroke)="#[0-9a-fA-F]{3,6}"', '', NEXA_PATHS)   # single colour: inherit the logo colour
+NEXA_VB, NEXA_MIN_W = (180, 222.18, 1434.16, 620.84), 100
+NEXA_RATIO = NEXA_VB[3] / NEXA_VB[2]
+
+# Official Rugged Container sizes (Rugged Template/, inches incl. both notches): height / width ratios.
+_RT = ROOT / 'Rugged Template/PNG versions/Gray'
+RUGGED_SIZES = sorted({tuple(map(float, re.search(r'(\d+(?:\.\d+)?) x (\d+(?:\.\d+)?)', f.name).groups())) for f in _RT.glob('*.png')}) if _RT.exists() else []
+RUGGED_RATIOS = sorted({round(h / w, 4) for w, h in RUGGED_SIZES}) or [1.04, 1.6]
+
+# Icons: official Sonim iconography (Icons/ -> brand/icons/import_sonim_icons.py) wins; the older
+# Tabler-based brand icons fill the gaps (ambulance, dispatch, events...). Old keys alias to official art.
 ICONS = json.load(open(ROOT / 'brand/icons/icons.json'))
+SONIM_ICONS = json.load(open(ROOT / 'brand/icons/sonim.json'))
+ICONS.update(SONIM_ICONS)
+for old, new in {'battery': 'battery-general', 'glove': 'rps-glove', 'rugged': 'rps-general', 'voice': 'rps-audio',
+                 'software': 'sonim-ware', 'cloud': 'sonim-ware', 'ptt': 'custom-side-button', 'signal': 'tower',
+                 'coverage': 'tower', 'data': 'data-transfer', 'devices': 'multiple-users'}.items():
+    ICONS[old] = SONIM_ICONS[new]
 ICONS['check'] = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#CF102D" stroke-width="3" stroke-linecap="square"><path d="M4 12.5l5 5L20 6.5"/></svg>'
 ICONS['arrow'] = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h17M14 6l6 6-6 6"/></svg>'
 
@@ -47,32 +67,46 @@ def cutout(name, key, l, t, w, h, pos='50% 50%'):
             f'style="{st({"left": px(l), "top": px(t), "width": px(w), "height": px(h), "object-position": pos})}">')
 
 def notch_svg(x, color, direction='right', name='Notch'):
-    """Brand notch: 18:1 with 26.5deg ends (2X rise over X run). direction = side the angled edge faces."""
-    pts = '0,0 1,2 1,16 0,18' if direction == 'right' else '1,0 0,2 0,16 1,18'
+    """Brand notch: 18:1, ends angled 26.5deg (X/2 along the length per X of depth, as in the official containers). direction = side the angled edge faces."""
+    pts = '0,0 1,0.5 1,17.5 0,18' if direction == 'right' else '1,0 0,0.5 0,17.5 1,18'
     return (f'<svg class="notch-svg" data-name="{name}" width="{x}" height="{18*x}" viewBox="0 0 1 18" preserveAspectRatio="none">'
             f'<polygon points="{pts}" fill="{color}"/></svg>')
 
 def notch_h_svg(x, color, name='Notch (rotated)'):
     """Notch rotated 90deg: protrudes upward from a panel's top edge."""
     return (f'<svg class="notch-svg" data-name="{name}" width="{18*x}" height="{x}" viewBox="0 0 18 1" preserveAspectRatio="none">'
-            f'<polygon points="0,1 2,0 16,0 18,1" fill="{color}"/></svg>')
+            f'<polygon points="0,1 0.5,0 17.5,0 18,1" fill="{color}"/></svg>')
 
 def page_notch(x, top, color=RED, left=0):
     return box('Notch', l=left, t=top, w=x, h=18*x, cls='graphic', inner=notch_svg(x, color))
 
-def logo(w, color, l=None, t=None, r=None, b=None, name='Sonim logo'):
-    h = round(w * 52 / 152, 1)
-    svg = f'<svg data-name="Logo mark" width="{w}" height="{h}" viewBox="0 0 152 52" fill="{color}">{LOGO_PATHS}</svg>'
+def logo(w, color, l=None, t=None, r=None, b=None, name='Sonim logo', lockup=None):
+    """NEXA lockup when w >= NEXA_MIN_W (or lockup=True); the wordmark alone for small sizes."""
+    if lockup if lockup is not None else w >= NEXA_MIN_W:
+        h = round(w * NEXA_RATIO, 1)
+        svg = f'<svg data-name="Logo mark (NEXA lockup)" width="{w}" height="{h}" viewBox="{" ".join(map(str, NEXA_VB))}" fill="{color}">{NEXA_PATHS}</svg>'
+    else:
+        h = round(w * 52 / 152, 1)
+        svg = f'<svg data-name="Logo mark" width="{w}" height="{h}" viewBox="0 0 152 52" fill="{color}">{LOGO_PATHS}</svg>'
     return box(name, l=l, t=t, r=r, b=b, w=w, h=h, cls='logo', inner=svg)
 
 def logo_vertical(h, color, l, t, name='Sonim logo (vertical)'):
-    w = round(h * 52 / 152, 1)
-    svg = (f'<svg data-name="Logo mark" width="{w}" height="{h}" viewBox="0 0 52 152" fill="{color}">'
-           f'<g transform="translate(0 152) rotate(-90)">{LOGO_PATHS}</g></svg>')
+    x0, y0, vw, vh = NEXA_VB
+    w = round(h * NEXA_RATIO, 1)
+    svg = (f'<svg data-name="Logo mark (NEXA lockup)" width="{w}" height="{h}" viewBox="0 0 {vh} {vw}" fill="{color}">'
+           f'<g transform="translate({-y0} {vw + x0}) rotate(-90)">{NEXA_PATHS}</g></svg>')
     return box(name, l=l, t=t, w=w, h=h, cls='logo', inner=svg)
 
-def rugged(name, l, t, w, h, x, color, content, pad=None, content_style=None):
-    """Rugged Container: fill + right notch 2X from top + left notch 2X from bottom. Live area inset 2X."""
+def rugged_height(w, h, x):
+    """Snap h so the container (width incl. both notches) matches the nearest official size ratio."""
+    overall = w + 2 * x
+    return round(overall * min(RUGGED_RATIOS, key=lambda r: abs(r - h / overall)))
+
+def rugged(name, l, t, w, h, x, color, content, pad=None, content_style=None, snap=True):
+    """Rugged Container: fill + right notch 2X from top + left notch 2X from bottom. Live area inset 2X.
+    Height snaps to the official container proportions (Rugged Template/) unless snap=False."""
+    if snap:
+        h = rugged_height(w, h, x)
     nh = min(18 * x, h / 2 - 2 * x)
     pad = 2 * x if pad is None else pad
     right = box('Right notch', l=w, t=2 * x, w=x, h=nh, cls='graphic', inner=notch_svg(x, color, 'right').replace(f'height="{18*x}"', f'height="{nh}"'))

@@ -10,7 +10,7 @@ steps, sourced facts and open items.
 
 | What | File |
 |---|---|
-| Brand template library: 55 templates across 10 sets | [`library/dist/Sonim_Brand_Template_Library.html`](library/dist/Sonim_Brand_Template_Library.html) |
+| Brand template library: 58 templates across 11 sets | [`library/dist/Sonim_Brand_Template_Library.html`](library/dist/Sonim_Brand_Template_Library.html) |
 | EMS white paper (PDF) | [`whitepaper/dist/Sonim_EMS_Whitepaper_Connected_Care_in_Motion.pdf`](whitepaper/dist/) |
 | White paper editor (Figma-style, in the browser) | [`whitepaper/dist/Sonim_EMS_Whitepaper_EDITOR.html`](whitepaper/dist/) |
 | White paper design system, blank template, Word content | [`whitepaper/dist/`](whitepaper/dist/) |
@@ -44,7 +44,8 @@ make qa           # screenshots and checks into .qa/
 ## Structure
 
 ```
-brand/        logo + brand-styled icons (shared)
+Icons/ Logo/ Rugged Template/   official client assets (source of truth)
+brand/        processed logo + icons used by the build (shared)
 library/      template library: src/ (generator, templates, images) → dist/
 whitepaper/   white paper: src/ (HTML, CSS, images), scripts/ (render, editor, docx) → dist/
 reference/    client brief, brandbook, social media guideline
