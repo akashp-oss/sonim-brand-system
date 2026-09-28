@@ -1,12 +1,16 @@
 # Sonim brand system — build targets. Requires Python 3.10+, Node 18+, Playwright (Chromium)
 # and the Arial font installed (the brand-approved fallback for Akzidenz Grotesk).
 
-.PHONY: all library whitepaper editor docx icons qa
+.PHONY: all assets library whitepaper editor docx icons qa
 
-all: icons library whitepaper editor
+all: assets library whitepaper editor
 
-icons:            ## regenerate brand/icons/*.svg + icons.json
+assets:           ## official client assets (Icons/, Logo/) -> brand/icons/all.json + brand/logo/sonim-nexa-lockup.svg
+	python3 brand/import_client_assets.py
+
+icons:            ## regenerate the Tabler-based brand/icons/*.svg + icons.json, then the merged set
 	python3 brand/icons/make_icons.py
+	python3 brand/import_client_assets.py
 
 library:          ## library/dist/Sonim_Brand_Template_Library.html
 	python3 library/src/build.py

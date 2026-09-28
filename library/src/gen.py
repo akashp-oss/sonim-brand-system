@@ -7,9 +7,10 @@ RED, BLACK, GRAY, WHITE = '#CF102D', '#000000', '#E5ECEE', '#FFFFFF'
 LOGO_PATHS = re.sub(r'<metadata>.*?</metadata>', '', open(ROOT / 'brand/logo/sonim-logo.svg').read(), flags=re.S).split('>', 1)[1].rsplit('</svg>', 1)[0].strip()
 # Official Sonim NEXA lockup ("sonim® / A NEXA Company"), trimmed to its artwork bounds.
 # Used for every logo >= NEXA_MIN_W wide; below that the wordmark alone stays legible.
-NEXA_PATHS = re.sub(r'<\?xml[^>]*>|<!--.*?-->', '', open(ROOT / 'Logo/Sonim_logo_solid_black_1C_NEXA.svg').read(), flags=re.S).split('>', 1)[1].rsplit('</svg>', 1)[0].strip()
-NEXA_PATHS = re.sub(r'\s(fill|stroke)="#[0-9a-fA-F]{3,6}"', '', NEXA_PATHS)   # single colour: inherit the logo colour
-NEXA_VB, NEXA_MIN_W = (180, 222.18, 1434.16, 620.84), 100
+NEXA_SVG = open(ROOT / 'brand/logo/sonim-nexa-lockup.svg').read()   # built by brand/import_client_assets.py
+NEXA_PATHS = NEXA_SVG.split('>', 1)[1].rsplit('</svg>', 1)[0]
+NEXA_VB = tuple(map(float, re.search(r'viewBox="([^"]+)"', NEXA_SVG).group(1).split()))
+NEXA_MIN_W = 100
 NEXA_RATIO = NEXA_VB[3] / NEXA_VB[2]
 
 # Official Rugged Container sizes (Rugged Template/, inches incl. both notches): height / width ratios.
@@ -17,15 +18,10 @@ _RT = ROOT / 'Rugged Template/PNG versions/Gray'
 RUGGED_SIZES = sorted({tuple(map(float, re.search(r'(\d+(?:\.\d+)?) x (\d+(?:\.\d+)?)', f.name).groups())) for f in _RT.glob('*.png')}) if _RT.exists() else []
 RUGGED_RATIOS = sorted({round(h / w, 4) for w, h in RUGGED_SIZES}) or [1.04, 1.6]
 
-# Icons: official Sonim iconography (Icons/ -> brand/icons/import_sonim_icons.py) wins; the older
-# Tabler-based brand icons fill the gaps (ambulance, dispatch, events...). Old keys alias to official art.
-ICONS = json.load(open(ROOT / 'brand/icons/icons.json'))
+# Icons: brand/icons/all.json (built by brand/import_client_assets.py) = official Sonim icons, old keys
+# aliased to official art, and the remaining icons restyled to the official look. Same set as the white paper.
+ICONS = json.load(open(ROOT / 'brand/icons/all.json'))
 SONIM_ICONS = json.load(open(ROOT / 'brand/icons/sonim.json'))
-ICONS.update(SONIM_ICONS)
-for old, new in {'battery': 'battery-general', 'glove': 'rps-glove', 'rugged': 'rps-general', 'voice': 'rps-audio',
-                 'software': 'sonim-ware', 'cloud': 'sonim-ware', 'ptt': 'custom-side-button', 'signal': 'tower',
-                 'coverage': 'tower', 'data': 'data-transfer', 'devices': 'multiple-users'}.items():
-    ICONS[old] = SONIM_ICONS[new]
 ICONS['check'] = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#CF102D" stroke-width="3" stroke-linecap="square"><path d="M4 12.5l5 5L20 6.5"/></svg>'
 ICONS['arrow'] = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h17M14 6l6 6-6 6"/></svg>'
 

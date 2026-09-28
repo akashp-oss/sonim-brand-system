@@ -49,8 +49,11 @@ Icons/, Logo/, Rugged Template/   OFFICIAL client assets (added 2026-09-28) — 
   Rugged Template/          official Rugged Container in Gray/Red/White, 29 sizes (PNG) + .ai masters
 brand/                      shared brand assets (single source for both parts)
   logo/sonim-logo.svg       wordmark only (used below 100 px wide, favicon, app bar)
-  icons/import_sonim_icons.py  Icons/ -> icons/sonim/*.svg + sonim.json (inlines styles, brand hex)
-  icons/*.svg, icons.json   older Tabler-based icons; only used where no official icon exists
+  import_client_assets.py   Icons/ + Logo/ -> icons/sonim/, icons/sonim.json, icons/all.json and
+                            logo/sonim-nexa-lockup.svg (run `make assets` after changing them)
+  icons/all.json            THE icon set (library + white paper): official + aliases + restyled
+  logo/sonim-nexa-lockup.svg  official NEXA lockup, trimmed, single colour (currentColor)
+  icons/*.svg, icons.json   older Tabler-based icons; restyled into all.json where no official icon exists
   icons/make_icons.py       regenerates the Tabler-based icons
 library/
   src/gen.py                layout primitives: box, text, photo, cutout, notch, rugged container,
@@ -128,13 +131,17 @@ Source of truth: **Sonim Visual Identity Standards & Brand Guidelines (1 March 2
 - Partner lockup: Sonim + partner, no tagline, both single colour.
 
 ### Official assets (client folders, 2026-09-28) — how the library uses them
-- **Logo:** `Logo/Sonim_logo_solid_black_1C_NEXA.svg` is the lockup. `gen.logo()` uses it for
-  every logo ≥ 100 px wide (trimmed to its artwork; the NEXA line inherits the logo colour);
-  smaller logos (display ads, 320×50) use the wordmark alone so they stay legible.
-- **Icons:** `Icons/` is the official set. Run `python3 brand/icons/import_sonim_icons.py` after
-  changing it. Print colours are normalised to brand hex (#231F20→#000000, #CF202F→#CF102D).
-  Old keys alias to official art (battery, glove, rugged, voice, software, cloud, ptt, signal,
-  coverage, data, devices); ambulance/dispatch/events etc. still use the Tabler set.
+- **Logo:** `Logo/Sonim_logo_solid_black_1C_NEXA.svg` is the lockup (processed into
+  `brand/logo/sonim-nexa-lockup.svg`). The library uses it for every logo ≥ 100 px wide and on the
+  whitepaper pages; only the display ads (64–90 px) use the wordmark alone. The white paper, design
+  system and blank template use it on every page at 72 pt wide (was 58 pt, the wordmark).
+- **Icons:** `Icons/` is the official set; `make assets` (brand/import_client_assets.py) builds
+  `brand/icons/all.json`, used by the library AND the white paper. Print colours are normalised to
+  brand hex (#231F20→#000000, #CF202F→#CF102D). Old keys alias to official art (voice, data, ptt,
+  glove, battery, rugged, signal, coverage, software). The 19 subjects with no official icon
+  (ambulance, dispatch, events, gps, video…) are the Tabler drawings restyled to the official look:
+  125 grid, same padding, 1.67 line, square ends, one red detail. Replace them with official art by
+  adding files to `Icons/` and a key mapping in the script.
 - **Rugged Container:** sizes come from `Rugged Template/` (width includes both notches).
   `gen.rugged()` snaps every container's height to the nearest official proportion
   (`snap=False` to opt out). Measured from the PNGs at 300 ppi: notch depth X = 0.125 in, length
@@ -333,7 +340,9 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
 - 2026-09-28 — Official client assets wired in: NEXA lockup, Sonim iconography, official Rugged
-  Container sizes (and the corrected 26.5° notch taper), Brand assets set.
+  Container sizes (and the corrected 26.5° notch taper), Brand assets set. Same logo, icons and
+  notch taper applied to the white paper sources + editor. **White paper PDFs not yet re-rendered**
+  (needs Arial installed: run `make whitepaper`).
 - 2026-09-25 — Hover Copy SVG, Figma view set filter + exit, favicon, grouped brand-rules panel,
   responsive shell, spacing fixes, logo metadata bloat removed, Netlify config, competitor-informed
   social templates (`templates_social.py`, research in `docs/competitor-social-research.md`).

@@ -17,7 +17,7 @@ def doc_head(folio, title='Connected care in motion', dark=False):
     return stack('Running header', [text('Document title', title, 'meta', c, 9), text('Folio', f'/ {folio:02d}', 'meta', c, 9)], l=None, t=28, r=60, style={'flex-direction': 'row', 'gap': '18px'})
 
 def doc_foot(note):
-    return logo(78, BLACK, l=60, b=28) + text('Footnote', note, 'small abs', BLACK, 8, {'right': '60px', 'bottom': '30px', 'width': '380px', 'text-align': 'right'})
+    return logo(78, BLACK, l=60, b=28, lockup=True) + text('Footnote', note, 'small abs', BLACK, 8, {'right': '60px', 'bottom': '30px', 'width': '380px', 'text-align': 'right'})
 
 X, M = 12, 60
 wp1 = (
