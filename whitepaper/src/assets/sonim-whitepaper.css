@@ -43,7 +43,7 @@
   /* Graphic elements (p.47–64). X = notch width. */
   --x: 9pt;                         /* 0.125" */
   --notch-h: calc(var(--x) * 18);   /* 162pt = 2.25" (18:1 ratio) */
-  --notch-slope: calc(var(--x) * 2);/* 26.5° angled end ⇒ 2X rise over X run */
+  --notch-slope: calc(var(--x) / 2);/* 26.5° angled end: X/2 along the length per X of depth (official containers) */
   --live-inset: calc(var(--x) * 2); /* container live area inset */
 
   /* Spacing scale (multiples of X/2 = 4.5pt) */
@@ -68,7 +68,7 @@ body { font-family: var(--font); color: var(--sonim-black); background: #9aa3a8;
 .run-head .folio { font-weight: 700; }
 .run-head.on-dark { color: var(--white); }
 /* Logo: bottom-left along the margin (p.22). Min 0.5" wide in print. */
-.page-logo { position: absolute; left: var(--m-x); bottom: 22pt; width: 58pt; color: var(--sonim-black); line-height: 0; }
+.page-logo { position: absolute; left: var(--m-x); bottom: 22pt; width: 72pt;   /* NEXA lockup: 72pt keeps the NEXA line legible in print */ color: var(--sonim-black); line-height: 0; }
 .page-logo.on-dark { color: var(--white); }
 .page-logo svg { width: 100%; height: auto; }
 .page-note { position: absolute; right: var(--m-x); bottom: 24pt; font-size: 6.5pt; line-height: 8pt; color: var(--ink-soft); text-align: right; }

@@ -191,7 +191,7 @@ F.append(('carousel', artboard('carousel-compare', 'Carousel · 2 Comparison', 1
 
 stack_items = [('devices', 'XP5plus 5G', 'Rugged 5G phone with side PTT and a top SOS key.'),
                ('megarange', 'MegaConnect', '5G HPUE hotspot: Power Class 1 on Band 14, up to 64 Wi-Fi devices.'),
-               ('cloud', 'SonimWare', 'Remote setup, updates and monitoring for the fleet.')]
+               ('sonim-ware', 'SonimWare', 'Remote setup, updates and monitoring for the fleet.')]
 c = (page_notch(X, 110)
      + stack('Headline block', [text('Label', 'The shift', 'label', RED, 30), text('Headline', 'From a radio problem\nto a **mobility platform.**', 'h1', BLACK, 76)], l=M, t=110, w=920, gap=12)
      + stack('Solution stack', [item(k, t_, d, 96, 44, 32, 36) for k, t_, d in stack_items], l=M, t=410, w=920, gap=64)

@@ -17,7 +17,7 @@ def doc_head(folio, title='Connected care in motion', dark=False):
     return stack('Running header', [text('Document title', title, 'meta', c, 9), text('Folio', f'/ {folio:02d}', 'meta', c, 9)], l=None, t=28, r=60, style={'flex-direction': 'row', 'gap': '18px'})
 
 def doc_foot(note):
-    return logo(78, BLACK, l=60, b=28) + text('Footnote', note, 'small abs', BLACK, 8, {'right': '60px', 'bottom': '30px', 'width': '380px', 'text-align': 'right'})
+    return logo(78, BLACK, l=60, b=28, lockup=True) + text('Footnote', note, 'small abs', BLACK, 8, {'right': '60px', 'bottom': '30px', 'width': '380px', 'text-align': 'right'})
 
 X, M = 12, 60
 wp1 = (
@@ -197,7 +197,7 @@ p6 = (page_notch(X, 100)
       + box('Feature grid', l=M, t=380, w=920, h=500, cls='grid2', style={'gap': '20px'}, inner=''.join(
           f'<div class="stack tile" data-name="{t}" style="background:{WHITE};padding:34px;gap:14px">{icon(k, 64, t)}{text("Title", t, "h3", BLACK, 34)}{text("Detail", d, "body", BLACK, 26)}</div>'
           for k, t, d in [('voice', 'Extra-loud audio', '100 dB+ dual front speakers'), ('battery', 'Multi-shift battery', 'Removable and fast charging'),
-                          ('rugged', 'Drop resistant', 'MIL-STD-810H tested'), ('glove', 'Glove-friendly', 'Large, tactile keys')]))
+                          ('rps-drop', 'Drop resistant', 'MIL-STD-810H tested'), ('glove', 'Glove-friendly', 'Large, tactile keys')]))
       + logo(160, BLACK, l=M, b=64))
 F.append(('ig', artboard('ig-features', 'Instagram post · Feature grid', 1080, 1080, GRAY, p6, 'Square 1:1 · four icon tiles', 'post')))
 
@@ -288,7 +288,7 @@ F.append(('posters', artboard('poster-24x36', 'Poster · 24 × 36 in', 1200, 180
 
 # ---------------------------------------------------------------- BANNERS (event + web)
 X, M = 12, 56
-b1 = (logo_vertical(900, WHITE, 222, 260) + text('URL', 'sonimtech.com', 'h3 abs', WHITE, 26, {'left': '56px', 'bottom': '64px'}))
+b1 = (logo_vertical(900, WHITE, round((660 - 900 * NEXA_RATIO) / 2), 260) + text('URL', 'sonimtech.com', 'h3 abs', WHITE, 26, {'left': '56px', 'bottom': '64px'}))
 F.append(('banners', artboard('rollup-logo', 'Roll-up banner · Brand', 660, 1600, RED, b1, '33 × 80 in · vertical logo on Sonim Red', 'rollup')))
 
 b2 = (photo('Banner photo', 'responder', 0, 0, 660, 800, '50% 30%')
@@ -384,3 +384,19 @@ import templates_social as TS
 F.extend(TS.F)
 _i = [s[0] for s in SECTION_META].index('ig') + 1
 SECTION_META[_i:_i] = TS.SECTION_META_EXTRA
+
+# official client assets (Logo/, Icons/, Rugged Template/) as reference artboards
+import templates_assets as TA
+F.extend(TA.F)
+SECTION_META.extend(TA.SECTION_META_EXTRA)
+
+# healthcare white paper (client Word content: hospital "red phone" replacement)
+import templates_healthcare as TH
+_last_wp = max(i for i, (s, _) in enumerate(F) if s == 'wp')
+F[_last_wp + 1:_last_wp + 1] = TH.F
+
+# XP Pro Thermal blog covers (client feedback round: varied layouts, use-case photos, feature icons)
+import templates_blog as TB
+F.extend(TB.F)
+_j = [s[0] for s in SECTION_META].index('social') + 1
+SECTION_META[_j:_j] = TB.SECTION_META_EXTRA
