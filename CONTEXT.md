@@ -14,7 +14,7 @@ responders and industry; *Sonim, a NEXA company* since January 2026), produced b
 
 It has two parts:
 
-1. **Brand template library** (`library/`): one self-contained HTML file with 58 editable
+1. **Brand template library** (`library/`): one self-contained HTML file with 62 editable
    templates across 11 sets (white papers, presentation, Instagram posts, carousels and stories, brand assets, social graphics,
    posters, roll-up banners, web/display ads, stationery). Built so an **HTML to Figma plugin**
    (for example html.to.design) can import every artboard with editable text and separate layers.
@@ -61,6 +61,8 @@ library/
   src/templates.py          core artboards, grouped by set; SECTION_META = set titles + intros
   src/templates_social.py   competitor-informed social templates (carousels etc.)
   src/templates_assets.py   Brand assets set: logo lockup, official icons, container sizes
+  src/templates_healthcare.py  4-page healthcare white paper (Whitepapers set, ids hc-*): hospital
+                            "red phone" replacement, content from the client Word file
   src/build.py              app shell (UI, CSS, brand-rules panel), embeds images + JS, writes dist/
   src/app.js                app behaviour: zoom, guides, edit, save, Figma view (set filter), Copy SVG
   src/export.js             artboard → SVG (used by the Copy SVG hover button)
@@ -339,6 +341,8 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-10-13 — Healthcare white paper (4 pages, US Letter) added to the Whitepapers set from the
+  client's Word file; copy kept verbatim except headings in sentence case. No stats/quotes added.
 - 2026-09-28 — Official client assets wired in: NEXA lockup, Sonim iconography, official Rugged
   Container sizes (and the corrected 26.5° notch taper), Brand assets set. Same logo, icons and
   notch taper applied to the white paper sources + editor. **White paper PDFs not yet re-rendered**

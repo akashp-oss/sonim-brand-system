@@ -389,3 +389,8 @@ SECTION_META[_i:_i] = TS.SECTION_META_EXTRA
 import templates_assets as TA
 F.extend(TA.F)
 SECTION_META.extend(TA.SECTION_META_EXTRA)
+
+# healthcare white paper (client Word content: hospital "red phone" replacement)
+import templates_healthcare as TH
+_last_wp = max(i for i, (s, _) in enumerate(F) if s == 'wp')
+F[_last_wp + 1:_last_wp + 1] = TH.F
