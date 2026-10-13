@@ -394,3 +394,9 @@ SECTION_META.extend(TA.SECTION_META_EXTRA)
 import templates_healthcare as TH
 _last_wp = max(i for i, (s, _) in enumerate(F) if s == 'wp')
 F[_last_wp + 1:_last_wp + 1] = TH.F
+
+# XP Pro Thermal blog covers (client feedback round: varied layouts, use-case photos, feature icons)
+import templates_blog as TB
+F.extend(TB.F)
+_j = [s[0] for s in SECTION_META].index('social') + 1
+SECTION_META[_j:_j] = TB.SECTION_META_EXTRA

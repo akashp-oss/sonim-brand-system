@@ -14,7 +14,7 @@ responders and industry; *Sonim, a NEXA company* since January 2026), produced b
 
 It has two parts:
 
-1. **Brand template library** (`library/`): one self-contained HTML file with 62 editable
+1. **Brand template library** (`library/`): one self-contained HTML file with 67 editable
    templates across 11 sets (white papers, presentation, Instagram posts, carousels and stories, brand assets, social graphics,
    posters, roll-up banners, web/display ads, stationery). Built so an **HTML to Figma plugin**
    (for example html.to.design) can import every artboard with editable text and separate layers.
@@ -61,6 +61,7 @@ library/
   src/templates.py          core artboards, grouped by set; SECTION_META = set titles + intros
   src/templates_social.py   competitor-informed social templates (carousels etc.)
   src/templates_assets.py   Brand assets set: logo lockup, official icons, container sizes
+  src/templates_blog.py     XP Pro Thermal blog covers (Blog covers set, ids blog-*), 1920×1080
   src/templates_healthcare.py  4-page Inova white paper "Care continues when systems don't."
                             (Whitepapers set, ids hc-*), written from the client brief (Inova_Whitepaper.docx)
   src/build.py              app shell (UI, CSS, brand-rules panel), embeds images + JS, writes dist/
@@ -341,6 +342,11 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-10-13 — XP Pro Thermal blog covers (5, 1920×1080) after client feedback in Figma ("all look the
+  same", use real use-case images, new infographic style, different icons, NEXA logo): one layout per
+  feature, 13 new feature icons (brand/icons/custom/, restyled into all.json), device render cut out of
+  the client's cover, fire photos from sonimtech.com. Red type on black follows the client's own cover
+  (brandbook says avoid). FLIR shown as text until the partner logo is approved.
 - 2026-10-13 — Inova white paper "Care continues when systems don't." (4 pages, US Letter, Whitepapers
   set): written from the client brief with the EMS flow (challenge → shift with comparison → customer
   spotlight → solution stack + closing band) and the zate/cc-plugins blog-writer rules + de-AI pass.

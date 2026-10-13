@@ -89,6 +89,9 @@ tabler = json.load(open(ROOT / 'brand/icons/icons.json'))
 merged = dict(icons)
 for k, svg in tabler.items():
     merged[k] = icons[ALIAS[k]] if k in ALIAS else restyle(svg)
+# custom subject icons (brand/icons/custom/*.svg, 24-unit drafts, e.g. XP Pro Thermal features), same restyle
+for f in sorted((ROOT / 'brand/icons/custom').glob('*.svg')):
+    merged[f.stem] = restyle(f.read_text())
 json.dump(merged, open(ROOT / 'brand/icons/all.json', 'w'), indent=0)
 print(len(merged), 'icons in all.json;', 'restyled:', ', '.join(k for k in tabler if k not in ALIAS))
 
