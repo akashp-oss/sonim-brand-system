@@ -61,8 +61,8 @@ library/
   src/templates.py          core artboards, grouped by set; SECTION_META = set titles + intros
   src/templates_social.py   competitor-informed social templates (carousels etc.)
   src/templates_assets.py   Brand assets set: logo lockup, official icons, container sizes
-  src/templates_healthcare.py  4-page healthcare white paper (Whitepapers set, ids hc-*): hospital
-                            "red phone" replacement, content from the client Word file
+  src/templates_healthcare.py  4-page Inova white paper "Care continues when systems don't."
+                            (Whitepapers set, ids hc-*), written from the client brief (Inova_Whitepaper.docx)
   src/build.py              app shell (UI, CSS, brand-rules panel), embeds images + JS, writes dist/
   src/app.js                app behaviour: zoom, guides, edit, save, Figma view (set filter), Copy SVG
   src/export.js             artboard → SVG (used by the Copy SVG hover button)
@@ -341,8 +341,11 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
-- 2026-10-13 — Healthcare white paper (4 pages, US Letter) added to the Whitepapers set from the
-  client's Word file; copy kept verbatim except headings in sentence case. No stats/quotes added.
+- 2026-10-13 — Inova white paper "Care continues when systems don't." (4 pages, US Letter, Whitepapers
+  set): written from the client brief with the EMS flow (challenge → shift with comparison → customer
+  spotlight → solution stack + closing band) and the zate/cc-plugins blog-writer rules + de-AI pass.
+  To verify before publishing: Inova approval to be named, case-study wording, 42 CFR §482.15(c)
+  citation, XP5plus "no-knob" configuration (no matching product image yet, so icons are used).
 - 2026-09-28 — Official client assets wired in: NEXA lockup, Sonim iconography, official Rugged
   Container sizes (and the corrected 26.5° notch taper), Brand assets set. Same logo, icons and
   notch taper applied to the white paper sources + editor. **White paper PDFs not yet re-rendered**

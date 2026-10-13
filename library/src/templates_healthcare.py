@@ -1,144 +1,157 @@
 from gen import *
 
-# Healthcare white paper: "Enhancing healthcare resilience through advanced communication infrastructure"
-# Content: client Word file (hospital "red phone" replacement with Sonim XP5plus + AdvanceTec base station).
-# Copy is the client's own; headings converted to sentence case (brand rule). No statistics, quotes or
-# customer name were added: the source has none. US Letter, same system as the EMS white paper (M 60, X 12).
+# Healthcare white paper: Inova replaces the hospital "red phone" (Whitepapers set, ids hc-*).
+# Brief: the client's Word file (Inova_Whitepaper.docx). Written with the same flow and writing rules as the
+# EMS paper (zate/cc-plugins blog-writer skill: lead with the point, vary rhythm, no AI tells), then a de-AI
+# pass. Facts come from the brief or CONTEXT.md §8; no statistics or quotes were invented. Verify before
+# publishing: Inova named with approval, the 42 CFR §482.15(c) citation, and the Inova case-study details.
 F = []
 X, M, W, H = 12, 60, 816, 1056
-DOC = 'Healthcare resilience'
+DOC = 'Care continues'
 
 def head(folio, dark=False):
     c = WHITE if dark else BLACK
     return stack('Running header', [text('Document title', DOC, 'meta', c, 9), text('Folio', f'/ {folio:02d}', 'meta', c, 9)],
                  t=28, r=M, style={'flex-direction': 'row', 'gap': '18px'})
 
-def foot(note='Sonim, a NEXA company · sonimtech.com'):
-    return logo(78, BLACK, l=M, b=28, lockup=True) + text('Footnote', note, 'small abs', BLACK, 8, {'right': f'{M}px', 'bottom': '30px', 'width': '380px', 'text-align': 'right'})
+def foot(note):
+    return logo(78, BLACK, l=M, b=28, lockup=True) + text('Footnote', note, 'small abs', BLACK, 8, {'right': f'{M}px', 'bottom': '30px', 'width': '420px', 'text-align': 'right'})
 
-def body(t, name='Body', **k): return text(name, t, 'body', BLACK, 12.5, k or None)
-def h2(t, color=BLACK): return text('Heading', t, 'h2', color, 20)
+def body(t, name='Body', size=12.5, **k): return text(name, t, 'body', BLACK, size, k or None)
+def lead_in(bold, rest, size=12.5):
+    """Paragraph with a bold black lead-in sentence (EMS paper style)."""
+    return f'<div class="tx body" data-name="Body" style="color:{BLACK};font-size:{size}px"><b data-name="Lead-in">{esc(bold)}</b> {esc(rest)}</div>'
+
+def h2(t, color=BLACK, size=20): return text('Heading', t, 'h2', color, size)
 
 def bullets(items, color=BLACK, bar=RED, size=12.5, bold=False):
-    return f'<div class="stack" data-name="List" style="gap:{round(size * 0.6)}px">' + ''.join(
+    return f'<div class="stack" data-name="List" style="gap:{round(size * 0.5)}px">' + ''.join(
         f'<div class="row" data-name="Item" style="gap:9px;align-items:baseline">'
         f'{fill("Bar", bar, style={"position": "relative", "width": "4px", "height": "10px", "flex": "none"})}'
         f'{text("Item text", i, "h3" if bold else "body", color, size)}</div>' for i in items) + '</div>'
 
-def page(n, aid, name, use, inner, bg=WHITE):
-    F.append(('wp', artboard(aid, f'Healthcare white paper · {name}', W, H, bg, inner, use, 'doc')))
+def icon_row(items, top, title=None, size=36):
+    row = box('Icon row', l=M, t=top + (30 if title else 0), w=696, cls='row', style={'gap': '16px'}, inner=''.join(
+        f'<div class="stack" data-name="{t}" style="flex:1;gap:6px">{icon(k, size, t)}{text("Title", t, "h3", BLACK, 12.5)}'
+        f'{text("Detail", d, "small", BLACK, 10.5) if d else ""}</div>' for k, t, d in items))
+    return (text('Section heading', title, 'h2 abs', BLACK, 20, {'left': f'{M}px', 'top': f'{top}px'}) if title else '') + row
 
-# ---------------------------------------------------------------- page 1: cover + introduction
-p1 = (photo('Hero photo', 'healthcare', 0, 0, W, 360, '50% 30%')
+def page(aid, name, use, inner):
+    F.append(('wp', artboard(aid, f'Healthcare white paper · {name}', W, H, WHITE, inner, use, 'doc')))
+
+# ---------------------------------------------------------------- 1 · cover + the challenge
+NEEDS = [('tower', 'Always available', 'Works when the network does not.'), ('rps-general', 'Independent', 'No reliance on VoIP or IP systems.'),
+         ('battery-general', 'Fixed and visible', 'Docked where staff expect it.'), ('user-friendly', 'Simple under stress', 'Pick up and talk.'),
+         ('sonim-ware', 'Easy to manage', 'Locked to its one job.')]
+p1 = (photo('Hero photo', 'healthcare', 0, 0, W, 300, '50% 28%')
       + head(1)
-      + page_notch(X, 392)
+      + page_notch(X, 332)
       + stack('Title block', [text('Label', 'White paper · Healthcare', 'label', RED, 11),
-                              text('Title', 'Enhancing healthcare resilience through **advanced communication infrastructure.**', 'h1', BLACK, 38),
-                              text('Subtitle', 'Replacing the hospital “red phone” with an always-available, purpose-built device.', 'lead', BLACK, 17, {'max-width': '560px', 'margin-top': '4px'})],
-              l=M, t=392, w=660, gap=10)
-      + stack('Introduction', [h2('Introduction: when communication fails, care is at risk'),
-                               body('In healthcare environments, communication is foundational to patient care, particularly during emergencies and system downtime.'),
-                               body('As hospitals modernize and shift toward digital and VoIP-based systems, many have unintentionally introduced new points of failure. Cyber incidents, power outages, and system maintenance events regularly disrupt hospital operations, placing communication systems at risk when they’re needed most.'),
-                               body('To address this risk, the organization sought a resilient, simple replacement for the traditional hospital “red phone”: a device long relied upon for always-available communication during critical events.')],
-              l=M, t=610, w=390, gap=10)
-      + rugged('Callout container', 486, 614, 270, 300, X, GRAY,
+                              text('Title', 'Care continues\n**when systems don’t.**', 'display', BLACK, 56),
+                              text('Subtitle', 'How Inova replaced the hospital red phone with communication that works through downtime.', 'lead', BLACK, 17, {'max-width': '540px', 'margin-top': '4px'})],
+              l=M, t=332, w=680, gap=10)
+      + stack('Challenge', [h2('The downtime communication gap'),
+                            lead_in('Downtime is routine now.', 'Cyber incidents, power outages and planned maintenance take hospital systems offline on a regular basis. Every one of them tests whether care teams can still reach each other.'),
+                            lead_in('Modern phones share the network’s weak spots.', 'As hospitals move voice onto VoIP and IP systems, the phone starts depending on the same infrastructure that fails in an outage. When the network goes down, the phones go with it.'),
+                            body('For decades the answer was the red phone: one fixed line that worked when nothing else did. Keeping that analog infrastructure alive is getting harder to justify.')],
+              l=M, t=548, w=390, gap=10)
+      + rugged('Callout container', 486, 552, 270, 280, X, GRAY,
                text('Callout heading', 'When communication fails:', 'h2', BLACK, 19)
-               + '<div data-name="Spacer" style="height:18px"></div>'
-               + bullets(['Care teams become disconnected', 'Critical information is delayed or lost', 'Response times increase', 'Patient safety is placed at risk'], size=14, bold=True))
-      + foot())
-page(1, 'hc-opening', 'Opening page', 'US Letter · cover and introduction', p1)
+               + '<div data-name="Spacer" style="height:16px"></div>'
+               + bullets(['Care teams become disconnected', 'Critical information is delayed or lost', 'Response times increase', 'Patient safety is placed at risk'], size=13.5, bold=True))
+      + icon_row(NEEDS, 878, size=30)
+      + foot('Photo: sonimtech.com.'))
+page('hc-opening', 'Opening page', 'US Letter · cover, challenge and callout', p1)
 
-# ---------------------------------------------------------------- page 2: the shift + the system
-SOLUTION = [('custom-side-button', 'Sonim XP5plus', 'Devices in the no-knob configuration.'),
-            ('battery-general', 'Red docking base station', 'From accessory partner AdvanceTec.'),
-            ('sonim-ware', 'SonimWare', 'Enabled with Kiosk Mode.')]
+# ---------------------------------------------------------------- 2 · the shift
+ROWS = [('A single point of failure', 'Independent of the hospital network'),
+        ('Costly analog lines to maintain', 'No analog lines to maintain'),
+        ('New system, new training', 'Same red phone workflow'),
+        ('Hard to control at scale', 'Locked down with SonimWare Kiosk Mode'),
+        ('Unclear ownership in a crisis', 'Pre-assigned to departments')]
+USES = [('disaster', 'Cyber incidents', 'Voice stays up when IP systems are taken offline.'), ('battery-general', 'Power outages', 'A charged device in a fixed dock.'),
+        ('sonim-ware', 'Planned maintenance', 'No gap while telephony is down.'), ('command', 'Emergency command', 'Links command centers and departments.'),
+        ('multiple-users', 'Daily escalation', 'A known number for critical events.')]
 p2 = (head(2)
       + page_notch(X, 66)
-      + stack('Headline block', [text('Label', 'A shift in strategy', 'label', RED, 11),
-                                 text('Headline', 'Replacing the traditional **“red phone.”**', 'h1', BLACK, 36)], l=M, t=66, w=696, gap=6)
-      + text('Lead', 'Rather than continuing to invest in aging analog infrastructure, the organization made a deliberate shift toward a modern, resilient replacement for the hospital’s traditional red phone.',
-             'lead abs', BLACK, 17, {'left': f'{M}px', 'top': '134px', 'width': '660px'})
-      + box('Two columns', l=M, t=222, w=696, cls='row', style={'gap': '20px'}, inner=
-            body('At the center of this deployment is the Sonim XP5plus, from Sonim, a NEXA company, selected as a purpose-built solution to preserve always-available communication during downtime and emergency events. It is the organization’s first-generation use of Sonim devices, focused on solving a clearly defined operational problem rather than introducing unnecessary complexity.', 'Column 1', flex='1')
-            + body('The goal was straightforward: replace the legacy red phone with an affordable, fixed-location device that delivers reliable communication without relying on internal networks or VoIP infrastructure. By maintaining a familiar form factor while modernizing the underlying technology, the organization ensured staff adoption without changing established workflows.', 'Column 2', flex='1'))
-      + text('Section heading', 'The solution consists of', 'h3 abs', BLACK, 13, {'left': f'{M}px', 'top': '412px'})
-      + box('Solution tiles', l=M, t=440, w=696, cls='row', style={'gap': '12px'}, inner=''.join(
-            f'<div class="stack" data-name="{t}" style="flex:1;gap:6px;background:{GRAY};padding:16px 16px 18px">{icon(k, 44, t)}'
-            f'{text("Title", t, "h3", BLACK, 13.5, {"margin-top": "4px"})}{text("Detail", d, "small", BLACK, 10.5)}</div>' for k, t, d in SOLUTION))
-      + fill('Rule', GRAY, l=M, t=590, w=696, h=1)
-      + stack('System block', [h2('The system in practice: simple, fixed and always available'),
-                               box('Two columns', cls='row', style={'gap': '20px'}, inner=
-                                   body('The Sonim XP5plus operates independently of the hospital’s internal network, ensuring communication remains available when VoIP and IP-based systems are offline.', 'Column 1', flex='1')
-                                   + body('Docked in a highly visible red AdvanceTec base station, the devices are immediately recognizable and accessible, preserving the visual and functional expectations of the traditional red phone. No additional accessories were required beyond the red cradle.', 'Column 2', flex='1'))],
-              l=M, t=610, w=696, gap=10)
-      + box('System band', l=M, t=790, w=696, h=128, cls='group', inner=fill('Band fill', RED, l=0, t=0, w=696, h=128)
-            + text('Band label', 'Together, this creates a system that is:', 'label abs', WHITE, 11, {'left': '24px', 'top': '20px'})
-            + box('Qualities', l=24, t=52, w=648, cls='row', style={'gap': '24px'}, inner=''.join(
-                text('Quality', q, 'h2', WHITE, 21, {'flex': '1'}) for q in ['Always available.', 'Immediately deployable.', 'Simple to use under stress.'])))
-      + foot())
-page(2, 'hc-strategy', 'Strategy page', 'Interior · solution tiles and a red statement band', p2)
+      + stack('Headline block', [text('Label', 'The shift', 'label', RED, 11),
+                                 text('Headline', 'Why hospitals are rethinking\n**the red phone.**', 'h1', BLACK, 36)], l=M, t=66, w=690, gap=6)
+      + text('Lead', 'The red phone was never about the phone. It was a promise: one place where communication works, every time. Inova kept the promise and replaced the technology underneath it.',
+             'lead abs', BLACK, 17, {'left': f'{M}px', 'top': '176px', 'width': '650px'})
+      + box('Two columns', l=M, t=268, w=696, cls='row', style={'gap': '20px'}, inner=
+            body('Analog red phones depend on copper lines and legacy equipment that hospitals are steadily retiring. Moving them onto VoIP fixes the cost problem and creates a worse one: the phone now fails at the exact moment it is needed, when the network is down.', 'Column 1', flex='1')
+            + body('A device that runs independently of the hospital network removes that dependency. Docked in a fixed, recognizable cradle, it keeps the red phone’s role and the way staff use it, while taking it off the hospital’s own infrastructure.', 'Column 2', flex='1'))
+      + box('Comparison', l=M, t=402, w=696, h=230, cls='group', inner=
+            fill('Before fill', GRAY, l=0, t=0, w=330, h=230) + fill('After fill', RED, l=366, t=0, w=330, h=230)
+            + fill('After header fill', BLACK, l=366, t=0, w=330, h=40)
+            + text('Before header', 'Network-dependent phones', 'h3 abs', BLACK, 13, {'left': '16px', 'top': '12px'})
+            + text('After header', 'Sonim XP5plus as the red phone', 'h3 abs', WHITE, 13, {'left': '382px', 'top': '12px'})
+            + ''.join(text('Before', a, 'body abs', BLACK, 12.5, {'left': '16px', 'top': f'{52+i*36}px'}) + fill('Divider', WHITE, l=0, t=44 + i * 36 - 4, w=330, h=1)
+                      + text('Arrow', '→', 'h3 abs', RED, 14, {'left': '341px', 'top': f'{50+i*36}px'})
+                      + text('After', b, 'h3 abs', WHITE, 12.5, {'left': '382px', 'top': f'{52+i*36}px'}) for i, (a, b) in enumerate(ROWS)))
+      + icon_row(USES, 664, 'Where it matters')
+      + fill('Rule', GRAY, l=M, t=828, w=696, h=1)
+      + stack('Preparedness', [h2('Built for preparedness requirements', size=16),
+                               body('Federal emergency preparedness rules require hospitals to plan for primary and alternate means of communication.¹ A red phone that does not share the network’s failure points gives that plan a physical, testable form: a known device, in a known place, checked on a schedule.')],
+              l=M, t=846, w=660, gap=6)
+      + foot('1 CMS Emergency Preparedness Rule, 42 CFR §482.15(c). Comparison reflects the Inova deployment on page 3.'))
+page('hc-shift', 'Shift page', 'Interior · comparison and use cases', p2)
 
-# ---------------------------------------------------------------- page 3: continuity + preparedness
-PROVIDERS = [('patient-data', 'Escalate patient concerns without delay'), ('multiple-users', 'Coordinate treatment plans in real time'), ('tower', 'Maintain operational awareness during disruptions')]
+# ---------------------------------------------------------------- 3 · customer spotlight
+CASE = [('Challenge', 'Inova needed a dependable replacement for the hospital red phone: an always-available line for critical events that keeps working through cyber incidents, power outages and system maintenance, without the cost of analog lines or added complexity.'),
+        ('Solution', 'Sonim XP5plus devices in a no-knob configuration, docked in red AdvanceTec base stations, with SonimWare Kiosk Mode. Each device is pre-assigned to a department and placed where staff expect the red phone to be. Nothing else was needed.')]
+RESULTS = ['Reliable communication during telephony or system outages', 'Less reliance on aging analog phone infrastructure', 'Simpler device control with Kiosk Mode', 'Minimal training: the workflow did not change']
+CARE = [('patient-data', 'Escalate patient concerns', 'Without waiting for systems to recover.'), ('multiple-users', 'Coordinate treatment', 'In real time, across departments.'),
+        ('command', 'Keep command connected', 'Situational awareness during incidents.')]
 p3 = (head(3)
       + page_notch(X, 66)
-      + stack('Headline block', [text('Label', 'Real-world application', 'label', RED, 11),
-                                 text('Headline', 'From disruption **to continuity.**', 'h1', BLACK, 36)], l=M, t=66, w=696, gap=6)
-      + text('Lead', 'During outages or downtime events, staff simply use the docked Sonim devices to communicate without relying on internal systems. The combination of an affordable device and a fixed red cradle delivers reliable communication without the cost or complexity of maintaining analog lines.',
-             'lead abs', BLACK, 17, {'left': f'{M}px', 'top': '134px', 'width': '660px'})
-      + fill('Rule', GRAY, l=M, t=262, w=696, h=1)
-      + stack('Continuity block', [h2('Protecting what matters most: continuity of care'),
-                                   body('At its core, this deployment protects continuity of care during moments when communications are most critical. Providers are able to:')],
-              l=M, t=284, w=696, gap=10)
-      + box('Provider abilities', l=M, t=372, w=696, cls='row', style={'gap': '16px'}, inner=''.join(
-            f'<div class="stack" data-name="{t}" style="flex:1;gap:8px">{icon(k, 44, t)}{text("Title", t, "h3", BLACK, 13.5)}</div>' for k, t in PROVIDERS))
-      + body('By preserving reliable communication, the organization reduces risk linked to delayed or failed coordination.', 'Body abs', **{'position': 'absolute', 'left': f'{M}px', 'top': '478px', 'width': '660px'})
-      + fill('Rule', GRAY, l=M, t=524, w=696, h=1)
-      + stack('Preparedness block', [h2('Strengthening emergency preparedness'),
-                                     box('Two columns', cls='row', style={'gap': '20px'}, inner=
-                                         '<div class="stack" data-name="Column 1" style="flex:1;gap:10px">'
-                                         + body('Beyond day-to-day operations, this communication model strengthens the organization’s ability to respond to emergencies.')
-                                         + body('While the deployment is primarily focused on replacing the hospital red phone, the fixed-location Sonim devices support emergency workflows by maintaining reliable communication points during incidents.') + '</div>'
-                                         + body('Command centers maintain continuous connectivity with hospitals and departments, enabling real-time situational awareness and coordinated decision-making.', 'Column 2', flex='1'))],
-              l=M, t=546, w=696, gap=10)
-      + box('Statement band', l=M, t=770, w=696, h=160, cls='group', inner=fill('Band fill', RED, l=0, t=0, w=696, h=160)
-            + text('Band label', 'Most importantly', 'label abs', WHITE, 11, {'left': '26px', 'top': '24px'})
-            + text('Statement', 'A redundant communication option that operates **independently of traditional telephony and IP-based systems.**', 'quote abs', WHITE, 21, {'left': '26px', 'top': '46px', 'width': '420px', '--em': BLACK})
-            + text('Detail', 'This eliminates the risk of a single point of failure and ensures that communication remains intact even when primary systems are compromised.', 'small abs', WHITE, 10.5, {'left': '482px', 'bottom': '24px', 'width': '190px', 'font-weight': '700'}))
-      + foot())
-page(3, 'hc-continuity', 'Continuity page', 'Interior · icon row and a red statement band', p3)
+      + stack('Headline block', [text('Label', 'Customer spotlight', 'label', RED, 11),
+                                 text('Headline', 'How Inova keeps care **connected.**', 'h1', BLACK, 36)], l=M, t=66, w=696, gap=6)
+      + stack('Case header', [text('Label', 'Case study', 'label', RED, 11), text('Customer', 'Inova', 'h2', BLACK, 22),
+                              text('Meta', 'Health system · first-generation Sonim deployment · hospital red phone replacement', 'small', BLACK, 10.5)],
+              l=M, t=140, w=696, gap=4)
+      + box('Case columns', l=M, t=222, w=696, cls='row', style={'gap': '20px'}, inner=''.join(
+            f'<div class="stack" data-name="{t}" style="flex:1;gap:6px">{text("Subheading", t, "h3", RED, 12.5)}{body(d)}</div>' for t, d in CASE)
+            + f'<div class="stack" data-name="Results" style="flex:1;gap:8px">{text("Subheading", "Results", "h3", RED, 12.5)}{bullets(RESULTS, size=12.5)}</div>')
+      + fill('Rule', GRAY, l=M, t=470, w=696, h=1)
+      + stack('Continuity block', [h2('Protecting continuity of care'),
+                                   body('This deployment exists for the moments when communication matters most. Because the red phones keep working when other systems stop, providers can still:')],
+              l=M, t=490, w=696, gap=8)
+      + icon_row(CARE, 578, size=36)
+      + box('Statement band', l=M, t=738, w=696, h=180, cls='group', inner=fill('Band fill', RED, l=0, t=0, w=696, h=180)
+            + text('Band label', 'Emergency preparedness', 'label abs', WHITE, 11, {'left': '26px', 'top': '26px'})
+            + text('Statement', 'A redundant path that works when telephony and IP systems **don’t.**', 'quote abs', WHITE, 23, {'left': '26px', 'top': '50px', 'width': '400px', '--em': BLACK})
+            + text('Detail', 'Fixed-location devices give command centers and departments a communication point that does not share a single point of failure with the hospital’s primary systems.',
+                   'small abs', WHITE, 10.5, {'left': '470px', 'bottom': '26px', 'width': '200px', 'font-weight': '700'}))
+      + foot('Case study details from Inova deployment brief; confirm before publishing.'))
+page('hc-spotlight', 'Customer spotlight', 'Interior · case study, continuity icons, red statement band', p3)
 
-# ---------------------------------------------------------------- page 4: implementation, impact, conclusion
-STEPS = [('01', 'Devices are pre-assigned to departments, eliminating uncertainty during incidents.'),
-         ('02', 'Docking stations sit in visible, accessible locations: dependable operational tools, not emergency afterthoughts.'),
-         ('03', 'Because the devices mirror the traditional red phone experience, minimal training is required.'),
-         ('04', 'Basic readiness checks ensure devices remain powered, docked and available when needed.')]
-IMPACT = [('Operationally, organizations experience:', ['Reliable communication during telephony or system outages', 'Reduced reliance on aging analog phone infrastructure', 'Simplified device control using SonimWare Kiosk Mode']),
-          ('Clinically, the benefits are clear:', ['Maintained continuity of care', 'Improved response to critical patient events', 'Reduced delays linked to communication failures']),
-          ('The system supports compliance with:', ['CMS Emergency Preparedness requirements', 'Joint Commission Emergency Management standards', 'National best practices for resilient communication'])]
+# ---------------------------------------------------------------- 4 · the solution stack + close
+STACK = [('01', 'custom-side-button', 'Sonim XP5plus', 'A rugged, loud, simple handset, deployed in a no-knob configuration for fixed use. It runs independently of the hospital’s internal network, so it keeps working when VoIP and IP-based systems are offline.'),
+         ('02', 'battery-general', 'Red AdvanceTec base station', 'A red docking base station from accessory partner AdvanceTec keeps each phone in place, powered and instantly recognizable as the red phone. No other accessories were required.'),
+         ('03', 'sonim-ware', 'SonimWare Kiosk Mode', 'Locks each device to its job, so the red phone stays a red phone and device control stays simple for IT.'),
+         ('04', 'user-friendly', 'Rollout and readiness', 'Devices are pre-assigned to departments, docked in visible spots and checked regularly to make sure they stay powered, docked and ready.')]
 p4 = (head(4)
       + page_notch(X, 66)
-      + stack('Headline block', [text('Label', 'From implementation to integration', 'label', RED, 11),
-                                 text('Headline', 'Familiarity, **preserved by design.**', 'h1', BLACK, 36)], l=M, t=66, w=696, gap=6)
-      + text('Lead', 'The success of this initiative is rooted not only in the technology, but in how it is implemented.', 'lead abs', BLACK, 17, {'left': f'{M}px', 'top': '134px', 'width': '660px'})
-      + box('Steps', l=M, t=198, w=696, cls='row', style={'gap': '16px'}, inner=''.join(
-            f'<div class="stack" data-name="Step {n}" style="flex:1;gap:6px">{text("Number", n, "stat", RED, 28)}{text("Text", t, "small", BLACK, 10.5)}</div>' for n, t in STEPS))
-      + fill('Rule', GRAY, l=M, t=328, w=696, h=1)
-      + stack('Impact intro', [h2('Demonstrating value: measurable impact'),
-                               body('The impact of this deployment is both immediate and measurable.')], l=M, t=348, w=696, gap=8)
-      + box('Impact columns', l=M, t=420, w=696, cls='row', style={'gap': '20px'}, inner=''.join(
-            f'<div class="stack" data-name="{t}" style="flex:1;gap:8px">{text("Subheading", t, "h3", RED, 12.5)}{bullets(i, size=11)}</div>' for t, i in IMPACT))
-      + text('Note', 'More broadly, it strengthens the organization’s position as a high-reliability system, capable of operating effectively under any condition.',
-             'body abs', BLACK, 12.5, {'left': f'{M}px', 'top': '578px', 'width': '660px'})
+      + stack('Headline block', [text('Label', 'The solution', 'label', RED, 11),
+                                 text('Headline', 'The red phone, **rebuilt.**', 'h1', BLACK, 36)], l=M, t=66, w=696, gap=6)
+      + text('Lead', 'Three components and a simple rollout. Familiar on the outside, independent underneath.', 'lead abs', BLACK, 17, {'left': f'{M}px', 'top': '134px', 'width': '650px'})
+      + stack('Stack', [f'<div class="row" data-name="{t}" style="gap:16px;align-items:flex-start;padding:12px 0;border-top:1px solid {GRAY}">'
+                        f'{text("Number", n, "h2", RED, 20, {"width": "36px", "flex": "none"})}{icon(k, 40, t)}'
+                        f'<div class="stack" data-name="Text" style="gap:4px;flex:1">{text("Title", t, "h3", BLACK, 14)}{body(d, size=11.5)}</div></div>'
+                        for n, k, t, d in STACK], l=M, t=180, w=696, gap=0)
+      + text('Compliance', '**Supports compliance with** CMS Emergency Preparedness requirements¹, Joint Commission Emergency Management standards and national best practices for resilient communication.',
+             'small abs', BLACK, 10.5, {'left': f'{M}px', 'top': '574px', 'width': '660px', 'font-weight': '700'})
       + box('Closing band', l=0, t=632, w=W, h=424, cls='group', inner=fill('Band fill', RED, l=0, t=0, w=W, h=424)
-            + text('Label', 'Conclusion', 'label abs', WHITE, 11, {'left': f'{M}px', 'top': '36px'})
-            + text('Heading', 'Redefining communication as a **strategic asset.**', 'h1 abs', WHITE, 30, {'left': f'{M}px', 'top': '56px', 'width': '440px', '--em': BLACK})
-            + text('Body', 'In healthcare, resilience is not defined by the absence of disruption, but by the ability to continue operating despite it. By replacing the legacy red phone with Sonim XP5plus devices in red AdvanceTec base stations, the organization modernized a critical communication function without changing how staff work.',
-                   'body abs', WHITE, 12.5, {'left': f'{M}px', 'top': '160px', 'width': '400px'})
-            + stack('Ensures', [text('Ensures label', 'A redundant, resilient ecosystem ensures that:', 'h3', WHITE, 12.5),
-                                bullets(['Teams remain connected', 'Operations remain coordinated', 'Patients continue to receive safe, timely care'], WHITE, WHITE, 12.5, True)],
-                    l=500, t=160, w=256, gap=10)
+            + text('Label', 'The real story', 'label abs', WHITE, 11, {'left': f'{M}px', 'top': '36px'})
+            + text('Heading', 'Not a phone problem.\n**A continuity problem.**', 'h1 abs', WHITE, 32, {'left': f'{M}px', 'top': '56px', 'width': '420px', '--em': BLACK})
+            + text('Body', 'Resilience in healthcare isn’t the absence of disruption. It’s the ability to keep operating through it. By putting Sonim XP5plus devices in red AdvanceTec base stations, Inova modernized a critical communication function without changing how its staff work.',
+                   'body abs', WHITE, 12.5, {'left': f'{M}px', 'top': '150px', 'width': '400px'})
+            + stack('Ensures', [text('Ensures label', 'Teams stay connected. Operations stay coordinated. Patients keep getting safe, timely care.', 'h3', WHITE, 13.5)],
+                    l=500, t=150, w=256)
             + text('Closing line', 'Communication endures. **Care continues.**', 'h2 abs', WHITE, 24, {'left': f'{M}px', 'top': '296px', 'width': '696px', '--em': BLACK})
+            + text('CTA', 'Talk to Sonim · sonimtech.com', 'h3 abs', WHITE, 12, {'left': f'{M}px', 'top': '334px'})
             + logo(78, WHITE, l=M, b=28, lockup=True)
-            + text('Footnote', 'Sonim, a NEXA company · sonimtech.com', 'small abs', WHITE, 8, {'right': f'{M}px', 'bottom': '30px', 'text-align': 'right'})))
-page(4, 'hc-impact', 'Impact and conclusion', 'Closing page · numbered steps, impact columns, red conclusion band', p4)
+            + text('Footnote', '1 CMS Emergency Preparedness Rule, 42 CFR §482.15(c): communication plan, including primary and alternate means of communication.',
+                   'small abs', WHITE, 8, {'right': f'{M}px', 'bottom': '30px', 'width': '380px', 'text-align': 'right'})))
+page('hc-solution', 'Solution and close', 'Closing page · solution stack and red closing band', p4)
