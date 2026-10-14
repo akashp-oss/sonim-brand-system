@@ -10,7 +10,7 @@ for f in sorted(os.listdir(HERE / 'img')):
     k, ext = f.rsplit('.', 1)
     IMG[k] = f'data:image/{"jpeg" if ext == "jpg" else ext};base64,' + base64.b64encode(open(HERE / 'img' / f, 'rb').read()).decode()
 
-MARGINS = {'doc': 60, 'slide': 120, 'post': 80, 'story': 80, 'land': 64, 'poster': 96, 'rollup': 56, 'other': 64}
+MARGINS = {'web': 12, 'blog': 96, 'doc': 60, 'slide': 120, 'post': 80, 'story': 80, 'land': 64, 'poster': 96, 'rollup': 56, 'other': 64}
 
 sections_html, nav = [], []
 for sid, title, intro in T.SECTION_META:

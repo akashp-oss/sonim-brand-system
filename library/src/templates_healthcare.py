@@ -79,11 +79,11 @@ def bullets(items, color=BLACK, role='body'):
     return col('List', [row('Item', [fill('Bar', RED, style={'width': '4px', 'height': '12px', 'flex': 'none', 'margin-top': f'{bar_top}px'}),
                                      T('Item text', i, role, color, flex='1 1 0')], gap='md') for i in items], gap='sm')
 
-def tiles(items, size=56, weights=None):
+def tiles(items, size=56, weights=None, pad='xl'):
     """Sonim Gray tiles in a row: icon, title, optional detail. Equal heights; equal widths unless weighted."""
     weights = weights or [1] * len(items)
     return row('Icon tiles', [col((t or d)[:40], [icon(k, size, (t or d)[:40])] + ([T('Title', t, 'h3')] if t else []) + ([body(d, 'Detail')] if d else []),
-                                  gap='md', flex=f'{wt} 1 0', min_width='0', background=GRAY, padding=f'{S["xl"]}px', align_self='stretch')
+                                  gap='md', flex=f'{wt} 1 0', min_width='0', background=GRAY, padding=f'{S[pad]}px', align_self='stretch')
                                for (k, t, d), wt in zip(items, weights)], gap='md', align_items='stretch')
 
 def band(name, items, gap='lg', **style):
@@ -101,8 +101,8 @@ def rugged_box(name, w, h, items, color=GRAY):
 def page(aid, name, use, content, folio, bleed='', bg=WHITE, show_header=True, gap='xxl'):
     """One page = auto-layout column: optional full-bleed top, then a padded column with header, content, footer."""
     inner = col('Page content', ([header(folio)] if show_header else [])
-                + [col('Content', content, gap, flex='1 1 auto', margin_top=f'{S["xl"]}px' if show_header else '0')]
-                + [footer()], gap='lg', flex='1 1 auto', padding=f'28px {M}px 32px', position='relative')
+                + [col('Content', content, gap, flex='1 1 auto', margin_top=f'{S["lg"]}px' if show_header else '0')]
+                + [footer()], gap='xxl', flex='1 1 auto', padding=f'28px {M}px 32px', position='relative')
     pg = col('Page', [bleed, inner], gap='none', width=f'{W}px', height=f'{H}px', position='absolute', left='0', top='0')
     F.append(('wp', artboard(aid, f'Healthcare white paper · {name}', W, H, bg, pg, use, 'doc')))
 
@@ -123,7 +123,7 @@ page('hc-opening', 'Opening page', 'US Letter · title, introduction and callout
         gap='xxl'),
     rule(),
     lead('To address this risk, the organization sought a resilient, simple replacement for the traditional hospital “red phone”—a device long relied upon for always-available communication during critical events.'),
-], 1, bleed=bleed_photo('healthcare', 250, '50% 30%'), gap='xl')
+], 1, bleed=bleed_photo('healthcare', 228, '50% 30%'), gap='xl')
 F[-1] = (F[-1][0], F[-1][1].replace('Sonim, a NEXA company · sonimtech.com', 'Photo: sonimtech.com', 1))
 
 # ---------------------------------------------------------------- 2 · a shift in strategy
@@ -175,7 +175,7 @@ page('hc-continuity', 'Continuity page', 'Interior · icon tiles, two columns an
         T('Statement', 'Most importantly, the solution provides a redundant communication option that operates **independently of traditional telephony and IP-based systems.**', 'quote', WHITE, flex='3 1 0', **{'--em': BLACK}),
         T('Detail', 'This eliminates the risk of a single point of failure and ensures that communication remains intact even when primary systems are compromised.', 'body', WHITE, flex='2 1 0')],
         gap='xxl', align_items='flex-end')]),
-], 4)
+], 4, gap='xl')
 
 # ---------------------------------------------------------------- 5 · implementation + measurable impact
 STEPS = [('multiple-users', None, 'Devices are pre-assigned to departments, eliminating uncertainty during incidents. Docking stations are placed in visible, accessible locations, reinforcing their role as dependable operational tools rather than emergency afterthoughts.'),
@@ -187,12 +187,12 @@ IMPACT = [('tower', 'Operationally, organizations experience:', ['Reliable commu
 page('hc-impact', 'Impact page', 'Interior · implementation tiles and impact columns', [
     col('Opening', [headline('White paper · Healthcare', 'From implementation **to integration.**'),
                     lead('The success of this initiative is rooted not only in the technology, but in how it is implemented.')], gap='lg'),
-    tiles(STEPS, 48, weights=[1.7, 1.15, 1]),
+    tiles(STEPS, 40, weights=[1.7, 1.15, 1], pad='lg'),
     rule(),
     section('Demonstrating value', 'Measurable impact', [
         body('The impact of this deployment is both immediate and measurable.'),
-        row('Impact columns', [flex1(t[:30], [icon(k, 48, t[:30]), T('Subheading', t, 'h3', RED), bullets(i)], gap='md') for k, t, i in IMPACT], gap='xl')], gap='lg'),
-    lead('More broadly, it strengthens the organization’s position as a high-reliability system, capable of operating effectively under any condition.'),
+        row('Impact columns', [flex1(t[:30], [icon(k, 40, t[:30]), T('Subheading', t, 'h3', RED), bullets(i)], gap='md') for k, t, i in IMPACT], gap='xl'),
+        lead('More broadly, it strengthens the organization’s position as a high-reliability system, capable of operating effectively under any condition.')], gap='lg'),
 ], 5, gap='xl')
 
 # ---------------------------------------------------------------- 6 · conclusion

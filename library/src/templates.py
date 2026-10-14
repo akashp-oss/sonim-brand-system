@@ -77,7 +77,7 @@ wp3 = (
     + page_notch(X, 66)
     + stack('Headline block', [text('Label', 'Customer spotlight', 'label', RED, 11), text('Headline', 'How EMS organizations **use Sonim today.**', 'h1', BLACK, 36)], l=M, t=66, w=696, gap=6)
     + ''.join(
-        box(f'Case study {i+1}', l=M + i * 358, t=140, w=338, cls='stack', style={'gap': '6px'}, inner=
+        box(f'Case study {i+1}', l=M + i * 358, t=184, w=338, cls='stack', style={'gap': '6px'}, inner=
             f'<div class="photo-frame" data-name="Photo frame" style="width:338px;height:200px;margin-bottom:10px">{photo("Photo", k, 0, 0, 338, 200, pos)}</div>'
             + text('Label', 'Case study', 'label', RED, 11) + text('Customer', n, 'h2', BLACK, 20) + text('Meta', m, 'small', BLACK, 10.5)
             + text('Subheading', 'Challenge', 'h3', RED, 12.5, {'margin-top': '8px'}) + text('Body', ch, 'body', BLACK, 12.5)
@@ -87,7 +87,7 @@ wp3 = (
         for i, (k, pos, n, m, ch, so, rs) in enumerate([
             ('heli', '50% 45%', 'Customer name', 'Organisation size · locations · scope', 'One or two sentences on the operational problem.', 'The Sonim products and platform used, in one or two sentences.', ['Result one', 'Result two', 'Result three']),
             ('night', '40% 50%', 'Customer name', 'Organisation size · locations · scope', 'One or two sentences on the operational problem.', 'The Sonim products and platform used, in one or two sentences.', ['Benefit one', 'Benefit two', 'Benefit three'])]))
-    + box('Quote band', l=M, t=740, w=696, h=150, cls='group', inner=fill('Band fill', RED, l=0, t=0, w=696, h=150)
+    + box('Quote band', l=M, t=770, w=696, h=150, cls='group', inner=fill('Band fill', RED, l=0, t=0, w=696, h=150)
           + text('Quote', '“Customer quote in bold white on Sonim Red. Keep it under thirty words and make it specific.”', 'quote abs', WHITE, 21, {'left': '26px', 'top': '26px', 'width': '430px'})
           + text('Attribution', 'Name Surname\nTitle, Organisation', 'small abs', WHITE, 10.5, {'left': '500px', 'bottom': '26px', 'width': '170px', 'font-weight': '700'}))
     + doc_foot('3 Source citation. 4 Source citation.')
@@ -129,7 +129,7 @@ s3 = (slide_head(3)
 F.append(('slides', artboard('slide-stats', 'Presentation · Key numbers', 1920, 1080, GRAY, s3, 'Up to three sourced stats', 'slide')))
 
 s4 = (slide_head(4)
-      + text('Model number', 'XP5', 'display abs', RED, 560, {'left': '760px', 'top': '220px', 'letter-spacing': '-0.06em', 'line-height': '0.8'})
+      + text('Model number', 'XP5', 'display abs', RED, 560, {'--bleed': '1', 'left': '760px', 'top': '220px', 'letter-spacing': '-0.06em', 'line-height': '0.8'})
       + cutout('Product render', 'xp5', 1130, 150, 420, 800)
       + page_notch(X, 160)
       + stack('Headline block', [text('Label', 'Sonim XP5plus 5G', 'label', RED, 26), text('Headline', 'Radio-style\ncontrol.\n**Broadband reach.**', 'h1', BLACK, 72)], l=M, t=160, w=600, gap=14)
@@ -217,7 +217,7 @@ st1 = (photo('Story photo', 'crew', 0, 0, 1080, 1100, '45% 50%')
        + logo(170, WHITE, l=M, t=SAFE_T))
 F.append(('stories', artboard('story-photo', 'Instagram story · Photo + red panel', 1080, 1920, WHITE, st1, '9:16 · rotated Expanded Notch', 'story')))
 
-st2 = (text('Model number', 'XP5', 'display abs', RED, 470, {'left': '50px', 'top': '560px', 'letter-spacing': '-0.06em', 'line-height': '0.8'})
+st2 = (text('Model number', 'XP5', 'display abs', RED, 470, {'--bleed': '1', 'left': '50px', 'top': '560px', 'letter-spacing': '-0.06em', 'line-height': '0.8'})
        + cutout('Product render', 'xp5', 400, 420, 480, 915)
        + page_notch(X, SAFE_T)
        + stack('Headline block', [text('Label', 'Sonim XP5plus 5G', 'label', RED, 32), text('Headline', 'The fourth\ngeneration is **here.**', 'h1', BLACK, 80)], l=M, t=SAFE_T, w=920, gap=12)
@@ -277,7 +277,7 @@ po1 = (photo('Poster photo', 'rescue', 0, 0, 1200, 980, '50% 40%')
        + logo(180, BLACK, l=M, b=M) + text('URL', 'sonimtech.com', 'h3 abs', BLACK, 26, {'right': '96px', 'bottom': '100px'}))
 F.append(('posters', artboard('poster-18x24', 'Poster · 18 × 24 in', 1200, 1600, WHITE, po1, '3:4 · photo-led, product breaks the edge', 'poster')))
 
-po2 = (text('Model number', 'XP5', 'display abs', RED, 600, {'left': '70px', 'top': '560px', 'letter-spacing': '-0.06em', 'line-height': '0.8'})
+po2 = (text('Model number', 'XP5', 'display abs', RED, 600, {'--bleed': '1', 'left': '70px', 'top': '560px', 'letter-spacing': '-0.06em', 'line-height': '0.8'})
        + cutout('Product render', 'xp5', 560, 420, 460, 875)
        + page_notch(X, M + 30)
        + stack('Headline block', [text('Label', 'The fourth generation', 'label', RED, 26), text('Headline', 'A bold vision\nfor **public safety.**', 'h1', BLACK, 104)], l=M, t=M + 30, w=1000, gap=14)
@@ -298,8 +298,8 @@ b2 = (photo('Banner photo', 'responder', 0, 0, 660, 800, '50% 30%')
       + text('URL', 'sonimtech.com', 'h3 abs', BLACK, 24, {'left': '56px', 'bottom': '64px'}))
 F.append(('banners', artboard('rollup-message', 'Roll-up banner · Message', 660, 1600, GRAY, b2, '33 × 80 in · photo over Sonim Gray', 'rollup')))
 
-b3 = (text('Model line 1', 'XP', 'display abs', RED, 400, {'left': '20px', 'top': '420px', 'letter-spacing': '-0.06em', 'line-height': '0.8'})
-      + text('Model line 2', '5', 'display abs', RED, 640, {'left': '250px', 'top': '720px', 'letter-spacing': '-0.06em', 'line-height': '0.8'})
+b3 = (text('Model line 1', 'XP', 'display abs', RED, 400, {'--bleed': '1', 'left': '20px', 'top': '420px', 'letter-spacing': '-0.06em', 'line-height': '0.8'})
+      + text('Model line 2', '5', 'display abs', RED, 640, {'--bleed': '1', 'left': '250px', 'top': '720px', 'letter-spacing': '-0.06em', 'line-height': '0.8'})
       + cutout('Product render', 'xp5', 150, 380, 360, 685)
       + logo(160, BLACK, l=M, t=M)
       + stack('Tagline', [text('Label', 'Sonim XP5plus 5G', 'label', RED, 22), text('Line', 'Radio-style control.\nBroadband reach.', 'h2', BLACK, 40)], l=M, t=1300, w=560, gap=10)
@@ -359,7 +359,7 @@ ot4 = (fill('Rule', GRAY, l=0, t=0, w=2, h=120, style={'left': '150px', 'top': '
        + logo(110, BLACK, l=16, t=45)
        + stack('Signature', [text('Name', 'First Last', 'h3', BLACK, 18), text('Title', 'Job title · Sonim, a NEXA company', 'body', BLACK, 14),
                              text('Contact', '+1 000 000 0000 · sonimtech.com', 'body', RED, 14, {'font-weight': '700'})], l=176, t=34, w=400, gap=4))
-F.append(('other', artboard('email-signature', 'Email · Signature', 600, 160, WHITE, ot4, 'Export at 2× for retina', 'other')))
+F.append(('other', artboard('email-signature', 'Email · Signature', 600, 160, WHITE, ot4, 'Export at 2× for retina', 'web')))
 
 X = 24
 ot5 = (xnotch('Expanded notch 25%', 0, 0, 480, 1080, X, RED, logo(170, WHITE, l=120, b=88))
