@@ -49,12 +49,33 @@ def cover(aid, name, panel, ink, em, line2, line3, hero, visual, visual_bg, capt
                       + hero + flir(ink), notch_top=2 * X + 210))
     F.append(('blog', artboard(aid, f'Blog cover · {name}', W, H, panel, inner, caption, 'blog')))
 
-# ---------------------------------------------------------------- 1 · Blending Mode: visible camera + thermal = one view
-# hero: the feature as an icon equation; visual: the XP Pro Thermal showing a real blended (MSX) capture
-dw = 450 * 900 // 870
+# ---------------------------------------------------------------- shared: side-by-side comparison + statement hero
+# Blending and Scale Lock both teach the feature with the same scene shown twice: without it (left) and with it (right, red frame).
+def statement(t, ink, size=60):
+    """Hero slot as a short statement from the client's own caption copy (no stat on these two features)."""
+    return text('Statement', t, 'h1 abs', ink, size, {'left': f'{M}px', 'top': f'{HERO_T}px', 'width': '980px', 'line-height': '1.1'})
+
+def compare(left, right, tw, th, ty, notes, credit, extra=''):
+    tg = 24
+    x1 = PANEL + (VW - 2 * tw - tg) // 2
+    x2 = x1 + tw + tg
+    lab = lambda t, l, red: box('Label', l=l, t=ty - 70, cls='row', style={'background': RED if red else 'transparent', 'padding': '8px 14px' if red else '8px 0'},
+                                inner=text('Label text', t, 'h3', WHITE, 30))
+    frame = (fill('Frame', RED, l=x2 - 6, t=ty - 6, w=tw + 12, h=6) + fill('Frame', RED, l=x2 - 6, t=ty + th, w=tw + 12, h=6)
+             + fill('Frame', RED, l=x2 - 6, t=ty, w=6, h=th) + fill('Frame', RED, l=x2 + tw, t=ty, w=6, h=th))
+    out = (lab(left[0], x1, False) + lab(right[0], x2, True)
+           + photo(left[0], left[1], x1, ty, tw, th) + photo(right[0], right[1], x2, ty, tw, th) + frame
+           + extra.replace('{x1}', str(x1)).replace('{x2}', str(x2)))
+    nt = ty + th + (54 if extra else 28)
+    out += ''.join(text('Note', n, 'lead abs', WHITE, 24, {'left': f'{x}px', 'top': f'{nt}px', 'width': f'{tw}px'}) for n, x in zip(notes, (x1, x2)))
+    return out + text('Credit', credit, 'small abs', WHITE, 14, {'right': f'{M}px', 'bottom': '32px', 'opacity': '.7'})
+
+# ---------------------------------------------------------------- 1 · Blending Mode: FLIR's own thermal-only vs MSX example
+# Source: flir.com MSX example (same scene; left thermal only, right blended with visible-camera edges).
 cover('blog-blending', 'Blending Mode', WHITE, BLACK, RED, 'See the heat—', 'and exactly where it is.',
-      hero_icons(['visible-camera', '+', 'thermal-sensor', '=', 'blend-layers'], BLACK, 'Visible camera + thermal, in one view'),
-      cutout('XP Pro Thermal', 'xppro_thermal', PANEL + (VW - dw) // 2 + 10, 90, dw, 900), BLACK,
+      statement('One view.\n**Full context.**', BLACK),
+      compare(('Thermal only', 'msx_thermal'), ('Blended', 'msx_blend'), 350, 366, 330,
+              ['The heat is there.\nThe details are not.', 'Visible edges on the heat:\nevery cable and bolt.'], 'Thermal image: FLIR MSX example'), BLACK,
       'Caption: Blending Mode layers thermal over the visible camera, so your crew sees what’s hot and exactly where it is. One view. Full context. sonimtech.com')
 
 # ---------------------------------------------------------------- 2 · Spot Meter (electricians): brand book photo of an electrician at the panels
@@ -63,10 +84,15 @@ cover('blog-spot-meter', 'Spot Meter', BLACK, WHITE, RED, 'Stop estimating heat�
       photo('Use-case photo · electrician', 'electrician', PANEL, 0, VW, H, '58% 50%'), BLACK,
       'Caption: Spot Meter gives you an exact, non-contact temperature at any point in the image. The number you need, from a safe distance. sonimtech.com')
 
-# ---------------------------------------------------------------- 3 · IR Scale Lock (HVAC): brand book photo of a technician on equipment
+# ---------------------------------------------------------------- 3 · IR Scale Lock (HVAC): the article's own example, side by side
+# "A hot motor in the frame shouldn't change your diagnosis." Same breaker-panel capture twice: auto-scale lets the motor take
+# the range and the hot breaker fades; the locked scale keeps it visible. Built by brand/make_scale_lock.py from the real capture.
+bars = ''.join(f'<img class="abs photo" data-name="Color scale" data-img="scale_bar" alt="Color scale" style="left:{{{x}}}px;top:{230 + 568 + 22}px;width:340px;height:14px">' for x in ('x1', 'x2'))
 cover('blog-scale-lock', 'IR Scale Lock', GRAY, BLACK, RED, 'Lock the scale—', 'and every reading stays true.',
-      hero_icons(['scale-lock'], BLACK, 'Colors stay fixed from reading to reading', 200),
-      photo('Use-case photo · technician', 'technician', PANEL, 0, VW, H, '45% 50%'), BLACK,
+      statement('Consistent from the first\nreading **to the last.**', BLACK),
+      compare(('Auto-scale', 'scale_auto'), ('IR Scale Lock', 'scale_locked'), 340, 568, 230,
+              ['A hot motor takes the range.\nThe faulty breaker fades.', 'Range locked to the panel.\nThe fault stays in view.'],
+              'Illustration from a real XP Pro Thermal capture', bars), BLACK,
       'Caption: IR Scale Lock holds the thermal scale steady, so a hot motor or a warm hand never changes what you see. Consistent from the first reading to the last. sonimtech.com')
 
 # ---------------------------------------------------------------- 4 · High-Temp: stat on Sonim Red + photo (client favourite, unchanged)
@@ -75,11 +101,18 @@ cover('blog-high-temp', 'High-Temp Measurement', RED, WHITE, BLACK, 'Keep the de
       photo('Use-case photo', 'structure_fire', PANEL, 0, VW, H, '45% 50%'), BLACK,
       'Caption: When the scene heats up, High-Temp Measurement extends the display range to 400°C (752°F), so the detail stays on screen when it matters most. sonimtech.com')
 
-# ---------------------------------------------------------------- 5 · Palette Selector: stat "9" + the real capture in all nine palettes
+# ---------------------------------------------------------------- 5 · Palette Selector: stat "9" + FLIR's nine palette examples, named
+# Source: flir.com "Picking a thermal color palette" (E95 electrical scene; Scout III elk for Black Hot and Graded Fire).
+PALETTES = [('Ironbow', '50% 50%'), ('Rainbow', '50% 50%'), ('Rainbow HC', '50% 50%'), ('Arctic', '50% 50%'), ('Lava', '50% 50%'),
+            ('White Hot', '50% 50%'), ('Black Hot', '50% 50%'), ('Isotherm', '50% 50%'), ('Graded Fire', '50% 50%')]
 g = 6
 pw, ph = (VW - 2 * g) // 3, (H - 2 * g) // 3
-mosaic = ''.join(photo(f'Palette {i + 1}', f'thermal_p{i + 1}', PANEL + (i % 3) * (pw + g), (i // 3) * (ph + g), pw, ph) for i in range(9))
+mosaic = ''.join(photo(f'Palette · {n}', f'flir_pal{i + 1}', PANEL + (i % 3) * (pw + g), (i // 3) * (ph + g), pw, ph, pos)
+                 + box('Name', l=PANEL + (i % 3) * (pw + g) + (36 if i % 3 == 0 else 12), t=(i // 3) * (ph + g) + ph - 52, cls='row', style={'background': BLACK, 'padding': '6px 10px'},
+                       inner=text('Name text', n, 'h3', WHITE, 20))
+                 for i, (n, pos) in enumerate(PALETTES))
 cover('blog-palettes', 'Palette Selector', BLACK, WHITE, RED, 'Nine palettes—', 'one clear picture for every job.',
-      hero_stat('9', WHITE, 'Color palettes, switchable in the field'),
+      hero_stat('9', WHITE, 'Color palettes, switchable in the field')
+      + text('Credit', 'Palette examples: FLIR', 'small abs', WHITE, 14, {'right': f'{M}px', 'bottom': f'{M}px', 'opacity': '.7'}),
       mosaic, BLACK,
       'Caption: Every surface, material and light condition shows heat differently. Choose from nine palettes to get the clearest image for the job in front of you. sonimtech.com')
