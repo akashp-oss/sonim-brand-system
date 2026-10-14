@@ -347,6 +347,10 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-10-14 — Blog covers round 6: no "+" type heroes. Blending = FLIR's own MSX example (thermal only vs blended,
+  flir.com) side by side like Scale Lock; both use a statement from the client caption in the hero slot. Palettes =
+  FLIR's nine examples with their names (flir.com "Picking a thermal color palette"): Ironbow, Rainbow, Rainbow HC,
+  Arctic, Lava, White Hot, Black Hot, Isotherm, Graded Fire. Scale Lock illustration unchanged.
 - 2026-10-14 — Blog covers round 5 (client kept Spot Meter, High-Temp, Palettes): Blending = "Thermal + visible"
   type hero + brand book foundry photo; IR Scale Lock = the article's own example side by side (auto-scale vs locked,
   same capture + a hot motor, built by brand/make_scale_lock.py), "Level + span" hero.

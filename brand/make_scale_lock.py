@@ -3,7 +3,7 @@
 # right edge; the same scene is then coloured with an auto range (motor sets the top) and a locked range (the panel).
 from PIL import Image, ImageFilter, ImageDraw
 import numpy as np
-I=np.asarray(Image.open('library/src/img/thermal_p2.jpg').convert('L').resize((424,708),Image.LANCZOS)).astype(float)/255
+I=np.asarray(Image.open('brand/thermal_capture_whitehot.jpg').convert('L').resize((424,708),Image.LANCZOS)).astype(float)/255
 H,W=I.shape
 stops=[(0,(0,0,10)),(.15,(32,0,90)),(.35,(140,0,150)),(.55,(220,40,60)),(.72,(250,120,0)),(.88,(255,210,40)),(1,(255,255,230))]
 def lut(x):
