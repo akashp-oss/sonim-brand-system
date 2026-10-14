@@ -116,6 +116,11 @@ Source of truth: **Sonim Visual Identity Standards & Brand Guidelines (1 March 2
 - Hairlines: Sonim Gray on white, white on gray.
 
 ### Typography
+- **Current usage (2026-10-14):** headings, labels, stats and quotes in **Akzidenz-Grotesk Pro**
+  (Arial fallback where not installed); running text (lead, body, small) and the app UI in **Inter**
+  (SIL OFL, embedded in the library build from `library/src/fonts/`; white paper references the same files,
+  the editor build embeds them). Akzidenz is licensed: never commit its files; to show it on the web
+  without local installs you need a web licence, then add @font-face files the same way as Inter.
 - **Akzidenz Grotesk** Bold + Regular (Berthold). Condensed cuts only for spec tables.
 - **Arial** is the approved fallback (Office, email, and this HTML build — Akzidenz is not licensed
   on the studio machine). Do not use any other font.
@@ -342,6 +347,8 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-10-14 — Brand fonts: Akzidenz-Grotesk Pro for headings, Inter for body (library, Copy SVG,
+  white paper, editor). Inter embedded; Akzidenz by name only (licensed).
 - 2026-10-14 — Blog covers round 3, visuals tied to the articles (Thermal Pro blog content docx): Blending =
   visible-edge layer + thermal layer = blended view (both layers derived from the real capture); Spot Meter =
   Sp1–Sp3 spot meters on the breaker panel (electricians article); Scale Lock = locked thermal scale with

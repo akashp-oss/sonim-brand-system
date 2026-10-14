@@ -22,8 +22,13 @@ for sid, title, intro in T.SECTION_META:
         f'<h2 class="figma-title" data-name="{esc(title)} title">{esc(title)}</h2>'
         f'<div class="frames">{"".join(frames)}</div></section>')
 
+FONT_FACES = ''.join(
+    f'@font-face{{font-family:Inter;font-style:normal;font-weight:{w};font-display:swap;'
+    f'src:url(data:font/woff2;base64,{base64.b64encode(open(HERE / "fonts" / f"inter-latin-{w}-normal.woff2", "rb").read()).decode()}) format("woff2")}}'
+    for w in (400, 500, 700))
+
 CSS = r"""
-:root{--red:#CF102D;--black:#000;--gray:#E5ECEE;--white:#fff;--line:#E5ECEE;--ui:Arial,"Liberation Sans",Helvetica,sans-serif;--top:64px;--side:288px;--bg:#F5F5F5}
+:root{--red:#CF102D;--black:#000;--gray:#E5ECEE;--white:#fff;--line:#E5ECEE;--ui:Inter,Arial,"Liberation Sans",Helvetica,sans-serif;--head:"Akzidenz-Grotesk Pro","AkzidenzGroteskPro","Akzidenz Grotesk Pro","Akzidenz-Grotesk",Arial,"Liberation Sans",Helvetica,sans-serif;--body:Inter,Arial,"Liberation Sans",Helvetica,sans-serif;--top:64px;--side:288px;--bg:#F5F5F5}
 *{box-sizing:border-box}
 html{scroll-padding-top:calc(var(--top) + 16px)}
 html,body{margin:0;background:var(--bg);color:#000;font-family:var(--ui)}
@@ -100,7 +105,7 @@ button{font-family:var(--ui)}
 .tool.icon{padding:0 7px}
 .tool.done{background:#000}
 .tool:disabled{cursor:progress;opacity:.7}
-.ab{position:relative;overflow:hidden;transform-origin:0 0;font-family:Arial,"Liberation Sans",Helvetica,sans-serif;color:#000;--em:#CF102D}
+.ab{position:relative;overflow:hidden;transform-origin:0 0;font-family:var(--body);color:#000;--em:#CF102D}
 /* ---------- artboard primitives (these become Figma layers) ---------- */
 .ab .abs{position:absolute}
 .ab .stack{display:flex;flex-direction:column}
@@ -115,6 +120,9 @@ button{font-family:var(--ui)}
 .ab .icon svg{width:100%;height:100%}
 .ab .photo-frame{position:relative;overflow:hidden;flex:none}
 /* type roles: sizes are set per template, roles fix weight, leading and tracking */
+/* brand fonts: Akzidenz-Grotesk Pro for headings and labels, Inter for running text */
+.ab .display,.ab .h1,.ab .h2,.ab .h3,.ab .label,.ab .meta,.ab .stat,.ab .quote{font-family:var(--head)}
+.ab .lead,.ab .body,.ab .small{font-family:var(--body)}
 .ab .display{font-weight:700;line-height:.94;letter-spacing:-.03em}
 .ab .h1{font-weight:700;line-height:1;letter-spacing:-.025em}
 .ab .h2{font-weight:700;line-height:1.1;letter-spacing:-.015em}
@@ -190,7 +198,7 @@ RULES = f"""
   <div class="rule"><h4>Colour</h4><div class="chips">{CHIPS}</div><p>Four colours only. No tints, gradients or shadows. Click a chip to copy its HEX.</p></div>
   <div class="rule"><h4>Type</h4>
     <div class="sample">Headline in black, <em>key phrase in red.</em></div>
-    <dl class="kv"><dt>Font</dt><dd>Akzidenz Grotesk Bold / Regular. Arial if not installed.</dd><dt>Case</dt><dd>Sentence case, flush left, ends with a period.</dd></dl></div>
+    <dl class="kv"><dt>Head</dt><dd>Akzidenz-Grotesk Pro Bold / Regular (Arial if not installed)</dd><dt>Body</dt><dd>Inter Regular / Medium</dd><dt>Case</dt><dd>Sentence case, flush left, ends with a period.</dd></dl></div>
   <div class="rule"><h4>Layout</h4>
     <dl class="kv"><dt>Margin</dt><dd>M ≈ 7.4% of the short side</dd><dt>Notch</dt><dd>X × 18X, X = M ÷ 5, ends angled 26.5°. Left edge, top aligned to the label.</dd><dt>Container</dt><dd>Official sizes only, 3.75 × 5 to 6.25 × 8 in. Always taller than wide.</dd></dl></div>
   <div class="rule"><h4>Logo</h4>
@@ -211,7 +219,7 @@ page = f"""<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sonim brand template library</title>
 <link rel="icon" type="image/svg+xml" href="{FAVICON}">
-<style>{CSS}</style>
+<style>{FONT_FACES}{CSS}</style>
 </head>
 <body>
 <header class="topbar" data-name="App bar">

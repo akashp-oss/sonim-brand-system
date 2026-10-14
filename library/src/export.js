@@ -59,7 +59,7 @@
         const r = rel({ getBoundingClientRect: () => b });
         const ch = n.data[i].replace(/\s/, ' ');
         const last = runs[runs.length - 1];
-        const baseline = r.y + r.h * 0.905 / 1.117;   // Arial ascent / content-area height
+        const baseline = r.y + r.h * 0.8;   // ascent share of the content box (Arial 0.81, Inter 0.80)
         if (last && last.style === style && Math.abs(last.baseline - baseline) < fs * 0.3) last.text += ch;
         else runs.push({ style, x: r.x, baseline, text: ch });
       }
@@ -92,7 +92,7 @@
         if (bg) out += `<rect id="${el.classList.contains('shape') ? id(el) : 'Fill'}" x="${N(r.x)}" y="${N(r.y)}" width="${N(r.w)}" height="${N(r.h)}" fill="${bg}"/>`;
         if (el.classList.contains('tx')) {
           const spans = textRuns(el, rel).map(t => `<tspan x="${N(t.x)}" y="${N(t.baseline)}" fill="${t.style.fill}" font-size="${N(t.style.size)}" font-weight="${t.style.weight >= 600 ? 700 : 400}"${t.style.ls ? ` letter-spacing="${N(t.style.ls)}"` : ''}>${esc(t.text)}</tspan>`).join('');
-          return out + `<text id="${id(el)}" font-family="Arial, Helvetica, sans-serif" xml:space="preserve">${spans}</text>`;
+          return out + `<text id="${id(el)}" font-family="${esc(getComputedStyle(el).fontFamily)}" xml:space="preserve">${spans}</text>`;
         }
         const kids = [...el.children].map(node).join('');
         if (el.classList.contains('shape')) return out + kids;

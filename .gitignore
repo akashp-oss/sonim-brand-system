@@ -13,3 +13,6 @@ node_modules
 Thumbs.db
 ~$*
 public/
+
+# Inter is open source (SIL OFL 1.1) and embedded in the library build; licensed fonts stay out
+!library/src/fonts/inter-*.woff2
