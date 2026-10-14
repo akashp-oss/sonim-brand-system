@@ -52,13 +52,13 @@ cover('blog-blending', 'Blending Mode', BLACK, c1,
       'Caption: Blending Mode layers thermal over the visible camera, so your crew sees what’s hot and exactly where it is. One view. Full context. sonimtech.com')
 
 # ---------------------------------------------------------------- 2 · Spot Meter: use-case photo + crosshair
-cross = (f'<svg data-name="Spot meter crosshair" width="260" height="260" viewBox="0 0 260 260" class="abs" style="left:1420px;top:330px">'
+cross = (f'<svg data-name="Spot meter crosshair" width="260" height="260" viewBox="0 0 260 260" class="abs" style="left:1630px;top:640px">'
          f'<circle cx="130" cy="130" r="80" fill="none" stroke="{WHITE}" stroke-width="4"/>'
          f'<path d="M130 10v80M130 170v80M10 130h80M170 130h80" stroke="{WHITE}" stroke-width="4"/>'
          f'<circle cx="130" cy="130" r="9" fill="{RED}"/></svg>')
-c2 = (photo('Use-case photo', 'wildfire', 1180, 0, 740, 1080, '30% 50%')
+c2 = (photo('Use-case photo', 'wildfire', 1180, 0, 740, 1080, '100% 50%')
       + cross
-      + box('Spot tag', l=1660, t=420, cls='row', style={'background': BLACK, 'padding': '12px 18px', 'gap': '10px', 'align-items': 'center'}, inner=
+      + box('Spot tag', l=1600, t=566, cls='row', style={'background': BLACK, 'padding': '12px 18px', 'gap': '10px', 'align-items': 'center'}, inner=
             fill('Dot', RED, style={'position': 'relative', 'width': '12px', 'height': '12px'}) + text('Tag', 'Spot meter', 'h3', WHITE, 22))
       + logo(220, WHITE, l=M, t=M)
       + headline(230, 'Stop estimating heat—', 'measure it to the degree.', w=1000)
