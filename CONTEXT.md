@@ -347,6 +347,9 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-10-14 — Blog covers round 5 (client kept Spot Meter, High-Temp, Palettes): Blending = "Thermal + visible"
+  type hero + brand book foundry photo; IR Scale Lock = the article's own example side by side (auto-scale vs locked,
+  same capture + a hot motor, built by brand/make_scale_lock.py), "Level + span" hero.
 - 2026-10-14 — Layout audit for every asset (`make check`): library/src/audit.js (69 artboards) and
   whitepaper/scripts/audit.js (EMS paper, blank template, design system). Fails on text < 12 px, bold < 16 px,
   text clipped / covered / overlapping / outside margins, content < 24 px (doc) above the footer, broken images.

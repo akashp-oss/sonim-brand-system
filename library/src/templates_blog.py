@@ -49,12 +49,15 @@ def cover(aid, name, panel, ink, em, line2, line3, hero, visual, visual_bg, capt
                       + hero + flir(ink), notch_top=2 * X + 210))
     F.append(('blog', artboard(aid, f'Blog cover · {name}', W, H, panel, inner, caption, 'blog')))
 
-# ---------------------------------------------------------------- 1 · Blending Mode: visible camera + thermal = one view
-# hero: the feature as an icon equation; visual: the XP Pro Thermal showing a real blended (MSX) capture
-dw = 450 * 900 // 870
+# ---------------------------------------------------------------- 1 · Blending Mode: thermal + visible in one view
+# hero: the feature in type ("Thermal + visible", as loud as 400°C); visual: brand book photo where heat is the job (foundry pour)
+def hero_type(t, ink, caption, size=110):
+    return (text('Hero', t, 'stat abs', ink, size, {'left': f'{M}px', 'top': f'{HERO_T + 40}px', 'white-space': 'nowrap', 'letter-spacing': '-0.03em'})
+            + text('Hero caption', caption, 'h2 abs', ink, 34, {'left': f'{M}px', 'top': f'{CAP_T}px'}))
+
 cover('blog-blending', 'Blending Mode', WHITE, BLACK, RED, 'See the heat—', 'and exactly where it is.',
-      hero_icons(['visible-camera', '+', 'thermal-sensor', '=', 'blend-layers'], BLACK, 'Visible camera + thermal, in one view'),
-      cutout('XP Pro Thermal', 'xppro_thermal', PANEL + (VW - dw) // 2 + 10, 90, dw, 900), BLACK,
+      hero_type('Thermal **+** visible', BLACK, 'Two cameras, blended into one view'),
+      photo('Use-case photo · foundry', 'foundry', PANEL, 0, VW, H, '76% 50%'), BLACK,
       'Caption: Blending Mode layers thermal over the visible camera, so your crew sees what’s hot and exactly where it is. One view. Full context. sonimtech.com')
 
 # ---------------------------------------------------------------- 2 · Spot Meter (electricians): brand book photo of an electrician at the panels
@@ -63,10 +66,28 @@ cover('blog-spot-meter', 'Spot Meter', BLACK, WHITE, RED, 'Stop estimating heat�
       photo('Use-case photo · electrician', 'electrician', PANEL, 0, VW, H, '58% 50%'), BLACK,
       'Caption: Spot Meter gives you an exact, non-contact temperature at any point in the image. The number you need, from a safe distance. sonimtech.com')
 
-# ---------------------------------------------------------------- 3 · IR Scale Lock (HVAC): brand book photo of a technician on equipment
+# ---------------------------------------------------------------- 3 · IR Scale Lock (HVAC): the article's own example, side by side
+# "A hot motor in the frame shouldn't change your diagnosis." Same breaker-panel capture twice: auto-scale lets the motor take
+# the range and the hot breaker fades; the locked scale keeps it visible. Built by brand/make_scale_lock.py from the real capture.
+tw, th, tg = 340, 568, 24
+tx1 = PANEL + (VW - 2 * tw - tg) // 2
+tx2, ty = tx1 + tw + tg, 230
+def col_label(t, l, red):
+    return box('Label', l=l, t=ty - 70, cls='row', style={'background': RED if red else 'transparent', 'padding': '8px 14px' if red else '8px 0', 'gap': '10px', 'align-items': 'center'},
+               inner=text('Label text', t, 'h3', WHITE, 30))
+def bar(l):
+    return f'<img class="abs photo" data-name="Color scale" data-img="scale_bar" alt="Color scale" style="left:{l}px;top:{ty + th + 22}px;width:{tw}px;height:14px">'
+compare = (col_label('Auto-scale', tx1, False) + col_label('IR Scale Lock', tx2, True)
+           + photo('Auto-scale capture', 'scale_auto', tx1, ty, tw, th) + photo('Locked-scale capture', 'scale_locked', tx2, ty, tw, th)
+           + fill('Locked frame', RED, l=tx2 - 6, t=ty - 6, w=tw + 12, h=6) + fill('Locked frame', RED, l=tx2 - 6, t=ty + th, w=tw + 12, h=6)
+           + fill('Locked frame', RED, l=tx2 - 6, t=ty, w=6, h=th) + fill('Locked frame', RED, l=tx2 + tw, t=ty, w=6, h=th)
+           + bar(tx1) + bar(tx2)
+           + text('Note', 'A hot motor takes the range.\nThe faulty breaker fades.', 'lead abs', WHITE, 24, {'left': f'{tx1}px', 'top': f'{ty + th + 54}px', 'width': f'{tw}px'})
+           + text('Note', 'Range locked to the panel.\nThe fault stays in view.', 'lead abs', WHITE, 24, {'left': f'{tx2}px', 'top': f'{ty + th + 54}px', 'width': f'{tw}px'})
+           + text('Credit', 'Illustration from a real XP Pro Thermal capture', 'small abs', WHITE, 14, {'right': f'{M}px', 'bottom': '32px', 'opacity': '.7'}))
 cover('blog-scale-lock', 'IR Scale Lock', GRAY, BLACK, RED, 'Lock the scale—', 'and every reading stays true.',
-      hero_icons(['scale-lock'], BLACK, 'Colors stay fixed from reading to reading', 200),
-      photo('Use-case photo · technician', 'technician', PANEL, 0, VW, H, '45% 50%'), BLACK,
+      hero_type('Level **+** span', BLACK, 'Locked to the range you set'),
+      compare, BLACK,
       'Caption: IR Scale Lock holds the thermal scale steady, so a hot motor or a warm hand never changes what you see. Consistent from the first reading to the last. sonimtech.com')
 
 # ---------------------------------------------------------------- 4 · High-Temp: stat on Sonim Red + photo (client favourite, unchanged)
