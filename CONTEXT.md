@@ -347,6 +347,10 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-10-14 — Blog covers round 4 (client: "look bad, random one-liner"): support one-liners removed; every
+  cover follows the High-Temp favourite: panel + headline + one hero element (400°C, 9, or the feature as large
+  brand icons) + FLIR; right side = Sonim brand book photo (electrician, technician; extracted from
+  reference/Sonim_BrandGuidelines_2020.pdf), the product, or the real capture in nine palettes.
 - 2026-10-14 — Akzidenz-Grotesk Pro (client OTFs) embedded and used for all text everywhere; Inter
   removed, no Arial. White paper PDFs re-rendered: only AkzidenzGroteskPro-Regular/-Bold embedded.
 - 2026-10-14 — Blog covers round 3, visuals tied to the articles (Thermal Pro blog content docx): Blending =
