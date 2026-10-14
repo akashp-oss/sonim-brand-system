@@ -1,5 +1,5 @@
-# Sonim brand system — build targets. Requires Python 3.10+, Node 18+, Playwright (Chromium)
-# and the Arial font installed (the brand-approved fallback for Akzidenz Grotesk).
+# Sonim brand system — build targets. Requires Python 3.10+, Node 18+, Playwright (Chromium).
+# Akzidenz-Grotesk Pro is embedded from library/src/fonts/ (no system fonts needed).
 
 .PHONY: all assets library whitepaper editor docx icons qa
 

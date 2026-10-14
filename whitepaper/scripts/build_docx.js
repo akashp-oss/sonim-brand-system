@@ -2,7 +2,7 @@ const fs = require('fs');
 const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, ShadingType, BorderStyle,
   AlignmentType, LevelFormat, HeadingLevel, Footer, PageNumber } = require('docx');
 
-const RED = 'CF102D', FONT = 'Arial', W = 9360;
+const RED = 'CF102D', FONT = 'Akzidenz-Grotesk Pro', W = 9360;
 // "**bold**" and "^n^" (superscript citation) markup
 function runs(s, o = {}) {
   return s.split(/(\*\*[^*]+\*\*|\^[0-9]+\^)/).filter(Boolean).map(p => {

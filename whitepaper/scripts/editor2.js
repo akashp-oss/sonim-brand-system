@@ -13,15 +13,15 @@
   const st = document.createElement('style'); st.id = 'fx-style';
   st.textContent = `
   html,body{height:100%}
-  body.fx{margin:0;overflow:hidden;background:#1e1e1e;font-family:Arial,sans-serif}
-  #fx-top{position:fixed;top:0;left:0;right:0;height:44px;background:#2c2c2c;border-bottom:1px solid #111;display:flex;align-items:center;gap:4px;padding:0 10px;z-index:30;color:#eee;font:12px Arial}
+  body.fx{margin:0;overflow:hidden;background:#1e1e1e;font-family:"Akzidenz-Grotesk Pro",sans-serif}
+  #fx-top{position:fixed;top:0;left:0;right:0;height:44px;background:#2c2c2c;border-bottom:1px solid #111;display:flex;align-items:center;gap:4px;padding:0 10px;z-index:30;color:#eee;font:12px "Akzidenz-Grotesk Pro"}
   #fx-top .brand{font-weight:700;margin-right:10px}
-  .fx-btn{font:12px Arial;color:#eee;background:transparent;border:1px solid transparent;border-radius:4px;padding:5px 8px;cursor:pointer;white-space:nowrap}
+  .fx-btn{font:12px "Akzidenz-Grotesk Pro";color:#eee;background:transparent;border:1px solid transparent;border-radius:4px;padding:5px 8px;cursor:pointer;white-space:nowrap}
   .fx-btn:hover{background:#3a3a3a}.fx-btn.on{background:#CF102D}.fx-btn.primary{background:#CF102D;color:#fff}
   .fx-btn:disabled{opacity:.35;cursor:default;background:transparent}
   .fx-sep{width:1px;height:22px;background:#444;margin:0 6px}
   #fx-zoom{min-width:44px;text-align:center}
-  #fx-left,#fx-right{position:fixed;top:44px;bottom:0;background:#2c2c2c;color:#ddd;font:12px/1.35 Arial;overflow:auto;z-index:20}
+  #fx-left,#fx-right{position:fixed;top:44px;bottom:0;background:#2c2c2c;color:#ddd;font:12px/1.35 "Akzidenz-Grotesk Pro";overflow:auto;z-index:20}
   #fx-left{left:0;width:230px;border-right:1px solid #111}
   #fx-right{right:0;width:276px;border-left:1px solid #111}
   .fx-h{padding:10px 12px 6px;font-weight:700;color:#fff;font-size:11px;text-transform:none;letter-spacing:.02em;border-top:1px solid #3a3a3a}
@@ -47,7 +47,7 @@
   .fx-box{position:fixed;border:1.5px solid #CF102D;pointer-events:none}
   .fx-box.hover{border:1px solid #CF102D;opacity:.55}
   .fx-box.group{border:1px dashed #CF102D}
-  .fx-tag{position:fixed;background:#CF102D;color:#fff;font:10px Arial;padding:1px 5px;border-radius:2px;pointer-events:none;white-space:nowrap}
+  .fx-tag{position:fixed;background:#CF102D;color:#fff;font:10px "Akzidenz-Grotesk Pro";padding:1px 5px;border-radius:2px;pointer-events:none;white-space:nowrap}
   .fx-h8{position:fixed;width:8px;height:8px;background:#fff;border:1.5px solid #CF102D;pointer-events:auto;z-index:16}
   .fx-guide{position:fixed;background:#ff2d9b;pointer-events:none}
   .fx-grid{position:fixed;background:rgba(207,16,45,.07);pointer-events:none;border-left:1px solid rgba(207,16,45,.25);border-right:1px solid rgba(207,16,45,.25)}
@@ -59,7 +59,7 @@
   .fx-f{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
   .fx-f label{display:flex;align-items:center;gap:6px;background:#383838;border-radius:3px;padding:0 6px}
   .fx-f label span{color:#999;width:16px;flex:none;font-size:11px}
-  .fx-f input,.fx-f select{width:100%;background:transparent;border:0;color:#fff;font:12px Arial;padding:5px 0;outline:none}
+  .fx-f input,.fx-f select{width:100%;background:transparent;border:0;color:#fff;font:12px "Akzidenz-Grotesk Pro";padding:5px 0;outline:none}
   .fx-f select option{background:#2c2c2c}
   .fx-icons{display:flex;gap:2px;flex-wrap:wrap}
   .fx-icons button{width:28px;height:26px;background:#383838;border:1px solid transparent;border-radius:3px;color:#ddd;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
@@ -72,7 +72,7 @@
   .fx-warn{margin-top:8px;padding:6px 8px;background:#4a1a22;border-radius:3px;color:#ffb3bf;font-size:11px}
   .fx-ok{margin-top:8px;color:#8fd19e;font-size:11px}
   .fx-acts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-  .fx-acts button{background:#383838;border:0;color:#eee;border-radius:3px;padding:6px;cursor:pointer;font:12px Arial}
+  .fx-acts button{background:#383838;border:0;color:#eee;border-radius:3px;padding:6px;cursor:pointer;font:12px "Akzidenz-Grotesk Pro"}
   .fx-acts button:hover{background:#474747}
   .fx-row .lk{color:#666;padding:0 2px;flex:none;display:flex}.fx-row .lk svg{width:11px;height:11px}.fx-row .lk:hover{color:#fff}.fx-row .lk.on{color:#f0b429}.fx-row .lk.inh{color:#8a6d1d}
   .fx-row.locked .nm{color:#bbb}
@@ -81,10 +81,10 @@
   .fx-over{position:fixed;background:repeating-linear-gradient(45deg,rgba(207,16,45,.28) 0 6px,rgba(207,16,45,.12) 6px 12px);border-top:1.5px solid #CF102D;pointer-events:none}
   .fx-limit{position:fixed;border-top:1px dashed rgba(207,16,45,.6);pointer-events:none}
   .fx-lockmsg{margin-top:8px;padding:8px;background:#3d3420;border-radius:3px;color:#f0d58a;font-size:11px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-  .fx-lockmsg button{background:#f0b429;border:0;border-radius:3px;padding:4px 8px;cursor:pointer;font:11px Arial;color:#111}
-  #fx-toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#111;color:#fff;padding:8px 14px;border-radius:4px;font:12px Arial;z-index:40;opacity:0;transition:opacity .2s;pointer-events:none}
+  .fx-lockmsg button{background:#f0b429;border:0;border-radius:3px;padding:4px 8px;cursor:pointer;font:11px "Akzidenz-Grotesk Pro";color:#111}
+  #fx-toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#111;color:#fff;padding:8px 14px;border-radius:4px;font:12px "Akzidenz-Grotesk Pro";z-index:40;opacity:0;transition:opacity .2s;pointer-events:none}
   #fx-help{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:50;display:none;align-items:center;justify-content:center}
-  #fx-help>div{background:#fff;color:#111;width:560px;max-height:80vh;overflow:auto;border-radius:6px;padding:18px 22px;font:13px/1.5 Arial}
+  #fx-help>div{background:#fff;color:#111;width:560px;max-height:80vh;overflow:auto;border-radius:6px;padding:18px 22px;font:13px/1.5 "Akzidenz-Grotesk Pro"}
   #fx-help h3{margin:0 0 8px;font-size:16px}#fx-help td{padding:3px 12px 3px 0;vertical-align:top}#fx-help kbd{background:#eee;border:1px solid #ccc;border-radius:3px;padding:0 4px;font:11px monospace}
   [contenteditable="true"]{outline:1.5px solid #CF102D !important;outline-offset:2px;cursor:text}
   @media print{
@@ -571,7 +571,7 @@
       <div class="fx-grp"><b>Position &amp; size (pt)</b><div class="fx-f">
         ${field('X', round(r.l), 'x')}${field('Y', round(r.t), 'y')}${field('W', round(r.w), 'w')}${field('H', round(r.h), 'h')}</div></div>
       <div class="fx-grp"><b>Text</b>
-        <div style="color:#999;font-size:11px;margin-bottom:6px">${/Akzidenz/i.test(cs.fontFamily) ? 'Akzidenz Grotesk (uses Arial if not installed)' : fam}</div>
+        <div style="color:#999;font-size:11px;margin-bottom:6px">${/Akzidenz/i.test(cs.fontFamily) ? 'Akzidenz-Grotesk Pro' : fam}</div>
         <div class="fx-f" style="margin-bottom:6px">
           <label title="Weight"><span>Wt</span><select data-k="fw"><option value="400" ${+cs.fontWeight < 600 ? 'selected' : ''}>Regular</option><option value="700" ${+cs.fontWeight >= 600 ? 'selected' : ''}>Bold</option></select></label>
           ${field('Sz', fs, 'fs')}${field('Lh', lh, 'lh')}${field('Tr', ls, 'ls', 5)}</div>
@@ -589,7 +589,7 @@
         <button data-a="dup">Duplicate</button><button data-a="hide">${el.style.display === 'none' ? 'Show' : 'Hide'}</button>
         <button data-a="reset">Reset edits</button><button data-a="del">Delete</button>
         <button data-a="lock" style="grid-column:1/3">${isLocked(el) && lockOwner(el) === el ? 'Unlock' : 'Lock position'}</button></div>
-        ${warns.length ? warns.map(w => `<div class="fx-warn">${w}</div>`).join('') : '<div class="fx-ok">✓ On brand: Arial / Akzidenz, brand colours, sentence case</div>'}</div>`;
+        ${warns.length ? warns.map(w => `<div class="fx-warn">${w}</div>`).join('') : '<div class="fx-ok">✓ On brand: Akzidenz-Grotesk Pro, brand colours, sentence case</div>'}</div>`;
     $$('[data-al]', P).forEach(b => b.onclick = () => align(b.dataset.al));
     $$('[data-ds]', P).forEach(b => b.onclick = () => distribute(b.dataset.ds));
     $$('[data-ta]', P).forEach(b => b.onclick = () => textAlign(b.dataset.ta));

@@ -84,12 +84,12 @@
   function prep(){ if(editing) setEdit(false,true); const g=guides; if(g) setGuides(false); return ()=>{ if(g) setGuides(true); }; }
   const ACTIONS = {
     svg: async (ab,f)=>{ const done=prep(); try{ const svg=sonimExport.toSVG(ab);
-      if(await copyText(svg)) return 'SVG copied. In Figma press Ctrl/⌘ + V.';
+      if(await copyText(svg)) return 'SVG copied. In Figma press Ctrl/Cmd + V.';
       download(new Blob([svg],{type:'image/svg+xml'}), 'Sonim_'+f.id+'.svg'); return 'Clipboard blocked by the browser, so the SVG was downloaded instead.'; } finally{ done(); } },
   };
   $$('.frame').forEach(f=>{
     const tools=document.createElement('div'); tools.className='frame-tools';
-    tools.innerHTML='<button class="tool" data-act="svg" title="Copy as SVG, then paste into Figma with Ctrl/⌘ + V">Copy SVG</button>';
+    tools.innerHTML='<button class="tool" data-act="svg" title="Copy as SVG, then paste into Figma with Ctrl/Cmd + V">Copy SVG</button>';
     $('.ab-wrap',f).appendChild(tools);
     tools.addEventListener('click',async e=>{ const b=e.target.closest('[data-act]'); if(!b) return; e.stopPropagation();
       b.disabled=true; try{ toast(await ACTIONS[b.dataset.act]($('.ab',f),f)); b.classList.add('done'); setTimeout(()=>b.classList.remove('done'),1400); }

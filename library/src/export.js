@@ -59,7 +59,7 @@
         const r = rel({ getBoundingClientRect: () => b });
         const ch = n.data[i].replace(/\s/, ' ');
         const last = runs[runs.length - 1];
-        const baseline = r.y + r.h * 0.8;   // ascent share of the content box (Arial 0.81, Inter 0.80)
+        const baseline = r.y + r.h * 0.8;   // ascent share of the content box
         if (last && last.style === style && Math.abs(last.baseline - baseline) < fs * 0.3) last.text += ch;
         else runs.push({ style, x: r.x, baseline, text: ch });
       }

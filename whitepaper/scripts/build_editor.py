@@ -14,10 +14,10 @@ MIME = {'jpg': 'image/jpeg', 'jpeg': 'image/jpeg', 'png': 'image/png', 'webp': '
 
 html = (SRC / 'Sonim_EMS_Whitepaper.html').read_text()
 css = (SRC / 'assets/sonim-whitepaper.css').read_text()
-# embed the Inter font files referenced by the stylesheet so the editor stays self-contained
+# embed the brand font files referenced by the stylesheet so the editor stays self-contained
 import base64, re as _re
-css = _re.sub(r'url\("\.\./\.\./\.\./(library/src/fonts/[^"]+\.woff2)"\)',
-              lambda m: 'url(data:font/woff2;base64,' + base64.b64encode((SRC.parents[1] / m.group(1)).read_bytes()).decode() + ')', css)
+css = _re.sub(r'url\("\.\./\.\./\.\./(library/src/fonts/[^"]+\.otf)"\)',
+              lambda m: 'url(data:font/otf;base64,' + base64.b64encode((SRC.parents[1] / m.group(1)).read_bytes()).decode() + ')', css)
 html = html.replace('<link rel="stylesheet" href="assets/sonim-whitepaper.css">', '<style id="wp-base">\n' + css + '\n</style>')
 
 def embed(m):

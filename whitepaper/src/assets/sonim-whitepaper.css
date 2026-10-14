@@ -1,6 +1,5 @@
-@font-face { font-family: Inter; font-style: normal; font-weight: 400; src: url("../../../library/src/fonts/inter-latin-400-normal.woff2") format("woff2"); }
-@font-face { font-family: Inter; font-style: normal; font-weight: 500; src: url("../../../library/src/fonts/inter-latin-500-normal.woff2") format("woff2"); }
-@font-face { font-family: Inter; font-style: normal; font-weight: 700; src: url("../../../library/src/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Akzidenz-Grotesk Pro"; font-style: normal; font-weight: 400; src: url("../../../library/src/fonts/AkzidenzGroteskPro-Regular.otf") format("opentype"); }
+@font-face { font-family: "Akzidenz-Grotesk Pro"; font-style: normal; font-weight: 700; src: url("../../../library/src/fonts/AkzidenzGroteskPro-Bold.otf") format("opentype"); }
 /* =====================================================================
    SONIM WHITE PAPER DESIGN SYSTEM  v1.0
    Built from: Sonim Visual Identity Standards & Brand Guidelines (Mar 2020)
@@ -19,10 +18,10 @@
   --rule:        rgba(0,0,0,.18);
   --ink-soft:    rgba(0,0,0,.68);
 
-  /* Type families: Akzidenz Grotesk (primary) → Arial (approved system fallback, p.31) */
-  --font:        "Akzidenz-Grotesk Pro", "Akzidenz Grotesk", "AkzidenzGrotesk", Arial, "Liberation Sans", Helvetica, sans-serif;
-  --font-body:   Inter, Arial, "Liberation Sans", Helvetica, sans-serif;   /* running text (brand update 2026-10-14) */
-  --font-cond:   "Akzidenz-Grotesk Pro Cnd", "Akzidenz Grotesk Condensed", "Arial Narrow", Arial, sans-serif;
+  /* Type family: Akzidenz-Grotesk Pro only (client-supplied, embedded) */
+  --font:        "Akzidenz-Grotesk Pro", sans-serif;   /* brand typeface, embedded (no fallback font) */
+  --font-body:   "Akzidenz-Grotesk Pro", sans-serif;
+  --font-cond:   "Akzidenz-Grotesk Pro", sans-serif;
 
   /* Type scale — size / leading / tracking (headlines: tight kerning + leading, p.32) */
   --display-size: 46pt;  --display-lead: 43pt;  --display-track: -0.03em;
@@ -200,5 +199,5 @@ b, strong { font-weight: 700; }
 .sources li::before { content: counter(s); position: absolute; left: 0; font-weight: 700; color: var(--sonim-red); }
 sup.ref { font-size: 5.5pt; line-height: 0; color: var(--sonim-red); font-weight: 700; margin-left: .5pt; }
 
-/* Headings and labels in Akzidenz-Grotesk Pro (Arial fallback); running text in Inter */
+/* Akzidenz-Grotesk Pro everywhere */
 .display, .h1, .h2, .h3, .label, .run-head, .stat .n, .quote, .compare .hd, .layer .num { font-family: var(--font); }

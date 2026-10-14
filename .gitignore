@@ -14,5 +14,7 @@ Thumbs.db
 ~$*
 public/
 
-# Inter is open source (SIL OFL 1.1) and embedded in the library build; licensed fonts stay out
-!library/src/fonts/inter-*.woff2
+# Akzidenz-Grotesk Pro (Berthold, licensed to the client) is the brand typeface, embedded in the builds.
+# Only these two supplied files are tracked; keep any other font files out of the repo.
+!library/src/fonts/AkzidenzGroteskPro-Regular.otf
+!library/src/fonts/AkzidenzGroteskPro-Bold.otf

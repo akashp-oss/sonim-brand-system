@@ -116,11 +116,11 @@ Source of truth: **Sonim Visual Identity Standards & Brand Guidelines (1 March 2
 - Hairlines: Sonim Gray on white, white on gray.
 
 ### Typography
-- **Current usage (2026-10-14):** headings, labels, stats and quotes in **Akzidenz-Grotesk Pro**
-  (Arial fallback where not installed); running text (lead, body, small) and the app UI in **Inter**
-  (SIL OFL, embedded in the library build from `library/src/fonts/`; white paper references the same files,
-  the editor build embeds them). Akzidenz is licensed: never commit its files; to show it on the web
-  without local installs you need a web licence, then add @font-face files the same way as Inter.
+- **Current usage (2026-10-14): Akzidenz-Grotesk Pro, Regular and Bold, for every text role** in the
+  library, Copy SVG, white paper, editor and PDFs. No Arial, no Inter. The client-supplied OTFs live in
+  `library/src/fonts/` (the only font files tracked; licensed from Berthold, keep the repo private and
+  confirm web use is covered by the licence because the library embeds them). Akzidenz has no → glyph,
+  so arrows are drawn as inline SVG (`gen.ARROW`); non-breaking hyphens are set as plain hyphens.
 - **Akzidenz Grotesk** Bold + Regular (Berthold). Condensed cuts only for spec tables.
 - **Arial** is the approved fallback (Office, email, and this HTML build — Akzidenz is not licensed
   on the studio machine). Do not use any other font.
@@ -259,8 +259,8 @@ custom plugin was removed because it did not work in practice.
 ## 7. White paper system
 
 - Source: `whitepaper/src/Sonim_EMS_Whitepaper.html` (+ `assets/sonim-whitepaper.css`).
-  PDF: `make whitepaper` (Playwright; **Arial must be installed**, otherwise Chromium substitutes
-  Liberation Sans — check with `pdffonts`, only ArialMT / Arial-BoldMT should appear).
+  PDF: `make whitepaper` (Playwright). The stylesheet embeds Akzidenz-Grotesk Pro from
+  `library/src/fonts/`; check the PDF fonts, only AkzidenzGroteskPro-Regular / -Bold should appear.
 - Editor: `make editor` builds a self-contained HTML (CSS and images inlined, `editor2.js` appended).
   Features: pages + layers panels, click/double-click/Ctrl-click selection like Figma, drag with
   smart snapping, resize handles, align / distribute, text alignment, brand-only colour swatches,
@@ -347,8 +347,8 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
-- 2026-10-14 — Brand fonts: Akzidenz-Grotesk Pro for headings, Inter for body (library, Copy SVG,
-  white paper, editor). Inter embedded; Akzidenz by name only (licensed).
+- 2026-10-14 — Akzidenz-Grotesk Pro (client OTFs) embedded and used for all text everywhere; Inter
+  removed, no Arial. White paper PDFs re-rendered: only AkzidenzGroteskPro-Regular/-Bold embedded.
 - 2026-10-14 — Blog covers round 3, visuals tied to the articles (Thermal Pro blog content docx): Blending =
   visible-edge layer + thermal layer = blended view (both layers derived from the real capture); Spot Meter =
   Sp1–Sp3 spot meters on the breaker panel (electricians article); Scale Lock = locked thermal scale with
