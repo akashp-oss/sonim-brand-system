@@ -1,9 +1,9 @@
 # Sonim brand system — build targets. Requires Python 3.10+, Node 18+, Playwright (Chromium).
 # Akzidenz-Grotesk Pro is embedded from library/src/fonts/ (no system fonts needed).
 
-.PHONY: all assets library whitepaper editor docx icons qa
+.PHONY: all assets library whitepaper editor docx icons qa check
 
-all: assets library whitepaper editor
+all: assets library whitepaper editor check
 
 assets:           ## official client assets (Icons/, Logo/) -> brand/icons/all.json + brand/logo/sonim-nexa-lockup.svg
 	python3 brand/import_client_assets.py
@@ -30,3 +30,7 @@ docx:             ## clean content-only Word version of the white paper
 qa:               ## screenshots + checks into .qa/
 	node library/src/shots.js && node library/src/qa.js
 	node whitepaper/scripts/test_editor.js && node whitepaper/scripts/test_auto.js && node whitepaper/scripts/test_save.js
+
+check:            ## layout audit: fails on text < 12 px, bold < 16 px, clipped/covered/overlapping text, crowded footers, margins
+	node library/src/audit.js
+	node whitepaper/scripts/audit.js

@@ -47,7 +47,7 @@ def cover(aid, name, panel, ink, em, line2, line3, hero, visual, visual_bg, capt
                       + text('Headline', f'XP Pro Thermal:\n**{line2}** {line3}', 'h1 abs', ink, HEAD_SIZE,
                              {'left': f'{M}px', 'top': '230px', 'width': '1000px', '--em': em})
                       + hero + flir(ink), notch_top=2 * X + 210))
-    F.append(('blog', artboard(aid, f'Blog cover · {name}', W, H, panel, inner, caption, 'slide')))
+    F.append(('blog', artboard(aid, f'Blog cover · {name}', W, H, panel, inner, caption, 'blog')))
 
 # ---------------------------------------------------------------- 1 · Blending Mode: visible camera + thermal = one view
 # hero: the feature as an icon equation; visual: the XP Pro Thermal showing a real blended (MSX) capture

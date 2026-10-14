@@ -347,6 +347,14 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-10-14 — Layout audit for every asset (`make check`): library/src/audit.js (69 artboards) and
+  whitepaper/scripts/audit.js (EMS paper, blank template, design system). Fails on text < 12 px, bold < 16 px,
+  text clipped / covered / overlapping / outside margins, content < 24 px (doc) above the footer, broken images.
+  gen.text enforces the floor (MIN_TEXT = 12, < 16 px always regular). White paper CSS: small/label/notes 9 pt,
+  h3 12 pt, run-in bold in small text is Sonim Red regular. Intentional bleed text carries `--bleed: 1`.
+- 2026-10-14 — Inova healthcare paper rebuilt on a design system (templates_healthcare.py TYPE + S tokens):
+  min text 12 px, body 14/1.6, lead 17, h3 16, h2 22, h1 32, title 40; spacing 4/8/12/16/24/32/48. Every page
+  is nested flex stacks (auto layout in Figma); only notches are absolute. Now 6 pages (new hc-system).
 - 2026-10-14 — Blog covers round 4 (client: "look bad, random one-liner"): support one-liners removed; every
   cover follows the High-Temp favourite: panel + headline + one hero element (400°C, 9, or the feature as large
   brand icons) + FLIR; right side = Sonim brand book photo (electrician, technician; extracted from

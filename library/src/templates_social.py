@@ -214,7 +214,7 @@ SAFE_T, SAFE_B = 250, 340
 s = (page_notch(X, SAFE_T, WHITE)
      + stack('Countdown block', [text('Label', 'Countdown', 'label', WHITE, 34),
                                  text('Number', '3', 'stat', WHITE, 520, {'margin-top': '10px'}),
-                                 text('Unit', 'days to go.', 'h1', WHITE, 110, {'margin-top': '-10px'}),
+                                 text('Unit', 'days to go.', 'h1', WHITE, 110, {'margin-top': '8px'}),
                                  text('Headline', 'Meet us at\n**Event name 2027.**', 'h1', WHITE, 76, {'margin-top': '60px', '--em': BLACK}),
                                  text('Details', 'Booth 000 · Month 00–00 · City, ST', 'lead', WHITE, 36, {'margin-top': '20px'})], l=M, t=SAFE_T, w=920, gap=8)
      + logo(170, WHITE, l=M, b=SAFE_B + 20))

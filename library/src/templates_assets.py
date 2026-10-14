@@ -22,7 +22,7 @@ a1 = (head('Logo', 'Sonim, **a NEXA company.**')
                 inner=logo(250, fg, l=70, t=round((ph - 250 * NEXA_RATIO) / 2)))
           + text('Caption', n, 'h3', BLACK, 22) + '</div>' for n, bg, fg in PANELS))
       + text('Rule', 'Single colour only: black on light, white on dark, photo or red. Bottom-left on the margin. '
-             'Below 100 px wide the wordmark is used without the NEXA line.', 'body abs', BLACK, 22, {'left': f'{M}px', 'top': '860px', 'width': '1300px'})
+             'Below 100 px wide the wordmark is used without the NEXA line.', 'body abs', BLACK, 22, {'left': f'{M}px', 'top': '820px', 'width': '1680px'})
       + logo(150, BLACK, l=M, b=88))
 F.append(('assets', artboard('asset-logo', 'Brand assets · Logo lockup', 1920, 1080, WHITE, a1, 'Official NEXA lockup (Logo/)', 'slide')))
 

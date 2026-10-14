@@ -44,14 +44,21 @@ def fill(name, color, style=None, **k):
     sty = {'background': color}; sty.update(style or {})
     return box(name, cls='shape', style=sty, **k)
 
+MIN_TEXT = 12
+
 def text(name, content, cls, color=None, size=None, extra=None, tag='div'):
     """content supports **red** emphasis marker and \n line breaks"""
     parts = []
     for i, seg in enumerate(content.replace('\u2011', '-').split('**')):
         seg = esc(seg).replace('\n', '<br>').replace('→', ARROW)
         parts.append(f'<span class="em" data-name="Emphasis">{seg}</span>' if i % 2 else seg)
+    # type floor for every template: nothing under MIN_TEXT px, and small text (< 16 px) is never bold
+    if size and size < MIN_TEXT:
+        size = MIN_TEXT
     s = {'color': color, 'font-size': px(size) if size else None}
     s.update(extra or {})
+    if size and size < 16:
+        s['font-weight'] = '400'
     return f'<{tag} class="tx {cls}" data-name="{esc(name)}" style="{st(s)}">{"".join(parts)}</{tag}>'
 
 def stack(name, items, l=None, t=None, w=None, gap=0, r=None, b=None, style=None, cls=''):
