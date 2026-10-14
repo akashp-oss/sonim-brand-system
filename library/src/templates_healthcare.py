@@ -4,6 +4,20 @@ from gen import *
 # Every sentence is the approved text, verbatim. Only allowed edits: headings set in sentence case (brand rule)
 # and each "Topic: Headline" heading split into a red label + headline. Do not rewrite; do not add copy.
 # Layout: 5 US Letter pages in the EMS paper system, with large official icons on Sonim Gray tiles.
+# Typography for this paper (client request 2026-10-14): small text (< 16 px) is never bold, and headlines get
+# more open leading. Wraps gen.text so every element on these pages follows it.
+_text = text
+def text(name, content, cls, color=None, size=None, extra=None, tag='div'):
+    e = dict(extra or {})
+    roles = cls.split()
+    if size and size < 16:
+        e['font-weight'] = '400'
+    if 'h1' in roles or 'display' in roles:
+        e.setdefault('line-height', '1.12')
+    elif 'h2' in roles:
+        e.setdefault('line-height', '1.2')
+    return _text(name, content, cls, color, size, e, tag)
+
 F = []
 X, M, W, H = 12, 60, 816, 1056
 DOC = 'Healthcare resilience'
@@ -50,13 +64,13 @@ p1 = (photo('Hero photo', 'healthcare', 0, 0, W, 340, '50% 30%')
                                body('In healthcare environments, communication is foundational to patient care—particularly during emergencies and system downtime.'),
                                body('As hospitals modernize and shift toward digital and VoIP-based systems, many have unintentionally introduced new points of failure.'),
                                body('Cyber incidents, power outages, and system maintenance events regularly disrupt hospital operations placing communication systems at risk when they’re needed most.')],
-              l=M, t=548, w=390, gap=10)
-      + rugged('Callout container', 486, 552, 270, 280, X, GRAY,
+              l=M, t=568, w=390, gap=10)
+      + rugged('Callout container', 486, 572, 270, 280, X, GRAY,
                text('Callout heading', 'When communication fails:', 'h2', BLACK, 19)
                + '<div data-name="Spacer" style="height:16px"></div>'
                + bullets(['Care teams become disconnected', 'Critical information is delayed or lost', 'Response times increase', 'Patient safety is placed at risk'], size=13.5, bold=True))
-      + fill('Rule', GRAY, l=M, t=882, w=696, h=1)
-      + lead('To address this risk, the organization sought a resilient, simple replacement for the traditional hospital “red phone”—a device long relied upon for always‑available communication during critical events.', 898, 15)
+      + fill('Rule', GRAY, l=M, t=896, w=696, h=1)
+      + lead('To address this risk, the organization sought a resilient, simple replacement for the traditional hospital “red phone”—a device long relied upon for always‑available communication during critical events.', 910, 15)
       + foot('Photo: sonimtech.com'))
 page('hc-opening', 'Opening page', 'US Letter · title, introduction and callout', p1)
 
@@ -131,7 +145,7 @@ p4 = (head(4)
                                body('The impact of this deployment is both immediate and measurable.')], l=M, t=450, w=696, gap=8)
       + box('Impact columns', l=M, t=548, w=696, cls='row', style={'gap': '20px'}, inner=''.join(
             f'<div class="stack" data-name="{esc(t[:30])}" style="flex:1;gap:10px">{icon(k, 56, t[:30])}{text("Subheading", t, "h3", RED, 12.5)}{bullets(i, size=11.5)}</div>' for k, t, i in IMPACT))
-      + lead('More broadly, it strengthens the organization’s position as a high-reliability system, capable of operating effectively under any condition.', 780, 15)
+      + lead('More broadly, it strengthens the organization’s position as a high-reliability system, capable of operating effectively under any condition.', 806, 15)
       + foot())
 page('hc-impact', 'Impact page', 'Interior · implementation tiles and impact columns', p4)
 
