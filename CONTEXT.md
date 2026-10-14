@@ -342,6 +342,10 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-10-14 — Blog covers round 2 (client: no 3-icon rows, images over illustrations, accurate visuals,
+  High-Temp is the favourite): all covers now use the High-Temp layout. Blending = device with MSX screen,
+  Spot Meter = crosshair on the hot breaker in the real capture, Palettes = same capture in 9 colour maps
+  (library/src/img/thermal_p1-9), Scale Lock = marked photo slot until a real use-case image is supplied.
 - 2026-10-14 — Healthcare white paper switched to the client-APPROVED copy (Inova_Whitepaper.docx),
   verbatim, 5 pages; the earlier blog-skill rewrite (Inova named, CMS citation, new headlines) removed.
   Only edits: headings in sentence case, split into red label + headline.
