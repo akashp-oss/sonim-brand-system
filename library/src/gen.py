@@ -25,6 +25,10 @@ SONIM_ICONS = json.load(open(ROOT / 'brand/icons/sonim.json'))
 ICONS['check'] = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#CF102D" stroke-width="3" stroke-linecap="square"><path d="M4 12.5l5 5L20 6.5"/></svg>'
 ICONS['arrow'] = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h17M14 6l6 6-6 6"/></svg>'
 
+# Akzidenz-Grotesk Pro has no arrow glyph: draw it, sized to the text and in its colour
+ARROW = ('<svg data-name="Arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" '
+         'style="display:inline-block;width:.9em;height:.9em;vertical-align:-.08em;overflow:visible"><path d="M3 12h17M14 6l6 6-6 6"/></svg>')
+
 def esc(s): return H.escape(s, quote=True)
 def st(d): return ';'.join(f'{k}:{v}' for k, v in d.items() if v is not None)
 def px(v): return f'{v}px' if isinstance(v, (int, float)) else v
@@ -43,8 +47,8 @@ def fill(name, color, style=None, **k):
 def text(name, content, cls, color=None, size=None, extra=None, tag='div'):
     """content supports **red** emphasis marker and \n line breaks"""
     parts = []
-    for i, seg in enumerate(content.split('**')):
-        seg = esc(seg).replace('\n', '<br>')
+    for i, seg in enumerate(content.replace('\u2011', '-').split('**')):
+        seg = esc(seg).replace('\n', '<br>').replace('→', ARROW)
         parts.append(f'<span class="em" data-name="Emphasis">{seg}</span>' if i % 2 else seg)
     s = {'color': color, 'font-size': px(size) if size else None}
     s.update(extra or {})

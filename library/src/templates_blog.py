@@ -1,30 +1,21 @@
 from gen import *
+import re
 
-# XP Pro Thermal blog covers (1920 x 1080), one per feature. Client feedback (Figma, NEXA file): the covers all
-# looked the same, use real use-case images, a new infographic style when the device is shown, different icons
-# per cover, and the Sonim, a NEXA company logo. So every cover has its own layout and its own feature icons.
-# Copy and captions: client brief. Specs on the FLIR line (MSX, Lepton 3.5) come from the client's Figma cover.
+# XP Pro Thermal blog covers (1920 x 1080), one per feature.
+# Round 4 (2026-10-14): every cover now follows the client favourite (High-Temp) exactly: a colour panel with
+# logo, headline, ONE hero element in the stat slot, and the FLIR block; a meaningful visual on the right.
+# No floating one-liners. Hero element = the feature's number where there is one (400°C, 9 palettes),
+# otherwise the feature drawn as large brand icons. Visuals: Sonim brand book photography for the use case
+# (electrician, technician), the XP Pro Thermal product, or the real capture in nine palettes.
+# Titles and captions: client brief, unchanged.
 F = []
-SECTION_META_EXTRA = [('blog', 'Blog covers', 'XP Pro Thermal feature covers, 1920 × 1080. Five layouts so a series never looks the same twice: '
-                       'infographic, use-case photo, comparison, stat on Sonim Red, product with a giant numeral.')]
+SECTION_META_EXTRA = [('blog', 'Blog covers', 'XP Pro Thermal feature covers, 1920 × 1080: a colour panel with the headline and '
+                       'one hero element (stat or feature icon), plus a use-case photo, the product or a real capture.')]
 W, H, M, X = 1920, 1080, 96, 20
+PANEL = 1140                    # colour panel width; the visual fills the rest (780 px)
+VW = W - PANEL
 HEAD_SIZE = 84
-
-def icon_on(key, size, color, name=None):
-    """Official-style icon recoloured for dark backgrounds (black line -> white; the red detail stays)."""
-    svg = ICONS[key].replace('#000000', color).replace('<svg ', f'<svg data-name="{esc(name or key)} icon" width="{size}" height="{size}" ', 1)
-    return f'<div class="icon" data-name="{esc(name or key)}" style="width:{size}px;height:{size}px;flex:none">{svg}</div>'
-
-def headline(top, line2, line3, color=WHITE, em=RED, w=1100):
-    return (page_notch(X, top, RED)
-            + text('Headline', f'XP Pro Thermal:\n**{line2}** {line3}', 'h1 abs', color, HEAD_SIZE,
-                   {'left': f'{M}px', 'top': f'{top}px', 'width': f'{w}px', '--em': em}))
-
-def callouts(items, top, color=WHITE, w=1100, size=92):
-    return box('Feature callouts', l=M, t=top, w=w, cls='row', style={'gap': '44px'}, inner=''.join(
-        f'<div class="row" data-name="{t}" style="gap:18px;align-items:center">{icon_on(k, size, color, t)}'
-        f'<div class="stack" data-name="Text" style="gap:4px">{text("Label", lab, "lead", color, 24)}{text("Value", t, "h2", color, 34)}</div></div>'
-        for k, lab, t in items))
+HERO_T, CAP_T = 540, 748        # stat slot and its caption, as on the High-Temp cover
 
 def flir(color=WHITE, l=M, b=M):
     return stack('Powered by FLIR', [
@@ -33,80 +24,62 @@ def flir(color=WHITE, l=M, b=M):
         text('Partner', 'FLIR', 'h2', color, 34, {'margin-top': '10px'}),
         text('Tech', 'MSX Technology\nLepton 3.5', 'lead', color, 24)], l=l, b=b, w=400, gap=2)
 
-def cover(aid, name, bg, inner, caption):
-    F.append(('blog', artboard(aid, f'Blog cover · {name}', W, H, bg, inner, caption, 'slide')))
+def big_icon(key, size, ink, name=None):
+    """Brand icon at hero size: line in the panel ink (black or white), detail stays Sonim Red, stroke weighted up to read at size."""
+    svg = re.sub(r'"#000(000)?"', f'"{ink}"', ICONS[key]).replace('stroke-width="0.4"', 'stroke-width="0.62"')
+    svg = svg.replace('<svg ', f'<svg data-name="{esc(name or key)} icon" width="{size}" height="{size}" ', 1)
+    return f'<div class="icon" data-name="{esc(name or key)}" style="width:{size}px;height:{size}px">{svg}</div>'
 
-# ---------------------------------------------------------------- 1 · Blending Mode: infographic, no device
-venn = (f'<svg data-name="Blend diagram" width="660" height="486" viewBox="0 0 760 560" class="abs" style="left:1168px;top:296px">'
-        f'<circle data-name="Visible circle" cx="250" cy="280" r="240" fill="none" stroke="{WHITE}" stroke-width="3"/>'
-        f'<circle data-name="Thermal circle" cx="510" cy="280" r="240" fill="none" stroke="{RED}" stroke-width="3"/></svg>')
-c1 = (logo(220, WHITE, l=M, t=M)
-      + headline(230, 'See the heat—', 'and exactly where it is.', w=1000)
-      + callouts([('visible-camera', 'Layer one', 'Visible'), ('thermal-sensor', 'Layer two', 'Thermal'), ('blend-layers', 'Result', 'One view')], 600, w=1000)
-      + venn
-      + text('Visible label', 'Visible\ncamera', 'h2 abs', WHITE, 30, {'left': '1236px', 'top': '508px'})
-      + text('Thermal label', 'Thermal\nimage', 'h2 abs', WHITE, 30, {'right': '160px', 'top': '508px', 'text-align': 'right'})
-      + text('Blend label', 'Full\ncontext', 'h2 abs', WHITE, 30, {'left': '1446px', 'top': '508px', 'text-align': 'center', 'width': '100px'})
-      + flir())
-cover('blog-blending', 'Blending Mode', BLACK, c1,
+def hero_icons(parts, ink, caption, size=170):
+    """Icons (and + / = signs) in a row in the stat slot, with a caption below."""
+    inner = ''.join(big_icon(p, size, ink) if p in ICONS else text('Sign', p, 'display', RED, 120, {'line-height': '1'}) for p in parts)
+    return (box('Hero', l=M - 14 - (size - 170) // 8, t=HERO_T - (size - 170) // 2, cls='row', style={'gap': '28px', 'align-items': 'center', 'height': f'{size}px'}, inner=inner)
+            + text('Hero caption', caption, 'h2 abs', ink, 34, {'left': f'{M}px', 'top': f'{CAP_T}px', 'width': '980px'}))
+
+def hero_stat(stat, ink, caption):
+    return (text('Stat', stat, 'stat abs', ink, 210, {'left': f'{M - 8}px', 'top': f'{HERO_T}px'})
+            + text('Stat caption', caption, 'h2 abs', ink, 34, {'left': f'{M}px', 'top': f'{CAP_T}px'}))
+
+def cover(aid, name, panel, ink, em, line2, line3, hero, visual, visual_bg, caption):
+    inner = (fill('Visual background', visual_bg, l=PANEL, t=0, w=VW, h=H) + visual
+             + xnotch('Expanded notch', 0, 0, PANEL, H, X, panel,
+                      logo(220, ink, l=M, t=M)
+                      + text('Headline', f'XP Pro Thermal:\n**{line2}** {line3}', 'h1 abs', ink, HEAD_SIZE,
+                             {'left': f'{M}px', 'top': '230px', 'width': '1000px', '--em': em})
+                      + hero + flir(ink), notch_top=2 * X + 210))
+    F.append(('blog', artboard(aid, f'Blog cover · {name}', W, H, panel, inner, caption, 'slide')))
+
+# ---------------------------------------------------------------- 1 · Blending Mode: visible camera + thermal = one view
+# hero: the feature as an icon equation; visual: the XP Pro Thermal showing a real blended (MSX) capture
+dw = 450 * 900 // 870
+cover('blog-blending', 'Blending Mode', WHITE, BLACK, RED, 'See the heat—', 'and exactly where it is.',
+      hero_icons(['visible-camera', '+', 'thermal-sensor', '=', 'blend-layers'], BLACK, 'Visible camera + thermal, in one view'),
+      cutout('XP Pro Thermal', 'xppro_thermal', PANEL + (VW - dw) // 2 + 10, 90, dw, 900), BLACK,
       'Caption: Blending Mode layers thermal over the visible camera, so your crew sees what’s hot and exactly where it is. One view. Full context. sonimtech.com')
 
-# ---------------------------------------------------------------- 2 · Spot Meter: use-case photo + crosshair
-cross = (f'<svg data-name="Spot meter crosshair" width="260" height="260" viewBox="0 0 260 260" class="abs" style="left:1630px;top:640px">'
-         f'<circle cx="130" cy="130" r="80" fill="none" stroke="{WHITE}" stroke-width="4"/>'
-         f'<path d="M130 10v80M130 170v80M10 130h80M170 130h80" stroke="{WHITE}" stroke-width="4"/>'
-         f'<circle cx="130" cy="130" r="9" fill="{RED}"/></svg>')
-c2 = (photo('Use-case photo', 'wildfire', 1180, 0, 740, 1080, '100% 50%')
-      + cross
-      + box('Spot tag', l=1600, t=566, cls='row', style={'background': BLACK, 'padding': '12px 18px', 'gap': '10px', 'align-items': 'center'}, inner=
-            fill('Dot', RED, style={'position': 'relative', 'width': '12px', 'height': '12px'}) + text('Tag', 'Spot meter', 'h3', WHITE, 22))
-      + logo(220, WHITE, l=M, t=M)
-      + headline(230, 'Stop estimating heat—', 'measure it to the degree.', w=1000)
-      + callouts([('spot-crosshair', 'Point', 'Exact spot'), ('non-contact', 'Reading', 'Non-contact'), ('thermometer', 'Result', 'To the degree')], 600, w=1040)
-      + flir())
-cover('blog-spot-meter', 'Spot Meter', BLACK, c2,
+# ---------------------------------------------------------------- 2 · Spot Meter (electricians): brand book photo of an electrician at the panels
+cover('blog-spot-meter', 'Spot Meter', BLACK, WHITE, RED, 'Stop estimating heat—', 'measure it to the degree.',
+      hero_icons(['spot-crosshair'], WHITE, 'Exact, non-contact temperature at any point', 200),
+      photo('Use-case photo · electrician', 'electrician', PANEL, 0, VW, H, '58% 50%'), BLACK,
       'Caption: Spot Meter gives you an exact, non-contact temperature at any point in the image. The number you need, from a safe distance. sonimtech.com')
 
-# ---------------------------------------------------------------- 3 · IR Scale Lock: comparison infographic on white
-def scale_panel(name, l, title, note, locked):
-    """A thermal scale drawn in brand colours: six stepped segments, a red marker for the same object.
-    Auto scale: the marker sits low because a hotter object stretched the range. Locked: the range holds."""
-    steps = [BLACK, BLACK, GRAY, GRAY, WHITE, WHITE] if locked else [BLACK, GRAY, GRAY, WHITE, WHITE, WHITE]
-    return box(name, l=l, t=250, w=300, h=640, cls='group', inner=
-               fill('Panel fill', GRAY if locked else WHITE, l=0, t=0, w=300, h=640, style={'outline': f'2px solid {GRAY}'})
-               + text('Panel title', title, 'h2 abs', BLACK, 30, {'left': '34px', 'top': '40px'})
-               + box('Scale bar', l=34, t=110, w=64, h=432, cls='group', style={'outline': f'2px solid {BLACK}'}, inner=''.join(
-                     fill('Step', c, l=0, t=i * 72, w=64, h=72) for i, c in enumerate(steps)))
-               + box('Marker', l=110, t=182 if locked else 398, cls='row', style={'gap': '10px', 'align-items': 'center'}, inner=
-                     fill('Marker line', RED, style={'position': 'relative', 'width': '40px', 'height': '4px'}) + text('Marker text', 'Same object', 'h3', BLACK, 20))
-               + text('Note', note, 'body abs', BLACK, 20, {'left': '34px', 'top': '566px', 'width': '240px'}))
-c3 = (logo(220, BLACK, l=M, t=M)
-      + headline(230, 'Lock the scale—', 'and every reading stays true.', color=BLACK, w=1040)
-      + callouts([('scale-lock', 'Thermal scale', 'Locked'), ('consistent', 'Readings', 'Consistent'), ('clear-view', 'On screen', 'No surprises')], 600, color=BLACK, w=1040)
-      + scale_panel('Auto scale panel', 1196, 'Auto scale', 'A hot motor enters the frame and the scale shifts.', False)
-      + scale_panel('Scale lock panel', 1524, 'Scale lock', 'The scale holds, first reading to last.', True)
-      + box('Lock badge', l=1524 + 300 - 100, t=250 + 24, w=80, h=80, cls='group', inner=icon_on('scale-lock', 80, BLACK, 'Scale lock'))
-      + flir(BLACK))
-cover('blog-scale-lock', 'IR Scale Lock', WHITE, c3,
+# ---------------------------------------------------------------- 3 · IR Scale Lock (HVAC): brand book photo of a technician on equipment
+cover('blog-scale-lock', 'IR Scale Lock', GRAY, BLACK, RED, 'Lock the scale—', 'and every reading stays true.',
+      hero_icons(['scale-lock'], BLACK, 'Colors stay fixed from reading to reading', 200),
+      photo('Use-case photo · technician', 'technician', PANEL, 0, VW, H, '45% 50%'), BLACK,
       'Caption: IR Scale Lock holds the thermal scale steady, so a hot motor or a warm hand never changes what you see. Consistent from the first reading to the last. sonimtech.com')
 
-# ---------------------------------------------------------------- 4 · High-Temp: stat on Sonim Red + photo
-c4 = (photo('Use-case photo', 'structure_fire', 1140, 0, 780, 1080, '45% 50%')
-      + xnotch('Expanded notch', 0, 0, 1140, 1080, X, RED,
-               logo(220, WHITE, l=M, t=M)
-               + text('Headline', 'XP Pro Thermal:\n**Keep the detail—** even when the heat climbs.', 'h1 abs', WHITE, HEAD_SIZE, {'left': f'{M}px', 'top': '230px', 'width': '1000px', '--em': BLACK})
-               + text('Stat', '400°C', 'stat abs', WHITE, 210, {'left': f'{M - 8}px', 'top': '540px'})
-               + text('Stat caption', 'Extended display range · 752°F', 'h2 abs', WHITE, 34, {'left': f'{M}px', 'top': '748px'})
-               + flir(), notch_top=2 * X + 210))
-cover('blog-high-temp', 'High-Temp Measurement', RED, c4,
+# ---------------------------------------------------------------- 4 · High-Temp: stat on Sonim Red + photo (client favourite, unchanged)
+cover('blog-high-temp', 'High-Temp Measurement', RED, WHITE, BLACK, 'Keep the detail—', 'even when the heat climbs.',
+      hero_stat('400°C', WHITE, 'Extended display range · 752°F'),
+      photo('Use-case photo', 'structure_fire', PANEL, 0, VW, H, '45% 50%'), BLACK,
       'Caption: When the scene heats up, High-Temp Measurement extends the display range to 400°C (752°F), so the detail stays on screen when it matters most. sonimtech.com')
 
-# ---------------------------------------------------------------- 5 · Palette Selector: product + giant numeral
-c5 = (text('Numeral', '9', 'display abs', RED, 980, {'left': '1150px', 'top': '20px', 'line-height': '0.8', 'letter-spacing': '-0.06em'})
-      + cutout('Product render', 'xppro_thermal', 1440, 150, 420, 812)
-      + logo(220, WHITE, l=M, t=M)
-      + headline(230, 'Nine palettes—', 'one clear picture for every job.', w=1040)
-      + callouts([('palette-grid', 'Palettes', 'Nine'), ('light-conditions', 'Conditions', 'Any light'), ('clear-view', 'Result', 'Clear image')], 600, w=1040)
-      + flir())
-cover('blog-palettes', 'Palette Selector', BLACK, c5,
+# ---------------------------------------------------------------- 5 · Palette Selector: stat "9" + the real capture in all nine palettes
+g = 6
+pw, ph = (VW - 2 * g) // 3, (H - 2 * g) // 3
+mosaic = ''.join(photo(f'Palette {i + 1}', f'thermal_p{i + 1}', PANEL + (i % 3) * (pw + g), (i // 3) * (ph + g), pw, ph) for i in range(9))
+cover('blog-palettes', 'Palette Selector', BLACK, WHITE, RED, 'Nine palettes—', 'one clear picture for every job.',
+      hero_stat('9', WHITE, 'Color palettes, switchable in the field'),
+      mosaic, BLACK,
       'Caption: Every surface, material and light condition shows heat differently. Choose from nine palettes to get the clearest image for the job in front of you. sonimtech.com')

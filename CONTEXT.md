@@ -116,6 +116,11 @@ Source of truth: **Sonim Visual Identity Standards & Brand Guidelines (1 March 2
 - Hairlines: Sonim Gray on white, white on gray.
 
 ### Typography
+- **Current usage (2026-10-14): Akzidenz-Grotesk Pro, Regular and Bold, for every text role** in the
+  library, Copy SVG, white paper, editor and PDFs. No Arial, no Inter. The client-supplied OTFs live in
+  `library/src/fonts/` (the only font files tracked; licensed from Berthold, keep the repo private and
+  confirm web use is covered by the licence because the library embeds them). Akzidenz has no → glyph,
+  so arrows are drawn as inline SVG (`gen.ARROW`); non-breaking hyphens are set as plain hyphens.
 - **Akzidenz Grotesk** Bold + Regular (Berthold). Condensed cuts only for spec tables.
 - **Arial** is the approved fallback (Office, email, and this HTML build — Akzidenz is not licensed
   on the studio machine). Do not use any other font.
@@ -254,8 +259,8 @@ custom plugin was removed because it did not work in practice.
 ## 7. White paper system
 
 - Source: `whitepaper/src/Sonim_EMS_Whitepaper.html` (+ `assets/sonim-whitepaper.css`).
-  PDF: `make whitepaper` (Playwright; **Arial must be installed**, otherwise Chromium substitutes
-  Liberation Sans — check with `pdffonts`, only ArialMT / Arial-BoldMT should appear).
+  PDF: `make whitepaper` (Playwright). The stylesheet embeds Akzidenz-Grotesk Pro from
+  `library/src/fonts/`; check the PDF fonts, only AkzidenzGroteskPro-Regular / -Bold should appear.
 - Editor: `make editor` builds a self-contained HTML (CSS and images inlined, `editor2.js` appended).
   Features: pages + layers panels, click/double-click/Ctrl-click selection like Figma, drag with
   smart snapping, resize handles, align / distribute, text alignment, brand-only colour swatches,
@@ -342,6 +347,20 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-10-14 — Blog covers round 4 (client: "look bad, random one-liner"): support one-liners removed; every
+  cover follows the High-Temp favourite: panel + headline + one hero element (400°C, 9, or the feature as large
+  brand icons) + FLIR; right side = Sonim brand book photo (electrician, technician; extracted from
+  reference/Sonim_BrandGuidelines_2020.pdf), the product, or the real capture in nine palettes.
+- 2026-10-14 — Akzidenz-Grotesk Pro (client OTFs) embedded and used for all text everywhere; Inter
+  removed, no Arial. White paper PDFs re-rendered: only AkzidenzGroteskPro-Regular/-Bold embedded.
+- 2026-10-14 — Blog covers round 3, visuals tied to the articles (Thermal Pro blog content docx): Blending =
+  visible-edge layer + thermal layer = blended view (both layers derived from the real capture); Spot Meter =
+  Sp1–Sp3 spot meters on the breaker panel (electricians article); Scale Lock = locked thermal scale with
+  level/span (HVAC article); Palettes = full-bleed mosaic of 9 palettes. Titles unchanged.
+- 2026-10-14 — Blog covers round 2 (client: no 3-icon rows, images over illustrations, accurate visuals,
+  High-Temp is the favourite): all covers now use the High-Temp layout. Blending = device with MSX screen,
+  Spot Meter = crosshair on the hot breaker in the real capture, Palettes = same capture in 9 colour maps
+  (library/src/img/thermal_p1-9), Scale Lock = marked photo slot until a real use-case image is supplied.
 - 2026-10-14 — Healthcare white paper switched to the client-APPROVED copy (Inova_Whitepaper.docx),
   verbatim, 5 pages; the earlier blog-skill rewrite (Inova named, CMS citation, new headlines) removed.
   Only edits: headings in sentence case, split into red label + headline.

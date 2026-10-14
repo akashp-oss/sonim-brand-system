@@ -13,3 +13,8 @@ node_modules
 Thumbs.db
 ~$*
 public/
+
+# Akzidenz-Grotesk Pro (Berthold, licensed to the client) is the brand typeface, embedded in the builds.
+# Only these two supplied files are tracked; keep any other font files out of the repo.
+!library/src/fonts/AkzidenzGroteskPro-Regular.otf
+!library/src/fonts/AkzidenzGroteskPro-Bold.otf

@@ -30,8 +30,8 @@ If you configured the site by hand, clear the publish directory and build comman
 
 ## Build
 
-Requires Python 3.10+, Node 18+, Playwright with Chromium (`npm i && npx playwright install chromium`),
-and the Arial font installed.
+Requires Python 3.10+, Node 18+ and Playwright with Chromium (`npm i && npx playwright install chromium`).
+The brand font (Akzidenz-Grotesk Pro) is embedded from `library/src/fonts/`; nothing to install.
 
 ```bash
 make library      # library/dist/Sonim_Brand_Template_Library.html

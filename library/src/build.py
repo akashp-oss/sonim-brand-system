@@ -22,8 +22,14 @@ for sid, title, intro in T.SECTION_META:
         f'<h2 class="figma-title" data-name="{esc(title)} title">{esc(title)}</h2>'
         f'<div class="frames">{"".join(frames)}</div></section>')
 
+# Brand typeface: Akzidenz-Grotesk Pro Regular + Bold (client-supplied OTFs, embedded unmodified)
+FONT_FACES = ''.join(
+    f'@font-face{{font-family:"Akzidenz-Grotesk Pro";font-style:normal;font-weight:{w};font-display:block;'
+    f'src:url(data:font/otf;base64,{base64.b64encode(open(HERE / "fonts" / f"AkzidenzGroteskPro-{n}.otf", "rb").read()).decode()}) format("opentype")}}'
+    for w, n in ((400, 'Regular'), (700, 'Bold')))
+
 CSS = r"""
-:root{--red:#CF102D;--black:#000;--gray:#E5ECEE;--white:#fff;--line:#E5ECEE;--ui:Arial,"Liberation Sans",Helvetica,sans-serif;--top:64px;--side:288px;--bg:#F5F5F5}
+:root{--red:#CF102D;--black:#000;--gray:#E5ECEE;--white:#fff;--line:#E5ECEE;--ui:"Akzidenz-Grotesk Pro",sans-serif;--head:"Akzidenz-Grotesk Pro",sans-serif;--body:"Akzidenz-Grotesk Pro",sans-serif;--top:64px;--side:288px;--bg:#F5F5F5}
 *{box-sizing:border-box}
 html{scroll-padding-top:calc(var(--top) + 16px)}
 html,body{margin:0;background:var(--bg);color:#000;font-family:var(--ui)}
@@ -100,7 +106,7 @@ button{font-family:var(--ui)}
 .tool.icon{padding:0 7px}
 .tool.done{background:#000}
 .tool:disabled{cursor:progress;opacity:.7}
-.ab{position:relative;overflow:hidden;transform-origin:0 0;font-family:Arial,"Liberation Sans",Helvetica,sans-serif;color:#000;--em:#CF102D}
+.ab{position:relative;overflow:hidden;transform-origin:0 0;font-family:var(--body);color:#000;--em:#CF102D}
 /* ---------- artboard primitives (these become Figma layers) ---------- */
 .ab .abs{position:absolute}
 .ab .stack{display:flex;flex-direction:column}
@@ -115,6 +121,9 @@ button{font-family:var(--ui)}
 .ab .icon svg{width:100%;height:100%}
 .ab .photo-frame{position:relative;overflow:hidden;flex:none}
 /* type roles: sizes are set per template, roles fix weight, leading and tracking */
+/* brand font: Akzidenz-Grotesk Pro for every role */
+.ab .display,.ab .h1,.ab .h2,.ab .h3,.ab .label,.ab .meta,.ab .stat,.ab .quote{font-family:var(--head)}
+.ab .lead,.ab .body,.ab .small{font-family:var(--body)}
 .ab .display{font-weight:700;line-height:.94;letter-spacing:-.03em}
 .ab .h1{font-weight:700;line-height:1;letter-spacing:-.025em}
 .ab .h2{font-weight:700;line-height:1.1;letter-spacing:-.015em}
@@ -190,7 +199,7 @@ RULES = f"""
   <div class="rule"><h4>Colour</h4><div class="chips">{CHIPS}</div><p>Four colours only. No tints, gradients or shadows. Click a chip to copy its HEX.</p></div>
   <div class="rule"><h4>Type</h4>
     <div class="sample">Headline in black, <em>key phrase in red.</em></div>
-    <dl class="kv"><dt>Font</dt><dd>Akzidenz Grotesk Bold / Regular. Arial if not installed.</dd><dt>Case</dt><dd>Sentence case, flush left, ends with a period.</dd></dl></div>
+    <dl class="kv"><dt>Font</dt><dd>Akzidenz-Grotesk Pro, Bold and Regular, for everything</dd><dt>Case</dt><dd>Sentence case, flush left, ends with a period.</dd></dl></div>
   <div class="rule"><h4>Layout</h4>
     <dl class="kv"><dt>Margin</dt><dd>M ≈ 7.4% of the short side</dd><dt>Notch</dt><dd>X × 18X, X = M ÷ 5, ends angled 26.5°. Left edge, top aligned to the label.</dd><dt>Container</dt><dd>Official sizes only, 3.75 × 5 to 6.25 × 8 in. Always taller than wide.</dd></dl></div>
   <div class="rule"><h4>Logo</h4>
@@ -200,7 +209,7 @@ RULES = f"""
     <li class="no"><i>×</i>Red type on black</li><li class="no"><i>×</i>Gray type on white</li>
     <li class="no"><i>×</i>Tinted or filtered photography</li><li class="no"><i>×</i>All caps or Title Case</li></ul></div>
 </div>
-<div class="hint"><b>Copy to Figma</b>Hover any template and click <b style="display:inline">Copy SVG</b>, then press Ctrl/⌘ + V in Figma. For many at once, use <b style="display:inline">Figma import view</b>: pick a set, then run your HTML to Figma plugin.</div>
+<div class="hint"><b>Copy to Figma</b>Hover any template and click <b style="display:inline">Copy SVG</b>, then press Ctrl/Cmd + V in Figma. For many at once, use <b style="display:inline">Figma import view</b>: pick a set, then run your HTML to Figma plugin.</div>
 """
 
 total = len(T.F)
@@ -211,7 +220,7 @@ page = f"""<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sonim brand template library</title>
 <link rel="icon" type="image/svg+xml" href="{FAVICON}">
-<style>{CSS}</style>
+<style>{FONT_FACES}{CSS}</style>
 </head>
 <body>
 <header class="topbar" data-name="App bar">
