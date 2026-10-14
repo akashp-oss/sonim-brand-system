@@ -62,8 +62,8 @@ library/
   src/templates_social.py   competitor-informed social templates (carousels etc.)
   src/templates_assets.py   Brand assets set: logo lockup, official icons, container sizes
   src/templates_blog.py     XP Pro Thermal blog covers (Blog covers set, ids blog-*), 1920×1080
-  src/templates_healthcare.py  4-page Inova white paper "Care continues when systems don't."
-                            (Whitepapers set, ids hc-*), written from the client brief (Inova_Whitepaper.docx)
+  src/templates_healthcare.py  5-page healthcare white paper (Whitepapers set, ids hc-*): APPROVED copy
+                            from Inova_Whitepaper.docx, verbatim. Do not rewrite.
   src/build.py              app shell (UI, CSS, brand-rules panel), embeds images + JS, writes dist/
   src/app.js                app behaviour: zoom, guides, edit, save, Figma view (set filter), Copy SVG
   src/export.js             artboard → SVG (used by the Copy SVG hover button)
@@ -342,6 +342,9 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-10-14 — Healthcare white paper switched to the client-APPROVED copy (Inova_Whitepaper.docx),
+  verbatim, 5 pages; the earlier blog-skill rewrite (Inova named, CMS citation, new headlines) removed.
+  Only edits: headings in sentence case, split into red label + headline.
 - 2026-10-13 — XP Pro Thermal blog covers (5, 1920×1080) after client feedback in Figma ("all look the
   same", use real use-case images, new infographic style, different icons, NEXA logo): one layout per
   feature, 13 new feature icons (brand/icons/custom/, restyled into all.json), device render cut out of
