@@ -347,6 +347,10 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-10-21 — EMS white paper round 2 (client: icons not on-brand, too crowded): library pages rebuilt on the
+  Inova scale and spacing (body 14 px, 32–48 px between sections) over 6 pages (ems-opening, -shift, -compare,
+  -proof, -solution, -solution-2) with Sonim icons (all.json). The website PDF is now printed from those library
+  pages (library/src/export_pdf.js, `make whitepaper`). Editor source also back on the Sonim icon set.
 - 2026-10-21 — EMS white paper matched to the client's 4-page PDF (= editor-export.pdf): library `wp-*`
   placeholder pages replaced by `ems-opening/-argument/-proof/-solution` (templates_ems.py) on the shared
   white paper design system (wpkit.py, also used by the Inova paper). PDF source: original EMS icons
