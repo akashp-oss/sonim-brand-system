@@ -4,6 +4,8 @@
   const $ = (s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
   const MARG = __MARGINS__;
   const isFigma = ()=>document.body.classList.contains('figma');
+  /* white paper pages embedded from whitepaper/src: mark their text blocks as text layers (edit, Copy SVG, audit) */
+  $$('.wpdoc *').forEach(e=>{ if(!e.closest('.tx') && !e.closest('svg') && [...e.childNodes].some(n=>n.nodeType===3 && n.data.trim())) e.classList.add('tx'); });
   function loadImages(){ $$('.ab img[data-img]').forEach(i=>{ const k=i.dataset.img; if(IMG[k] && !i.dataset.custom) i.src=IMG[k]; }); }
   loadImages();
 

@@ -12,6 +12,7 @@ const icons = JSON.parse(fs.readFileSync(path.join(BRAND, 'icons/all.json'), 'ut
     const tmp = src.replace('.html', '.audit.html'); fs.writeFileSync(tmp, html);
     const p = await b.newPage({ viewport: { width: 1400, height: 1400 } });
     await p.goto('file://' + path.resolve(tmp), { waitUntil: 'networkidle' }); await p.emulateMedia({ media: 'print' });
+    await p.addScriptTag({ path: path.resolve(__dirname, '../../library/src/contrast.js') });
     const res = await p.evaluate(() => {
       const out = [];
       const pages = [...document.querySelectorAll('.page, .sheet')];
@@ -49,6 +50,7 @@ const icons = JSON.parse(fs.readFileSync(path.join(BRAND, 'icons/all.json'), 'ut
             issues.push(`text covered by ${hit.tagName.toLowerCase()}.${hit.className}: ${nm(e)}`); break outer;
           }
         }
+        issues.push(...contrastIssues(els, pg, nm));
         for (let a = 0; a < els.length; a++) { const la = lines(els[a]);
           for (let c = a + 1; c < els.length; c++) { if (els[a].contains(els[c]) || els[c].contains(els[a])) continue;
             const lc = lines(els[c]); if (la.some(x => lc.some(y => inter(x, y) > 6))) issues.push(`text overlaps text: ${nm(els[a])} × ${nm(els[c])}`); } }
