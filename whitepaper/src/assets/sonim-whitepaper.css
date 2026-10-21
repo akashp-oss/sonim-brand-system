@@ -204,5 +204,6 @@ sup.ref { font-size: 6.5pt; line-height: 0; color: var(--sonim-red); font-weight
 
 /* Type floor (client rule): nothing under 9pt (12px); text under 12pt (16px) is never bold.
    Run-in emphasis in small text is carried by Sonim Red instead of weight. */
-b, strong { font-weight: 400; color: var(--sonim-red); }
-.on-dark b, .on-red b, .bg-red b, .bg-black b { color: inherit; }
+p b, p strong, li b, li strong, td b, figcaption b, .callouts b, .needs b, .usecases b { font-weight: 400; color: var(--sonim-red); }
+/* On Sonim Red or black the run-in keeps the text colour (red on red would vanish) */
+.story b, .on-red b, .on-dark b, .rc.red b, .rc.black b, .xnotch b, .compare .r b, .compare .hd b, [style*="background:var(--sonim-red)"] b, [style*="background: var(--sonim-red)"] b { color: inherit; }

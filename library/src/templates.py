@@ -12,87 +12,9 @@ from gen import *
 F = []
 
 # ---------------------------------------------------------------- WHITEPAPER
-def doc_head(folio, title='Connected care in motion', dark=False):
-    c = WHITE if dark else BLACK
-    return stack('Running header', [text('Document title', title, 'meta', c, 9), text('Folio', f'/ {folio:02d}', 'meta', c, 9)], l=None, t=28, r=60, style={'flex-direction': 'row', 'gap': '18px'})
-
-def doc_foot(note):
-    return logo(78, BLACK, l=60, b=28, lockup=True) + text('Footnote', note, 'small abs', BLACK, 8, {'right': '60px', 'bottom': '30px', 'width': '380px', 'text-align': 'right'})
-
-X, M = 12, 60
-wp1 = (
-    box('Hero photos', l=0, t=0, w=816, h=360, cls='group', inner=photo('Photo 1', 'crew', 0, 0, 470, 360, '40% 50%') + photo('Photo 2', 'responder', 473, 0, 343, 360, '50% 30%'))
-    + doc_head(1, 'Sonim white paper', dark=True)
-    + page_notch(X, 392)
-    + stack('Title block', [text('Label', 'White paper · Emergency medical services', 'label', RED, 11),
-                            text('Title', 'Connected care\n**in motion.**', 'display', BLACK, 62),
-                            text('Subtitle', 'How EMS agencies are replacing legacy communications with mission-critical mobility.', 'lead', BLACK, 17, {'max-width': '520px'})],
-            l=M, t=392, w=600, gap=10)
-    + stack('Section', [text('Heading', 'The EMS communication challenge', 'h2', BLACK, 20),
-                        text('Body', 'Every EMS call runs against the clock. Crews work across hospitals, highways, rural roads, events and disasters, often in one shift, and every call is a chain of conversations.', 'body', BLACK, 12.5),
-                        text('Body', 'Legacy land mobile radio has limits. Coverage ends where the towers end, and every expansion means more sites and more capital. Meanwhile, the job now runs on voice, data, video and location together.', 'body', BLACK, 12.5)],
-            l=M, t=640, w=380, gap=12)
-    + rugged('Callout container', 486, 644, 270, 290, X, GRAY,
-             text('Callout heading', 'Today’s EMS teams need:', 'h2', BLACK, 19) +
-             '<div class="stack checks" data-name="Checklist" style="gap:9px;margin-top:14px">' +
-             ''.join(f'<div class="row" data-name="Item" style="gap:9px;align-items:flex-start">{icon("check", 13, "Tick")}{text("Item text", t, "h3", BLACK, 12.5)}</div>'
-                     for t in ['Instant PTT communication', 'Reliable coverage beyond radio range', 'Rugged devices built for frontline use', 'Dispatch integration', 'Secure connectivity and management']) + '</div>')
-    + doc_foot('1 Source citation, publication, year. 2 Source citation.')
-)
-F.append(('wp', artboard('wp-opening', 'Whitepaper · Opening page', 816, 1056, WHITE, wp1, 'US Letter, print and PDF', 'doc')))
-
-wp2 = (
-    doc_head(2)
-    + page_notch(X, 66)
-    + stack('Headline block', [text('Label', 'The shift', 'label', RED, 11),
-                               text('Headline', 'Why leading EMS agencies are moving\n**beyond traditional radios.**', 'h1', BLACK, 36)], l=M, t=66, w=690, gap=6)
-    + text('Lead', 'EMS leaders are treating communications as an operational mobility platform: nationwide broadband, standards-based push-to-talk and rugged devices that carry voice and data together.', 'lead abs', BLACK, 17, {'left': '60px', 'top': '176px', 'width': '640px'})
-    + box('Two columns', l=M, t=270, w=696, cls='row', style={'gap': '20px'}, inner=
-          text('Column 1', 'FirstNet, the public safety network built with AT&T, gives first responders priority and preemption and serves about 31,000 agencies.¹ Deployable assets back it up for incidents and planned events.', 'body', BLACK, 12.5, {'flex': '1'}) +
-          text('Column 2', 'Mission-critical push-to-talk brings radio-grade group calling to broadband, and gateways connect talkgroups to existing LMR systems, so agencies move at their own pace.', 'body', BLACK, 12.5, {'flex': '1'}))
-    + box('Comparison', l=M, t=392, w=696, h=230, cls='group', inner=
-          fill('Before fill', GRAY, l=0, t=0, w=330, h=230) + fill('After fill', RED, l=366, t=0, w=330, h=230)
-          + fill('After header fill', BLACK, l=366, t=0, w=330, h=40)
-          + text('Before header', 'Traditional LMR', 'h3 abs', BLACK, 13, {'left': '16px', 'top': '12px'})
-          + text('After header', 'Modern mission-critical mobility', 'h3 abs', WHITE, 13, {'left': '382px', 'top': '12px'})
-          + ''.join(text('Before', a, 'body abs', BLACK, 12.5, {'left': '16px', 'top': f'{52+i*36}px'}) + fill('Divider', WHITE, l=0, t=44 + i * 36 - 4, w=330, h=1)
-                    + text('Arrow', '→', 'h3 abs', RED, 14, {'left': '341px', 'top': f'{50+i*36}px'})
-                    + text('After', b, 'h3 abs', WHITE, 12.5, {'left': '382px', 'top': f'{52+i*36}px'})
-                    for i, (a, b) in enumerate([('Coverage limits', 'Nationwide coverage'), ('Voice only', 'Voice + data + video'), ('Costly infrastructure', 'Carrier-powered'), ('Separate devices', 'Consolidated platform'), ('Limited flexibility', 'Rapid deployment')])))
-    + fill('Rule', GRAY, l=M, t=650, w=696, h=1)
-    + box('Stats', l=M, t=668, w=696, cls='row', style={'gap': '24px'}, inner=''.join(
-          f'<div class="stack" data-name="Stat" style="flex:1;gap:6px">{text("Number", n, "stat", RED, 44)}{text("Caption", c, "small", BLACK, 10.5, {"font-weight": "700"})}</div>'
-          for n, c in [('18,200+', 'Local EMS agencies answering 911 calls²'), ('28.5M', '911 dispatches a year in 41 reporting states²'), ('~31,000', 'Public safety agencies on FirstNet¹')]))
-    + text('Section heading', 'EMS use cases', 'h2 abs', BLACK, 20, {'left': '60px', 'top': '790px'})
-    + box('Use cases', l=M, t=828, w=696, cls='row', style={'gap': '16px'}, inner=''.join(
-          f'<div class="stack" data-name="{t}" style="flex:1;gap:6px">{icon(k, 36, t)}{text("Title", t, "h3", BLACK, 12.5)}{text("Detail", d, "small", BLACK, 10.5)}</div>'
-          for k, t, d in [('ambulance', 'Ambulance operations', 'Crew-to-dispatch from the rig or on foot.'), ('interfacility', 'Interfacility transport', 'Coordination between locations.'),
-                          ('events', 'Special events', 'Crowds and mass casualty readiness.'), ('disaster', 'Disaster response', 'Deployable communications.'), ('air-medical', 'Air medical', 'Aircraft tracking and remote connectivity.')]))
-    + doc_foot('1 FirstNet.com. 2 NASEMSO, 2020 National EMS Assessment.')
-)
-F.append(('wp', artboard('wp-argument', 'Whitepaper · Argument page', 816, 1056, WHITE, wp2, 'Interior page: comparison, stats, icons', 'doc')))
-
-wp3 = (
-    doc_head(3)
-    + page_notch(X, 66)
-    + stack('Headline block', [text('Label', 'Customer spotlight', 'label', RED, 11), text('Headline', 'How EMS organizations **use Sonim today.**', 'h1', BLACK, 36)], l=M, t=66, w=696, gap=6)
-    + ''.join(
-        box(f'Case study {i+1}', l=M + i * 358, t=184, w=338, cls='stack', style={'gap': '6px'}, inner=
-            f'<div class="photo-frame" data-name="Photo frame" style="width:338px;height:200px;margin-bottom:10px">{photo("Photo", k, 0, 0, 338, 200, pos)}</div>'
-            + text('Label', 'Case study', 'label', RED, 11) + text('Customer', n, 'h2', BLACK, 20) + text('Meta', m, 'small', BLACK, 10.5)
-            + text('Subheading', 'Challenge', 'h3', RED, 12.5, {'margin-top': '8px'}) + text('Body', ch, 'body', BLACK, 12.5)
-            + text('Subheading', 'Solution', 'h3', RED, 12.5, {'margin-top': '6px'}) + text('Body', so, 'body', BLACK, 12.5)
-            + text('Subheading', 'Results', 'h3', RED, 12.5, {'margin-top': '6px'})
-            + ''.join(f'<div class="row" data-name="Result" style="gap:8px;align-items:center">{fill("Bar", RED, style={"position": "relative", "width": "4px", "height": "10px"})}{text("Result text", r_, "body", BLACK, 12.5)}</div>' for r_ in rs))
-        for i, (k, pos, n, m, ch, so, rs) in enumerate([
-            ('heli', '50% 45%', 'Customer name', 'Organisation size · locations · scope', 'One or two sentences on the operational problem.', 'The Sonim products and platform used, in one or two sentences.', ['Result one', 'Result two', 'Result three']),
-            ('night', '40% 50%', 'Customer name', 'Organisation size · locations · scope', 'One or two sentences on the operational problem.', 'The Sonim products and platform used, in one or two sentences.', ['Benefit one', 'Benefit two', 'Benefit three'])]))
-    + box('Quote band', l=M, t=770, w=696, h=150, cls='group', inner=fill('Band fill', RED, l=0, t=0, w=696, h=150)
-          + text('Quote', '“Customer quote in bold white on Sonim Red. Keep it under thirty words and make it specific.”', 'quote abs', WHITE, 21, {'left': '26px', 'top': '26px', 'width': '430px'})
-          + text('Attribution', 'Name Surname\nTitle, Organisation', 'small abs', WHITE, 10.5, {'left': '500px', 'bottom': '26px', 'width': '170px', 'font-weight': '700'}))
-    + doc_foot('3 Source citation. 4 Source citation.')
-)
-F.append(('wp', artboard('wp-proof', 'Whitepaper · Proof page', 816, 1056, WHITE, wp3, 'Case studies and a quote band', 'doc')))
+# EMS white paper: the client's 4-page layout on the shared white paper design system (templates_ems.py, wpkit.py)
+import templates_ems as TE
+F.extend(TE.F)
 
 # ---------------------------------------------------------------- PRESENTATION 1920x1080
 X, M = 24, 120

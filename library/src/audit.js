@@ -9,6 +9,7 @@ const MARG = { web: 12, blog: 96, doc: 60, slide: 120, post: 80, story: 80, land
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 2200, height: 2000 } });
   await p.goto('file://' + path.resolve(__dirname, '../dist/Sonim_Brand_Template_Library.html') + '?figma'); await p.waitForTimeout(800);
+  await p.addScriptTag({ path: path.join(__dirname, 'contrast.js') });
   const only = process.argv[2] ? process.argv[2].split(',') : null;
   const res = await p.evaluate(({ MARG, only }) => {
     const out = [];
@@ -61,6 +62,7 @@ const MARG = { web: 12, blog: 96, doc: 60, slide: 120, post: 80, story: 80, land
           }
         }
       }
+      issues.push(...contrastIssues(txs.filter(t => !t.style.getPropertyValue('--bleed')), ab, t => `${(t.closest('.tx') || t).dataset.name} "${t.textContent.trim().slice(0, 28)}"`));
       // text on text / text on logo or icon
       const marks = [...ab.querySelectorAll('.logo, .icon')];
       for (let i = 0; i < txs.length; i++) {
