@@ -15,9 +15,8 @@ icons:            ## regenerate the Tabler-based brand/icons/*.svg + icons.json,
 library:          ## library/dist/Sonim_Brand_Template_Library.html
 	python3 library/src/build.py
 
-whitepaper: library ## PDFs for the white paper, blank template and design system
-	# EMS white paper PDF (published as whitepaper.pdf) = the library's ems-* pages, printed
-	node library/src/export_pdf.js whitepaper/dist/Sonim_EMS_Whitepaper_Connected_Care_in_Motion.pdf ems-opening,ems-shift,ems-compare,ems-proof,ems-solution,ems-solution-2
+whitepaper:       ## PDFs for the white paper, blank template and design system
+	node whitepaper/scripts/render.js whitepaper/src/Sonim_EMS_Whitepaper.html whitepaper/dist/Sonim_EMS_Whitepaper_Connected_Care_in_Motion.pdf
 	node whitepaper/scripts/render.js whitepaper/src/whitepaper-template.html whitepaper/dist/Sonim_Whitepaper_Template_Blank.pdf
 	node whitepaper/scripts/render.js whitepaper/src/design-system.html whitepaper/dist/Sonim_Whitepaper_Design_System.pdf "" .sheet
 	rm -f whitepaper/src/*.built.html

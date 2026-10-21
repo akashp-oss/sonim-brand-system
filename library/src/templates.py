@@ -12,9 +12,10 @@ from gen import *
 F = []
 
 # ---------------------------------------------------------------- WHITEPAPER
-# EMS white paper: the client's 4-page layout on the shared white paper design system (templates_ems.py, wpkit.py)
-import templates_ems as TE
-F.extend(TE.F)
+# EMS white paper: the client's 4-page layout, rendered from the white paper source itself
+# (whitepaper/src/Sonim_EMS_Whitepaper.html), so the library, the PDF and the editor are the same pages
+import templates_wpdoc as TW
+F.extend(TW.EMS)
 
 # ---------------------------------------------------------------- PRESENTATION 1920x1080
 X, M = 24, 120

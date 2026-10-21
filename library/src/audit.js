@@ -13,6 +13,7 @@ const MARG = { web: 12, blog: 96, doc: 60, slide: 120, post: 80, story: 80, land
   const only = process.argv[2] ? process.argv[2].split(',') : null;
   const res = await p.evaluate(({ MARG, only }) => {
     const out = [];
+    const bleed = e => !!(e.style.getPropertyValue('--bleed') || getComputedStyle(e).getPropertyValue('--bleed').trim());   // deliberate bleed text
     const R = (e, ab) => { const r = e.getBoundingClientRect(), a = ab.getBoundingClientRect(); return { l: r.left - a.left, t: r.top - a.top, r: r.right - a.left, b: r.bottom - a.top, w: r.width, h: r.height }; };
     const inter = (a, c) => Math.max(0, Math.min(a.r, c.r) - Math.max(a.l, c.l)) * Math.max(0, Math.min(a.b, c.b) - Math.max(a.t, c.t));
     // tight box of the actual glyph lines (not the full-width block)
@@ -43,14 +44,14 @@ const MARG = { web: 12, blog: 96, doc: 60, slide: 120, post: 80, story: 80, land
         // glyphs outside the format margin (decorative full-bleed elements don't carry text)
         const sb = parseFloat(cs.fontSize) >= 120 ? parseFloat(cs.fontSize) * 0.06 : 0;   // big numerals hang into the margin by their side bearing
         if (ls.some(q => q.l < m - 2 - sb || q.r > W - m + 2 || q.t < Math.min(m, 24) - 2 || q.b > H - Math.min(m, 24) + 2)) {
-          if (!t.style.getPropertyValue('--bleed')) issues.push(`outside ${m}px margin: ${name(t)}`);
+          if (!bleed(t)) issues.push(`outside ${m}px margin: ${name(t)}`);
         }
       }
       // text hidden under something painted on top of it (photo, panel, shape): sample points along each line
       const opaque = e => { if (e.tagName === 'IMG' || e.closest('svg')) return true; const bg = getComputedStyle(e).backgroundColor;
         return bg && !/rgba\(0, 0, 0, 0\)|transparent/.test(bg); };
       for (const t of txs) {
-        if (t.style.getPropertyValue('--bleed')) continue;   // deliberate: product render over the model number
+        if (bleed(t)) continue;   // deliberate: product render over the model number
         t.scrollIntoView({ block: 'center', inline: 'center' });
         const rg = document.createRange(); rg.selectNodeContents(t);
         outer: for (const q of [...rg.getClientRects()].filter(q => q.width > 4)) {
@@ -62,14 +63,14 @@ const MARG = { web: 12, blog: 96, doc: 60, slide: 120, post: 80, story: 80, land
           }
         }
       }
-      issues.push(...contrastIssues(txs.filter(t => !t.style.getPropertyValue('--bleed')), ab, t => `${(t.closest('.tx') || t).dataset.name} "${t.textContent.trim().slice(0, 28)}"`));
+      issues.push(...contrastIssues(txs.filter(t => !bleed(t)), ab, t => `${(t.closest('.tx') || t).dataset.name} "${t.textContent.trim().slice(0, 28)}"`));
       // text on text / text on logo or icon
       const marks = [...ab.querySelectorAll('.logo, .icon')];
       for (let i = 0; i < txs.length; i++) {
         const li = lines(txs[i], ab);
         for (let j = i + 1; j < txs.length; j++) {
           if (txs[i].contains(txs[j]) || txs[j].contains(txs[i])) continue;
-          if (txs[i].style.getPropertyValue('--bleed') && txs[j].style.getPropertyValue('--bleed')) continue;
+          if (bleed(txs[i]) && bleed(txs[j])) continue;
           const lj = lines(txs[j], ab);
           if (li.some(a => lj.some(c => inter(a, c) > 6))) issues.push(`text overlaps text: ${name(txs[i])} × ${name(txs[j])}`);
         }
