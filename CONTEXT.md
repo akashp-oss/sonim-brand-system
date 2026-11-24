@@ -347,6 +347,9 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-11-24 — Radio myth vs. fact redone (client didn't like strike-through cards). Facts shown as visual
+  proofs (LMR linked to broadband PTT; $130K+ crossed out; three carrier networks). Two options: A rr-mf-1..8
+  reveal carousel (cover, myth "true or false?" / fact pairs, CTA); B rr-myth-1..3 single cards.
 - 2026-11-24 — Radio replacement blog · LinkedIn set (templates_radio.py, section "radio", all 1080×1350):
   6-slide carousel (rr-car-1..6), stat card (rr-stat), 3 myth vs. fact cards (rr-myth-1..3), listicle (rr-list).
   Client copy verbatim, sentence case, no URL on artwork, carrier names as text. Devices: XP5plus + XP Pro
