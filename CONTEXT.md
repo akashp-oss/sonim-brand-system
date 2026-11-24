@@ -347,6 +347,10 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-11-24 — Radio replacement blog · LinkedIn set (templates_radio.py, section "radio", all 1080×1350):
+  6-slide carousel (rr-car-1..6), stat card (rr-stat), 3 myth vs. fact cards (rr-myth-1..3), listicle (rr-list).
+  Client copy verbatim, sentence case, no URL on artwork, carrier names as text. Devices: XP5plus + XP Pro
+  (brand/make_xppro_ptt.py puts a generic PTT screen on the client's XP Pro render). New icons: lock, cost-down.
 - 2026-10-21 — EMS white paper round 2 (client: keep the PDF's layout, content and page count; same design system
   and font sizes; better spacing; Sonim icons): the 4-page source (whitepaper/src) is the single version. Spacing
   rebalanced in its page CSS only (no token or size changes). The library's Whitepapers section embeds those same

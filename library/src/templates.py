@@ -308,6 +308,12 @@ F.extend(TS.F)
 _i = [s[0] for s in SECTION_META].index('ig') + 1
 SECTION_META[_i:_i] = TS.SECTION_META_EXTRA
 
+# Radio replacement blog · LinkedIn set (4:5): carousel, stat card, myth vs. fact cards, listicle
+import templates_radio as TR
+F.extend(TR.F)
+_r = [s[0] for s in SECTION_META].index('carousel') + 1
+SECTION_META[_r:_r] = TR.SECTION_META_EXTRA
+
 # official client assets (Logo/, Icons/, Rugged Template/) as reference artboards
 import templates_assets as TA
 F.extend(TA.F)
