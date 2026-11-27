@@ -347,6 +347,9 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-11-27 — RPS series round 2 (client: needs variation in visuals): four layouts with visuals matched to the
+  copy: scene photo on top (glove, dust, audio, cleaning), full-height photo + red Expanded Notch (drop: ladder;
+  shock: ambulance), cold/heat split (temperatures), diagrams (submersion depth, protection callouts, 1 ton load).
 - 2026-11-27 — Rugged Performance Standards social series (templates_rps.py, section "rps", 1080×1350):
   rps-01 intro (12 benchmarks, all 12 official RPS icons) + one post per standard (rps-02..12; the brief has no
   Post 8). Lines on the artwork come from each post's copy; Word-file images ignored per the brief.
