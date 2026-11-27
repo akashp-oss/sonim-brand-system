@@ -347,6 +347,9 @@ no attribution required; photo ID in each `S0x_…_pexels-<id>.jpg` file name). 
   brand icons → v2 spacing/font fixes (genuine Arial) → content-only Word file → editor (Figma-style,
   auto layout, locking, self-contained save).
 - 2026-09-25 — Brand template library (38 templates, Figma import view) → repo organised and pushed.
+- 2026-11-27 — RPS series round 3 (client: icons/white tiles clunky, numbers random): one fixed grid on every post
+  (templates_rps.py header): visual zone 0–620, label/headline 680, RPS icon top-right 920/680 with no tile, spec
+  number at 950, spec line at 1110, footer. Intro: 12 RPS icons on an even 4×3 grid on Sonim Gray.
 - 2026-11-27 — RPS series round 2 (client: needs variation in visuals): four layouts with visuals matched to the
   copy: scene photo on top (glove, dust, audio, cleaning), full-height photo + red Expanded Notch (drop: ladder;
   shock: ambulance), cold/heat split (temperatures), diagrams (submersion depth, protection callouts, 1 ton load).
