@@ -314,6 +314,12 @@ F.extend(TR.F)
 _r = [s[0] for s in SECTION_META].index('carousel') + 1
 SECTION_META[_r:_r] = TR.SECTION_META_EXTRA
 
+# Rugged Performance Standards · social series (4:5)
+import templates_rps as TP
+F.extend(TP.F)
+_p = [s[0] for s in SECTION_META].index('radio') + 1
+SECTION_META[_p:_p] = TP.SECTION_META_EXTRA
+
 # official client assets (Logo/, Icons/, Rugged Template/) as reference artboards
 import templates_assets as TA
 F.extend(TA.F)
